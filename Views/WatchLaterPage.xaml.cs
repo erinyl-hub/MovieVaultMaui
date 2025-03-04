@@ -10,6 +10,7 @@ public partial class WatchLaterPage : ContentPage
     public List<string> SearchOptionsPicker { get; } = new List<string> { "Titel", "Director", "Actor", "Genre", "ImdbID" };
 
     public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
+    public bool changeMovieOrderBy = false;
 
 
     public WatchLaterPage()
@@ -70,13 +71,13 @@ public partial class WatchLaterPage : ContentPage
     private void OnSortChanged(object sender, EventArgs e)
     {
         OnPickerChanged(sender, e);
-
-        UppdateMovieView();
+        changeMovieOrderBy = false;
+        UppdateMoviesViewed();
     }
 
     private void SearchEntryChange(object sender, TextChangedEventArgs e)
     {
-        UppdateMovieView();
+        UppdateMoviesViewed();
     }
 
     private async void CreateMovieSearchDictionary()
@@ -85,7 +86,7 @@ public partial class WatchLaterPage : ContentPage
 
     }
 
-    private async void UppdateMovieView()
+    private async void UppdateMoviesViewed()
     {
 
 
@@ -94,11 +95,15 @@ public partial class WatchLaterPage : ContentPage
 
         ObservableCollection<Movie> MoviesToSeeObservableList
              = Helpers.SearchEngine
-             (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(), searchWord, SortOptionsPickerOnPage.SelectedItem.ToString());
+             (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(), searchWord, SortOptionsPickerOnPage.SelectedItem.ToString(), changeMovieOrderBy);
 
         MoviesToSeeCollectionView.ItemsSource = MoviesToSeeObservableList;
 
     }
 
-   
+    private void ChangeOrderClicked(object sender, EventArgs e)
+    {
+        changeMovieOrderBy = changeMovieOrderBy ? false : true;
+        UppdateMoviesViewed();
+    }
 }

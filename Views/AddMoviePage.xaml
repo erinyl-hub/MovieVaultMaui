@@ -224,7 +224,7 @@
                         <CheckBox
                             x:Name="myCheckBox"
                             Grid.Row="9"
-                            CheckedChanged="MovieHasBeenSeen"
+                            CheckedChanged="MovieHasBeenSeenBox"
                             Color="Black"
                             HorizontalOptions="Center" />
 
@@ -315,7 +315,7 @@
                         x:Name="whatSafe"
                         Grid.Row="12"
                         BackgroundColor="Black"
-                        Clicked="AddMovie"
+                        Clicked="AddMovieBox"
                         FontAttributes="Bold"
                         HeightRequest="26"
                         HorizontalOptions="Center"

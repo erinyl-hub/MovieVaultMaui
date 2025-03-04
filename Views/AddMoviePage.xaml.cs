@@ -38,7 +38,7 @@ public partial class AddMoviePage : ContentPage
         return convertedTime;
     }
 
-    private void MovieHasBeenSeen(object sender, CheckedChangedEventArgs e)
+    private void MovieHasBeenSeenBox(object sender, CheckedChangedEventArgs e)
     {
         movieSeenGrid.IsVisible = e.Value;
         whatSafe.Text = e.Value ? "Watched movie" : "Watch later";
@@ -56,7 +56,7 @@ public partial class AddMoviePage : ContentPage
         moviePlot.Text = _movie.Plot;
     }
 
-    private void AddMovie(object sender, EventArgs e)
+    private void AddMovieBox(object sender, EventArgs e)
     {
         DataManager.MongoDbManager mongoDbManager = new DataManager.MongoDbManager();
 

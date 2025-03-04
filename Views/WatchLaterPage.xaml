@@ -96,12 +96,14 @@
 
 
                             <ImageButton
+                                x:Name="ChangeOrder"
                                 Padding="5"
                                 Background="Transparent"
                                 HeightRequest="50"
                                 HorizontalOptions="End"
                                 Source="sortingarrows.png"
-                                WidthRequest="25" />
+                                WidthRequest="25"
+                                Clicked="ChangeOrderClicked"/>
                         </Grid>
 
                     </Grid>

@@ -42,7 +42,7 @@ namespace MovieVaultMaui
         }
 
         public static ObservableCollection<Movie> SearchEngine
-            (Dictionary<string, Func<string, IEnumerable<Movie>>> searchDictionary, string searchType, string searchWord, string sortBy)
+            (Dictionary<string, Func<string, IEnumerable<Movie>>> searchDictionary, string searchType, string searchWord, string sortBy, bool changeOrder)
         {
 
 
@@ -52,25 +52,23 @@ namespace MovieVaultMaui
             switch (sortBy)
             {
                 case "Last added":
-                    result = result.OrderBy(m => m.MovieRegisterdTime);
+                    result = result.OrderByDescending(m => m.MovieRegisterdTime); // Vissar fel, vissar senast först
                     break;
                 case "Rating":
-                    result = result.OrderBy(m => m.imdbRating); // lägst först
+                    result = result.OrderByDescending(m => m.imdbRating); // lägst först
                     break;
                 case "Length":
-                    result = result.OrderBy(m => m.Runtime);
+                    result = result.OrderBy(m => m.Runtime); // Lägst först, 2 som inte stämde
                     break;
                 case "Year":
-                    result = result.OrderBy(m => m.Year);
+                    result = result.OrderBy(m => m.Year); // äldst först
                     break;
                 case "Alphabetically":
-                    result = result.OrderBy(m => m.Title);
-                    break;
-
-                default:
-                    result = result.OrderBy(m => m.MovieRegisterdTime); // Standard sortering
+                    result = result.OrderBy(m => m.Title); // siffror först sedan bokstäver
                     break;
             }
+
+            if (changeOrder) { result = result.Reverse().ToList(); }
 
             return new ObservableCollection<Movie>(result);
 
