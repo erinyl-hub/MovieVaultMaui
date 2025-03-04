@@ -51,17 +51,24 @@ namespace MovieVaultMaui
 
             switch (sortBy)
             {
-                case "Title":
-                    result = result.OrderBy(m => m.Title);
-                    break;
-                case "Rating":
-                    result = result.OrderBy(m => m.imdbRating);
-                    break;
-                case "AddedDate":
+                case "Last added":
                     result = result.OrderBy(m => m.MovieRegisterdTime);
                     break;
+                case "Rating":
+                    result = result.OrderBy(m => m.imdbRating); // lägst först
+                    break;
+                case "Length":
+                    result = result.OrderBy(m => m.Runtime);
+                    break;
+                case "Year":
+                    result = result.OrderBy(m => m.Year);
+                    break;
+                case "Alphabetically":
+                    result = result.OrderBy(m => m.Title);
+                    break;
+
                 default:
-                    result = result.OrderBy(m => m.Title); // Standard sortering
+                    result = result.OrderBy(m => m.MovieRegisterdTime); // Standard sortering
                     break;
             }
 

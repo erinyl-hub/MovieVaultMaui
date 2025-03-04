@@ -60,7 +60,7 @@
                                 Placeholder="Search..."
                                 PlaceholderColor="Black"
                                 WidthRequest="300"
-                                TextChanged="UppdateMovieView"/>
+                                TextChanged="SearchEntryChange"/>
 
                             <Picker
                                 x:Name="SearchOptionsPickerOnPage"

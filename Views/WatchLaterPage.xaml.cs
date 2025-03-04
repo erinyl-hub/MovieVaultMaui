@@ -6,19 +6,19 @@ namespace MovieVaultMaui;
 
 public partial class WatchLaterPage : ContentPage
 {
-    public List<string> SortOptionsPicker { get;} = new List<string> { "Last added", "Rating", "Alphabetically", "Length", "Year" };
-    public List<string> SearchOptionsPicker { get;} = new List<string> { "Titel", "Director", "Actor" , "Genre", "ImdbID" };
+    public List<string> SortOptionsPicker { get; } = new List<string> { "Last added", "Rating", "Alphabetically", "Length", "Year" };
+    public List<string> SearchOptionsPicker { get; } = new List<string> { "Titel", "Director", "Actor", "Genre", "ImdbID" };
 
     public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
 
-  
+
     public WatchLaterPage()
     {
-        
+
         InitializeComponent();
         InitializePage();
 
-        
+
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
 
@@ -29,7 +29,7 @@ public partial class WatchLaterPage : ContentPage
         UpdateConnectionStatus();
 
 
-        ObservableCollection<Movie> MoviesToSeeObservableList = 
+        ObservableCollection<Movie> MoviesToSeeObservableList =
             new ObservableCollection<Movie>(aplicationData.MoviesToSee.AsEnumerable().Reverse().ToList());
         MoviesToSeeCollectionView.ItemsSource = MoviesToSeeObservableList;
     }
@@ -71,9 +71,13 @@ public partial class WatchLaterPage : ContentPage
     {
         OnPickerChanged(sender, e);
 
-        UppdateMovieView(sender, null);
+        UppdateMovieView();
     }
 
+    private void SearchEntryChange(object sender, TextChangedEventArgs e)
+    {
+        UppdateMovieView();
+    }
 
     private async void CreateMovieSearchDictionary()
     {
@@ -81,42 +85,20 @@ public partial class WatchLaterPage : ContentPage
 
     }
 
-    private void UppdateMovieView(object sender, TextChangedEventArgs e)
+    private async void UppdateMovieView()
     {
 
-        string sortingOption = SortOptionFormater(SortOptionsPickerOnPage.SelectedItem.ToString());
 
-           ObservableCollection<Movie> MoviesToSeeObservableList
-            = Helpers.SearchEngine
-            (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(), SearchEntry.Text, sortingOption);
+        string searchWord = SearchEntry.Text ?? "";
+
+
+        ObservableCollection<Movie> MoviesToSeeObservableList
+             = Helpers.SearchEngine
+             (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(), searchWord, SortOptionsPickerOnPage.SelectedItem.ToString());
 
         MoviesToSeeCollectionView.ItemsSource = MoviesToSeeObservableList;
+
     }
 
-    private string SortOptionFormater(string sortOption)
-    {
-        switch(sortOption)
-        {
-            case "Last added":
-
-                return "MovieRegisterdTime";
-
-            case "Rating":
-
-                return "imdbRating";
-
-            case "Length":
-
-                return "Runtime";
-
-            case "Year":
-
-                return "Year";
-
-            case "Alphabetically":
-
-                return "Title";
-        }
-        return null;
-    }
+   
 }
