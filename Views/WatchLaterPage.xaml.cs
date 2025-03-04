@@ -1,37 +1,38 @@
 using MovieVaultMaui.Models;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MovieVaultMaui;
 
 public partial class WatchLaterPage : ContentPage
 {
-    public List<string> SortOptions { get; set; } = new List<string> { "Last added", "Rating", "Length" };
-    public List<string> SearchOptions { get; set; } = new List<string> { "Titel", "Director", "Actor" , "Genre" };
+    public List<string> SortOptionsPicker { get;} = new List<string> { "Last added", "Rating", "Alphabetically", "Length", "Year" };
+    public List<string> SearchOptionsPicker { get;} = new List<string> { "Titel", "Director", "Actor" , "Genre", "ImdbID" };
 
+    public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
 
+  
     public WatchLaterPage()
     {
-        InitializeComponent();
-        UpdateConnectionStatus();
-        Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
-        BindingContext = this;
-        SearchOptionsPicker.SelectedIndex = 0;
-        SortOptionsPicker.SelectedIndex = 0;
         
+        InitializeComponent();
+        InitializePage();
 
-
-
-
-        ObservableCollection<Movie> MoviesToSeeObservableList = new ObservableCollection<Movie>(aplicationData.MoviesToSee);
-
-        MoviesToSeeCollectionView.ItemsSource = MoviesToSeeObservableList;
-
-      
-
-
+        
+        Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
 
+    public void InitializePage()
+    {
+        CreateMovieSearchDictionary();
+        PickerSeter();
+        UpdateConnectionStatus();
 
+
+        ObservableCollection<Movie> MoviesToSeeObservableList = 
+            new ObservableCollection<Movie>(aplicationData.MoviesToSee.AsEnumerable().Reverse().ToList());
+        MoviesToSeeCollectionView.ItemsSource = MoviesToSeeObservableList;
+    }
 
     private void OnItemSelected(object sender, SelectionChangedEventArgs e)  // ta bort
     {
@@ -40,8 +41,6 @@ public partial class WatchLaterPage : ContentPage
             DisplayAlert("Valt objekt", $"Du tryckte på: {selectedItem.Poster}", "OK");
         }
     }
-
-
 
     private async void OnBackClicked(object sender, EventArgs e)
     {
@@ -54,13 +53,70 @@ public partial class WatchLaterPage : ContentPage
         ConnectionImage.Source = isConnected ? "online.png" : "offline.png";
     }
 
-    private void OnSortChanged(object sender, EventArgs e)
+
+    private void PickerSeter()
+    {
+        BindingContext = this;
+        SearchOptionsPickerOnPage.SelectedIndex = 0;
+        SortOptionsPickerOnPage.SelectedIndex = 0;
+    }
+
+    private void OnPickerChanged(object sender, EventArgs e)
     {
         var picker = (Picker)sender;
         string selectedOption = picker.SelectedItem.ToString();
-        // Lägg till sorteringslogik här
+    }
+
+    private void OnSortChanged(object sender, EventArgs e)
+    {
+        OnPickerChanged(sender, e);
+
+        UppdateMovieView(sender, null);
     }
 
 
+    private async void CreateMovieSearchDictionary()
+    {
+        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(aplicationData.MoviesToSee.AsEnumerable().Reverse().ToList());
 
+    }
+
+    private void UppdateMovieView(object sender, TextChangedEventArgs e)
+    {
+
+        string sortingOption = SortOptionFormater(SortOptionsPickerOnPage.SelectedItem.ToString());
+
+           ObservableCollection<Movie> MoviesToSeeObservableList
+            = Helpers.SearchEngine
+            (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(), SearchEntry.Text, sortingOption);
+
+        MoviesToSeeCollectionView.ItemsSource = MoviesToSeeObservableList;
+    }
+
+    private string SortOptionFormater(string sortOption)
+    {
+        switch(sortOption)
+        {
+            case "Last added":
+
+                return "MovieRegisterdTime";
+
+            case "Rating":
+
+                return "imdbRating";
+
+            case "Length":
+
+                return "Runtime";
+
+            case "Year":
+
+                return "Year";
+
+            case "Alphabetically":
+
+                return "Title";
+        }
+        return null;
+    }
 }

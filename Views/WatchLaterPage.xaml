@@ -52,23 +52,24 @@
                             WidthRequest="720">
                             
                             <Entry
-                                x:Name="ImdbEntry"
+                                x:Name="SearchEntry"
                                 BackgroundColor="Transparent"
                                 FontAttributes="Bold"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
                                 Placeholder="Search..."
                                 PlaceholderColor="Black"
-                                WidthRequest="300" />
+                                WidthRequest="300"
+                                TextChanged="UppdateMovieView"/>
 
                             <Picker
-                                x:Name="SearchOptionsPicker"
+                                x:Name="SearchOptionsPickerOnPage"
                                 FontAttributes="Bold"
                                 HeightRequest="30"
                                 HorizontalOptions="Center"
-                                ItemsSource="{Binding SearchOptions}"
+                                ItemsSource="{Binding SearchOptionsPicker}"
                                 SelectedIndex="0"
-                                SelectedIndexChanged="OnSortChanged"
+                                SelectedIndexChanged="OnPickerChanged"
                                 WidthRequest="120"
                                 
                                 />
@@ -84,11 +85,11 @@
                             WidthRequest="300">
 
                             <Picker
-                                x:Name="SortOptionsPicker"
+                                x:Name="SortOptionsPickerOnPage"
                                 FontAttributes="Bold"
                                 HeightRequest="30"
                                 HorizontalOptions="Center"
-                                ItemsSource="{Binding SortOptions}"
+                                ItemsSource="{Binding SortOptionsPicker}"
                                 SelectedIndex="0"
                                 SelectedIndexChanged="OnSortChanged"
                                 WidthRequest="150" />
