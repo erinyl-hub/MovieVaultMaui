@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovieVaultMaui.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="SlateGray">
+
+    <ScrollView>
+
+        <Grid>
+            <Image
+                Aspect="AspectFill"
+                SemanticProperties.Description="Gray background with video camera logo"
+                Source="bakrund2266.png" />
+
+            <VerticalStackLayout>
+
+
+                <Grid Padding="20" RowDefinitions="*,200">
+
+
+
+                    <Image
+                        x:Name="ConnectionImage"
+                        Grid.Row="0"
+                        HeightRequest="50"
+                        HorizontalOptions="End"
+                        WidthRequest="50" />
+
+                    <Image
+                        Grid.Row="1"
+                        HeightRequest="600"
+                        HorizontalOptions="Center"
+                        Source="logotyp.png"
+                        VerticalOptions="Center"
+                        WidthRequest="500" />
+
+
+                </Grid>
+
+
+                <Grid
+                    Padding="50"
+                    ColumnSpacing="250"
+                    RowDefinitions="*,*"
+                    RowSpacing="20">
+
+
+
+                    <Button
+                        Grid.Row="0"
+                        BackgroundColor="DimGrey"
+                        BorderColor="DarkGray"
+                        BorderWidth="3"
+                        Clicked="InAddMoviePageClicked"
+                        FontAttributes="Bold"
+                        HeightRequest="45"
+                        HorizontalOptions="Center"
+                        Text="Add Movie"
+                        WidthRequest="150" />
+
+
+                    <Button
+                        Grid.Row="1"
+                        BackgroundColor="DimGrey"
+                        BorderColor="DarkGray"
+                        BorderWidth="3"
+                        Clicked="InSafeClicked"
+                        FontAttributes="Bold"
+                        HeightRequest="45"
+                        HorizontalOptions="Center"
+                        Text="Safe"
+                        WidthRequest="150" />
+
+
+
+
+
+                </Grid>
+
+
+            </VerticalStackLayout>
+
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

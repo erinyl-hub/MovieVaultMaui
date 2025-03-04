@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovieVaultMaui.WatchLaterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="WatchLaterPage">
+    <ScrollView>
+
+        <Grid>
+            <Image
+                Aspect="AspectFill"
+                SemanticProperties.Description="Gray background with video camera logo"
+                Source="bakrund2266.png" />
+
+            <VerticalStackLayout>
+
+
+
+                <Grid Padding="20" RowDefinitions="*,200, Auto">
+
+                    <ImageButton
+                        Grid.Row="0"
+                        BackgroundColor="Transparent"
+                        Clicked="OnBackClicked"
+                        HeightRequest="50"
+                        HorizontalOptions="Start"
+                        Source="backarrow.png"
+                        WidthRequest="50" />
+
+                    <Image
+                        x:Name="ConnectionImage"
+                        Grid.Row="0"
+                        HeightRequest="50"
+                        HorizontalOptions="End"
+                        WidthRequest="50" />
+
+                    <Image
+                        Grid.Row="1"
+                        HeightRequest="600"
+                        HorizontalOptions="Center"
+                        Source="logotyp.png"
+                        VerticalOptions="Center"
+                        WidthRequest="500" />
+
+                    <Grid
+                        Grid.Row="2"
+                        Padding="20"
+                        WidthRequest="1400">
+
+                        <Grid 
+                            HorizontalOptions="End" 
+                            WidthRequest="720">
+                            
+                            <Entry
+                                x:Name="ImdbEntry"
+                                BackgroundColor="Transparent"
+                                FontAttributes="Bold"
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                Placeholder="Search..."
+                                PlaceholderColor="Black"
+                                WidthRequest="300" />
+
+                            <Picker
+                                x:Name="SearchOptionsPicker"
+                                FontAttributes="Bold"
+                                HeightRequest="30"
+                                HorizontalOptions="Center"
+                                ItemsSource="{Binding SearchOptions}"
+                                SelectedIndex="0"
+                                SelectedIndexChanged="OnSortChanged"
+                                WidthRequest="120"
+                                
+                                />
+
+
+
+                        </Grid>
+
+                        <Grid
+                            Padding="20"
+                            HorizontalOptions="Start"
+                            RowDefinitions="Auto"
+                            WidthRequest="300">
+
+                            <Picker
+                                x:Name="SortOptionsPicker"
+                                FontAttributes="Bold"
+                                HeightRequest="30"
+                                HorizontalOptions="Center"
+                                ItemsSource="{Binding SortOptions}"
+                                SelectedIndex="0"
+                                SelectedIndexChanged="OnSortChanged"
+                                WidthRequest="150" />
+
+
+                            <ImageButton
+                                Padding="5"
+                                Background="Transparent"
+                                HeightRequest="50"
+                                HorizontalOptions="End"
+                                Source="sortingarrows.png"
+                                WidthRequest="25" />
+                        </Grid>
+
+                    </Grid>
+
+
+                </Grid>
+
+
+
+                <CollectionView
+                    x:Name="MoviesToSeeCollectionView"
+                    SelectionChanged="OnItemSelected"
+                    SelectionMode="Single">
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="7" />
+                    </CollectionView.ItemsLayout>
+
+
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate>
+
+
+
+
+                            <StackLayout Padding="15" Orientation="Vertical">
+
+
+                                <Label
+                                    Padding="5"
+                                    FontAttributes="Bold"
+                                    FontSize="15"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding imdbRating}" />
+
+
+                                <Image
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="150"
+                                    HorizontalOptions="Center"
+                                    Source="{Binding Poster}"
+                                    WidthRequest="200">
+                                    <Image.Shadow>
+                                        <Shadow
+                                            Brush="Black"
+                                            Opacity="3"
+                                            Radius="20"
+                                            Offset="9,5" />
+                                    </Image.Shadow>
+                                </Image>
+
+
+
+                                <Label
+                                    Padding="15"
+                                    FontAttributes="Bold"
+                                    FontSize="15"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Title}" />
+
+
+
+
+
+                            </StackLayout>
+
+
+
+
+
+                        </DataTemplate>
+
+
+
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+
+            </VerticalStackLayout>
+
+
+        </Grid>
+    </ScrollView>
+
+
+</ContentPage>

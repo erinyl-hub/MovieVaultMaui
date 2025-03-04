@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MovieVaultMaui.AddMoviePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="AddMoviePage">
+    <ScrollView>
+
+        <Grid>
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="2300"
+                SemanticProperties.Description="Gray background with video camera logo"
+                Source="bakrund2266.png"
+                WidthRequest="2000" />
+
+            <VerticalStackLayout>
+
+                <Grid Padding="20" RowDefinitions="*,200">
+
+                    <ImageButton
+                        Grid.Row="0"
+                        BackgroundColor="Transparent"
+                        Clicked="OnBackClicked"
+                        HeightRequest="50"
+                        HorizontalOptions="Start"
+                        Source="backarrow.png"
+                        WidthRequest="50" />
+
+                    <Image
+                        x:Name="ConnectionImage"
+                        Grid.Row="0"
+                        HeightRequest="50"
+                        HorizontalOptions="End"
+                        WidthRequest="50" />
+
+                    <Image
+                        Grid.Row="1"
+                        HeightRequest="600"
+                        HorizontalOptions="Center"
+                        Source="logotyp.png"
+                        VerticalOptions="Center"
+                        WidthRequest="500" />
+
+                </Grid>
+
+
+                <Grid
+                    Padding="0"
+                    ColumnSpacing="0"
+                    RowDefinitions="Auto,50,26,26,26,430,26,45,35 ,Auto, Auto, Auto ,50"
+                    RowSpacing="0">
+
+
+                    <Button
+                        x:Name="movieInSafeSign"
+                        Grid.Row="0"
+                        BackgroundColor="Black"
+                        FontAttributes="Bold"
+                        HeightRequest="26"
+                        HorizontalOptions="Center"
+                        IsVisible="False"
+                        Text="Movie is already in safe"
+                        TextColor="White"
+                        WidthRequest="250" />
+
+                    <Label
+                        x:Name="movieName"
+                        Grid.Row="1"
+                        FontAttributes="Bold"
+                        FontSize="30"
+                        HorizontalOptions="Center"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <Label
+                        x:Name="movieYear"
+                        Grid.Row="2"
+                        Margin="0,0,0,0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <Label
+                        x:Name="imdbScore"
+                        Grid.Row="3"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+
+                    </Label>
+
+                    <Label
+                        x:Name="movieRuntime"
+                        Grid.Row="4"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <Image
+                        x:Name="movieImage"
+                        Grid.Row="5"
+                        BackgroundColor="Transparent"
+                        HeightRequest="400"
+                        HorizontalOptions="Center"
+                        WidthRequest="400">
+                        <Image.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Opacity="3"
+                                Radius="20"
+                                Offset="9,5" />
+                        </Image.Shadow>
+                    </Image>
+
+
+                    <Label
+                        Grid.Row="6"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Text="Director"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+
+                    </Label>
+
+                    <Label
+                        x:Name="movieDirector"
+                        Grid.Row="7"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+
+                    </Label>
+
+                    <Label
+                        Grid.Row="8"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Text="Plot"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+
+                    </Label>
+
+
+                    <Frame
+                        Grid.Row="9"
+                        BackgroundColor="Transparent"
+                        HasShadow="True"
+                        WidthRequest="300">
+
+                        <Label
+                            x:Name=" moviePlot"
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            LineBreakMode="WordWrap"
+                            TextColor="White">
+                            <Label.Shadow>
+                                <Shadow
+                                    Brush="Black"
+                                    Radius="6"
+                                    Offset="1,2" />
+                            </Label.Shadow>
+                        </Label>
+                    </Frame>
+
+
+                    <StackLayout
+                        x:Name="checkboxSeenMovie"
+                        Grid.Row="10"
+                        HorizontalOptions="Center"
+                        IsVisible="True"
+                        Orientation="Horizontal">
+
+                        <CheckBox
+                            x:Name="myCheckBox"
+                            Grid.Row="9"
+                            CheckedChanged="MovieHasBeenSeen"
+                            Color="Black"
+                            HorizontalOptions="Center" />
+
+                        <Label
+                            FontAttributes="Bold"
+                            Text="Movie seen"
+                            VerticalOptions="Center" />
+
+                    </StackLayout>
+
+
+                    <Grid
+                        x:Name="movieSeenGrid"
+                        Grid.Row="11"
+                        HorizontalOptions="Center"
+                        IsVisible="False"
+                        RowDefinitions="Auto,Auto,10,200,50">
+
+                        <Label
+                            Grid.Row="0"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            Text="User Rating" />
+
+                        <Grid
+                            Grid.Row="1"
+                            HorizontalOptions="Center"
+                            RowDefinitions="Auto, Auto">
+
+                            <Label
+                                x:Name="sliderValueLabel"
+                                FontSize="20"
+                                Text="1.0"
+                                FontAttributes="Bold"
+                                Grid.Row="0"
+                                HorizontalOptions ="Center"/>
+
+                            <Slider
+                                x:Name="valueSlider"
+                                Maximum="10"
+                                Minimum="1"
+                                ValueChanged="OnSliderValueChanged"
+                                WidthRequest="180"
+                                ThumbColor="Black"
+                                MinimumTrackColor="Black"
+                                MaximumTrackColor="DarkGrey"
+                                Grid.Row="1"
+                                />
+
+
+                        </Grid>
+
+
+                        <Editor
+                            x:Name="userReviewEditor"
+                            Grid.Row="3"
+                            AutoSize="TextChanges"
+                            Background="DarkGrey"
+                            FontAttributes="Bold"
+                            Placeholder="Enter Review..."
+                            WidthRequest="400" />
+
+
+                        <StackLayout
+                            Grid.Row="4"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal">
+
+                            <CheckBox 
+                                x:Name="SeeAgain" 
+                                HorizontalOptions="Center" 
+                                Color="Black"/>
+
+                            <Label
+                                FontAttributes="Bold"
+                                Text="See again"
+                                VerticalOptions="Center" />
+
+                        </StackLayout>
+
+                    </Grid>
+
+
+
+
+
+                    <Button
+                        x:Name="whatSafe"
+                        Grid.Row="12"
+                        BackgroundColor="Black"
+                        Clicked="AddMovie"
+                        FontAttributes="Bold"
+                        HeightRequest="26"
+                        HorizontalOptions="Center"
+                        IsVisible="True"
+                        Text="Watch later"
+                        WidthRequest="200" />
+
+
+                </Grid>
+
+
+            </VerticalStackLayout>
+
+
+        </Grid>
+    </ScrollView>
+</ContentPage>
