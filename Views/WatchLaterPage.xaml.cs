@@ -33,6 +33,7 @@ public partial class WatchLaterPage : ContentPage
     {
         CreateMovieSearchDictionary();
         PickerSeter();
+        UppdateMoviesViewed();
         UpdateConnectionStatus();
 
     }
@@ -43,6 +44,11 @@ public partial class WatchLaterPage : ContentPage
         {
             DisplayAlert("Valt objekt", $"Du tryckte på: {selectedItem.Title}  {selectedItem.Actors} {selectedItem.Runtime}", "OK");
         }
+    }
+
+    private async void CreateMovieSearchDictionary()
+    {
+        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(aplicationData.MoviesToSee.AsEnumerable().Reverse().ToList());
     }
 
     private async void OnBackClicked(object sender, EventArgs e)
@@ -56,36 +62,34 @@ public partial class WatchLaterPage : ContentPage
         ConnectionImage.Source = isConnected ? "online.png" : "offline.png";
     }
 
-
     private void PickerSeter()
     {
+
         BindingContext = this;
+
+        SearchOptionsPickerOnPage.SelectedIndexChanged -= OnPickerChanged;
+        SortOptionsPickerOnPage.SelectedIndexChanged -= OnPickerChanged;
+
         SearchOptionsPickerOnPage.SelectedIndex = 0;
         SortOptionsPickerOnPage.SelectedIndex = 0;
+
+        SearchOptionsPickerOnPage.SelectedIndexChanged += OnPickerChanged;
+        SortOptionsPickerOnPage.SelectedIndexChanged += OnPickerChanged;
     }
 
     private void OnPickerChanged(object sender, EventArgs e)
     {
         var picker = (Picker)sender;
         string selectedOption = picker.SelectedItem.ToString();
-    }
-
-    private void OnSortChanged(object sender, EventArgs e)
-    {
-        OnPickerChanged(sender, e);
-        changeMovieOrderBy = false;
         UppdateMoviesViewed();
     }
+
 
     private void SearchEntryChange(object sender, TextChangedEventArgs e)
     {
         UppdateMoviesViewed();
     }
 
-    private async void CreateMovieSearchDictionary()
-    {
-        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(aplicationData.MoviesToSee.AsEnumerable().Reverse().ToList());
-    }
 
     private async void UppdateMoviesViewed()
     {
@@ -97,7 +101,7 @@ public partial class WatchLaterPage : ContentPage
              (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(),
              searchWord, SortOptionsPickerOnPage.SelectedItem.ToString(), changeMovieOrderBy);
 
-        UpdateCollectionView();
+        UpdatePageView();
         ResetPageCount();
     }
 
@@ -107,7 +111,7 @@ public partial class WatchLaterPage : ContentPage
         UppdateMoviesViewed();
     }
 
-    public void UpdateCollectionView()
+    public void UpdatePageView()
     {
         var pagedMovies = moviesToSeeList
             .Skip((currentPage - 1) * itemsPerPage)  
@@ -123,7 +127,7 @@ public partial class WatchLaterPage : ContentPage
         if (currentPage == (lastPage)) { GoForward.IsVisible = false; }
 
         GoBackwards.IsVisible = true;
-        UpdateCollectionView();
+        UpdatePageView();
     }
 
     public void PreviousPage(object sender, EventArgs e)
@@ -132,7 +136,7 @@ public partial class WatchLaterPage : ContentPage
         if (currentPage == 1) { GoBackwards.IsVisible = false; }
 
         GoForward.IsVisible = true;
-        UpdateCollectionView();
+        UpdatePageView();
     }
 
     public void ResetPageCount()
@@ -140,9 +144,8 @@ public partial class WatchLaterPage : ContentPage
         lastPage = (int)Math.Ceiling((moviesToSeeList.Count() / (double)itemsPerPage));
         currentPage = 1;
         GoBackwards.IsVisible = false;
-        if (lastPage == 1) { GoForward.IsVisible = false; }
+        if (lastPage < 2) { GoForward.IsVisible = false; }
         else { GoForward.IsVisible = true; }
     }
-
 
 }

@@ -119,7 +119,7 @@
                                 HorizontalOptions="Center"
                                 ItemsSource="{Binding SortOptionsPicker}"
                                 SelectedIndex="0"
-                                SelectedIndexChanged="OnSortChanged"
+                                SelectedIndexChanged="OnPickerChanged"
                                 WidthRequest="150" />
 
 

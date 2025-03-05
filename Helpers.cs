@@ -44,10 +44,8 @@ namespace MovieVaultMaui
         public static IEnumerable<Movie> SearchEngine
             (Dictionary<string, Func<string, IEnumerable<Movie>>> searchDictionary, string searchType, string searchWord, string sortBy, bool changeOrder)
         {
+            var result = searchDictionary[searchType](searchWord);
 
-
-                var result = searchDictionary[searchType](searchWord);
-                
 
             switch (sortBy)
             {
@@ -58,7 +56,7 @@ namespace MovieVaultMaui
                     result = result.OrderByDescending(m => m.imdbRating); // lägst först
                     break;
                 case "Length":
-                    result = result.OrderBy(m => m.Runtime); // Lägst först, 2 som inte stämde
+                    result = result.OrderBy(m => int.TryParse(m.Runtime.Split(' ')[0], out int runtime) ? runtime : 0); // Lägst först, 2 som inte stämde
                     break;
                 case "Year":
                     result = result.OrderBy(m => m.Year); // äldst först
