@@ -31,17 +31,17 @@ namespace MovieVaultMaui
         {
             var searchDictionary = new Dictionary<string, Func<string, IEnumerable<Movie>>>
             {
-                { "Titel", (word) => aplicationData.MoviesToSee.Where(movie => movie.Title != null && movie.Title.Contains(word, StringComparison.OrdinalIgnoreCase)) },
-                { "Director", (word) => aplicationData.MoviesToSee.Where(movie => movie.Director != null && movie.Director.Contains(word, StringComparison.OrdinalIgnoreCase)) },
-                { "Actor", (word) => aplicationData.MoviesToSee.Where(movie => movie.Actors != null && movie.Actors.Contains(word, StringComparison.OrdinalIgnoreCase)) },
-                { "Genre", (word) => aplicationData.MoviesToSee.Where(movie => movie.Genre != null && movie.Genre.Contains(word, StringComparison.OrdinalIgnoreCase)) },
-                { "ImdbID", (word) => aplicationData.MoviesToSee.Where(movie => movie.imdbID != null && movie.imdbID.Contains(word, StringComparison.OrdinalIgnoreCase)) }
+                { "Titel", (word) => movies.Where(movie => movie.Title != null && movie.Title.Contains(word, StringComparison.OrdinalIgnoreCase)) },
+                { "Director", (word) => movies.Where(movie => movie.Director != null && movie.Director.Contains(word, StringComparison.OrdinalIgnoreCase)) },
+                { "Actor", (word) => movies.Where(movie => movie.Actors != null && movie.Actors.Contains(word, StringComparison.OrdinalIgnoreCase)) },
+                { "Genre", (word) => movies.Where(movie => movie.Genre != null && movie.Genre.Contains(word, StringComparison.OrdinalIgnoreCase)) },
+                { "ImdbID", (word) => movies.Where(movie => movie.imdbID != null && movie.imdbID.Contains(word, StringComparison.OrdinalIgnoreCase)) }
             };
 
             return searchDictionary;
         }
 
-        public static ObservableCollection<Movie> SearchEngine
+        public static IEnumerable<Movie> SearchEngine
             (Dictionary<string, Func<string, IEnumerable<Movie>>> searchDictionary, string searchType, string searchWord, string sortBy, bool changeOrder)
         {
 
@@ -68,9 +68,9 @@ namespace MovieVaultMaui
                     break;
             }
 
-            if (changeOrder) { result = result.Reverse().ToList(); }
+            if (changeOrder) { result = result.Reverse(); }
 
-            return new ObservableCollection<Movie>(result);
+            return result;
 
         }
 

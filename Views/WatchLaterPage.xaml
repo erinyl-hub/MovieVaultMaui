@@ -16,7 +16,7 @@
 
 
 
-                <Grid Padding="20" RowDefinitions="*,200, Auto">
+                <Grid Padding="20" RowDefinitions="*,200, Auto, Auto">
 
                     <ImageButton
                         Grid.Row="0"
@@ -47,10 +47,8 @@
                         Padding="20"
                         WidthRequest="1400">
 
-                        <Grid 
-                            HorizontalOptions="End" 
-                            WidthRequest="720">
-                            
+                        <Grid HorizontalOptions="End" WidthRequest="720">
+
                             <Entry
                                 x:Name="SearchEntry"
                                 BackgroundColor="Transparent"
@@ -59,8 +57,8 @@
                                 HorizontalOptions="End"
                                 Placeholder="Search..."
                                 PlaceholderColor="Black"
-                                WidthRequest="300"
-                                TextChanged="SearchEntryChange"/>
+                                TextChanged="SearchEntryChange"
+                                WidthRequest="300" />
 
                             <Picker
                                 x:Name="SearchOptionsPickerOnPage"
@@ -70,13 +68,43 @@
                                 ItemsSource="{Binding SearchOptionsPicker}"
                                 SelectedIndex="0"
                                 SelectedIndexChanged="OnPickerChanged"
-                                WidthRequest="120"
-                                
-                                />
-
-
+                                WidthRequest="120" />
 
                         </Grid>
+
+
+                        <Grid
+                            HorizontalOptions="Center"
+                            WidthRequest="200"
+                            >
+
+                            <ImageButton
+                                x:Name="GoForward"
+                                Padding="5"
+                                Background="Transparent"
+                                Clicked="NextPage"
+                                HeightRequest="60"
+                                WidthRequest="60"
+                                HorizontalOptions="End"
+                                Source="goforwardarrow.png"
+                                IsVisible="True"
+                                 />
+
+                            <ImageButton
+                                x:Name="GoBackwards"
+                                Padding="5"
+                                Background="Transparent"
+                                Clicked="PreviousPage"
+                                HeightRequest="60"
+                                WidthRequest="60"
+                                HorizontalOptions="Start"
+                                Source="gobackwardsarrow.png"
+                                IsVisible="False"
+                                 />
+
+                        </Grid>
+
+
 
                         <Grid
                             Padding="20"
@@ -99,11 +127,13 @@
                                 x:Name="ChangeOrder"
                                 Padding="5"
                                 Background="Transparent"
+                                Clicked="ChangeOrderClicked"
                                 HeightRequest="50"
                                 HorizontalOptions="End"
                                 Source="sortingarrows.png"
-                                WidthRequest="25"
-                                Clicked="ChangeOrderClicked"/>
+                                WidthRequest="25" />
+
+
                         </Grid>
 
                     </Grid>
@@ -184,7 +214,11 @@
                 </CollectionView>
 
 
+
+
             </VerticalStackLayout>
+
+
 
 
         </Grid>

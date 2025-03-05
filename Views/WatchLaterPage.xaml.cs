@@ -1,4 +1,5 @@
 using MovieVaultMaui.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -9,8 +10,12 @@ public partial class WatchLaterPage : ContentPage
     public List<string> SortOptionsPicker { get; } = new List<string> { "Last added", "Rating", "Alphabetically", "Length", "Year" };
     public List<string> SearchOptionsPicker { get; } = new List<string> { "Titel", "Director", "Actor", "Genre", "ImdbID" };
 
+    public IEnumerable<Movie> moviesToSeeList;
     public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
     public bool changeMovieOrderBy = false;
+
+    private int currentPage = 1;
+    private int itemsPerPage = 28;
 
 
     public WatchLaterPage()
@@ -29,10 +34,6 @@ public partial class WatchLaterPage : ContentPage
         PickerSeter();
         UpdateConnectionStatus();
 
-
-        ObservableCollection<Movie> MoviesToSeeObservableList =
-            new ObservableCollection<Movie>(aplicationData.MoviesToSee.AsEnumerable().Reverse().ToList());
-        MoviesToSeeCollectionView.ItemsSource = MoviesToSeeObservableList;
     }
 
     private void OnItemSelected(object sender, SelectionChangedEventArgs e)  // ta bort
@@ -91,13 +92,15 @@ public partial class WatchLaterPage : ContentPage
 
 
         string searchWord = SearchEntry.Text ?? "";
+        currentPage = 1;
 
 
-        ObservableCollection<Movie> MoviesToSeeObservableList
+        moviesToSeeList
              = Helpers.SearchEngine
-             (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(), searchWord, SortOptionsPickerOnPage.SelectedItem.ToString(), changeMovieOrderBy);
+             (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(),
+             searchWord, SortOptionsPickerOnPage.SelectedItem.ToString(), changeMovieOrderBy);
 
-        MoviesToSeeCollectionView.ItemsSource = MoviesToSeeObservableList;
+        UpdateCollectionView();
 
     }
 
@@ -106,4 +109,31 @@ public partial class WatchLaterPage : ContentPage
         changeMovieOrderBy = changeMovieOrderBy ? false : true;
         UppdateMoviesViewed();
     }
+
+    public void UpdateCollectionView()
+    {
+        var pagedMovies = moviesToSeeList
+            .Skip((currentPage - 1) * itemsPerPage)  
+            .Take(itemsPerPage);                    
+
+        ObservableCollection<Movie> moviesToSeeObservableListView = new ObservableCollection<Movie>(pagedMovies);
+        MoviesToSeeCollectionView.ItemsSource = moviesToSeeObservableListView;
+    }
+
+    public void NextPage(object sender, EventArgs e)
+    {
+        currentPage++;
+        UpdateCollectionView();
+        GoBackwards.IsVisible = true;
+
+    }
+
+    public void PreviousPage(object sender, EventArgs e)
+    {
+        if (currentPage == 1) { GoBackwards.IsVisible = false; }
+        currentPage--;
+        UpdateCollectionView();
+    }
+
+
 }
