@@ -14,8 +14,9 @@ public partial class WatchLaterPage : ContentPage
     public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
     public bool changeMovieOrderBy = false;
 
+    private int lastPage = 0;
     private int currentPage = 1;
-    private int itemsPerPage = 28;
+    private int itemsPerPage = 14;
 
 
     public WatchLaterPage()
@@ -32,6 +33,7 @@ public partial class WatchLaterPage : ContentPage
     {
         CreateMovieSearchDictionary();
         PickerSeter();
+        UppdateMoviesViewed();
         UpdateConnectionStatus();
 
     }
@@ -72,8 +74,11 @@ public partial class WatchLaterPage : ContentPage
     private void OnSortChanged(object sender, EventArgs e)
     {
         OnPickerChanged(sender, e);
+        if (((sender as Picker)?.SelectedItem == null))
+        { 
         changeMovieOrderBy = false;
         UppdateMoviesViewed();
+        }
     }
 
     private void SearchEntryChange(object sender, TextChangedEventArgs e)
@@ -91,12 +96,14 @@ public partial class WatchLaterPage : ContentPage
         string searchWord = SearchEntry.Text ?? "";
         currentPage = 1;
 
+
         moviesToSeeList
              = Helpers.SearchEngine
              (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(),
              searchWord, SortOptionsPickerOnPage.SelectedItem.ToString(), changeMovieOrderBy);
 
         UpdateCollectionView();
+        ResetPageCount();
     }
 
     private void ChangeOrderClicked(object sender, EventArgs e)
@@ -108,27 +115,42 @@ public partial class WatchLaterPage : ContentPage
     public void UpdateCollectionView()
     {
         var pagedMovies = moviesToSeeList
-            .Skip((currentPage - 1) * itemsPerPage)  
-            .Take(itemsPerPage);                    
+            .Skip((currentPage - 1) * itemsPerPage)
+            .Take(itemsPerPage);
 
         ObservableCollection<Movie> moviesToSeeObservableListView = new ObservableCollection<Movie>(pagedMovies);
         MoviesToSeeCollectionView.ItemsSource = moviesToSeeObservableListView;
+
     }
 
     public void NextPage(object sender, EventArgs e)
     {
         currentPage++;
-        UpdateCollectionView();
-        GoBackwards.IsVisible = true;
+        if(currentPage == (lastPage)){  GoForward.IsVisible = false; }
 
+        GoBackwards.IsVisible = true;
+        UpdateCollectionView();
     }
 
     public void PreviousPage(object sender, EventArgs e)
     {
-        if (currentPage == 1) { GoBackwards.IsVisible = false; }
         currentPage--;
+        if (currentPage == 1){GoBackwards.IsVisible = false;}
+
+        GoForward.IsVisible = true;
         UpdateCollectionView();
     }
+
+    public void ResetPageCount()
+    {
+        lastPage = (int)Math.Ceiling((moviesToSeeList.Count() / (double)itemsPerPage));
+        currentPage = 1;
+        GoBackwards.IsVisible = false;
+        if(lastPage == 1) { GoForward.IsVisible = false; }
+        else { GoForward.IsVisible = true; }
+    }
+    
+
 
 
 }

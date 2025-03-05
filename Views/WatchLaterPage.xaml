@@ -67,7 +67,7 @@
                                 HorizontalOptions="Center"
                                 ItemsSource="{Binding SearchOptionsPicker}"
                                 SelectedIndex="0"
-                                SelectedIndexChanged="OnPickerChanged"
+                                SelectedIndexChanged="OnSortChanged"
                                 WidthRequest="120" />
 
                         </Grid>

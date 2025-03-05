@@ -8,7 +8,7 @@ namespace MovieVaultMaui
     class Helpers
     {
 
-        public static async Task GetDataFromDbAsync()
+        public static async Task GetData()
         {
             DataManager.MongoDbManager mongoDbManager = new DataManager.MongoDbManager();
             Models.aplicationData.SeenMovies = mongoDbManager.ConnectToDb("WatchedMovies").AsQueryable().ToList();
@@ -44,8 +44,6 @@ namespace MovieVaultMaui
         public static IEnumerable<Movie> SearchEngine
             (Dictionary<string, Func<string, IEnumerable<Movie>>> searchDictionary, string searchType, string searchWord, string sortBy, bool changeOrder)
         {
-
-
                 var result = searchDictionary[searchType](searchWord);
                 
 
