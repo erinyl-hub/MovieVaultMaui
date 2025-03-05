@@ -7,7 +7,7 @@ namespace MovieVaultMaui.DataManager
     {
         private static MongoClient GetClient()
         {
-            string connectionString = "mongodb+srv://eriknylund:SystemTILL2026!@ecluster.7zit7.mongodb.net/?retryWrites=true&w=majority&appName=ECluster";
+            const string connectionString = "mongodb+srv://eriknylund:SystemTILL2026!@ecluster.7zit7.mongodb.net/?retryWrites=true&w=majority&appName=ECluster";
 
             MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(connectionString));
 

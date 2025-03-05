@@ -11,7 +11,7 @@
 
             UpdateConnectionStatus();
 
-            Helpers.GetData();
+            Helpers.GetDataFromDbAsync();
 
             Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
         }

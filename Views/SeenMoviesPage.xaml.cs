@@ -1,4 +1,4 @@
-namespace MovieVaultMaui.Views;
+namespace MovieVaultMaui;
 
 public partial class SeenMoviesPage : ContentPage
 {

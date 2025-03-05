@@ -8,7 +8,7 @@ namespace MovieVaultMaui
     class Helpers
     {
 
-        public static async Task GetData()
+        public static async Task GetDataFromDbAsync()
         {
             DataManager.MongoDbManager mongoDbManager = new DataManager.MongoDbManager();
             Models.aplicationData.SeenMovies = mongoDbManager.ConnectToDb("WatchedMovies").AsQueryable().ToList();

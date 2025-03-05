@@ -30,7 +30,7 @@ public partial class SafePage : ContentPage
 
     private async void InSeenMoviesClicked(object sender, EventArgs e)
     {
-        //await Navigation.PushAsync(new SeenMoviesPage());
+        await Navigation.PushAsync(new SeenMoviesPage());
     }
 
 
