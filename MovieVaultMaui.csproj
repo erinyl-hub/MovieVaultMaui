@@ -82,6 +82,9 @@
 	  <MauiXaml Update="Views\SafePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\SeenMoviesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\WatchLaterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

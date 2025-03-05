@@ -26,14 +26,12 @@ namespace MovieVaultMaui.DataManager
                         movie = JsonSerializer.Deserialize<Models.Movie>(responseString);
 
                     }
-
                 }
                 catch (Exception error)
                 {
                     Console.WriteLine($"Error: {error.Message}");
                 }
             }
-
             return movie;
         }
     }

@@ -40,7 +40,7 @@ public partial class WatchLaterPage : ContentPage
     {
         if (e.CurrentSelection.FirstOrDefault() is Movie selectedItem)
         {
-            DisplayAlert("Valt objekt", $"Du tryckte på: {selectedItem.Poster}", "OK");
+            DisplayAlert("Valt objekt", $"Du tryckte på: {selectedItem.Title}  {selectedItem.Actors} {selectedItem.Runtime}", "OK");
         }
     }
 
@@ -84,16 +84,12 @@ public partial class WatchLaterPage : ContentPage
     private async void CreateMovieSearchDictionary()
     {
         movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(aplicationData.MoviesToSee.AsEnumerable().Reverse().ToList());
-
     }
 
     private async void UppdateMoviesViewed()
     {
-
-
         string searchWord = SearchEntry.Text ?? "";
         currentPage = 1;
-
 
         moviesToSeeList
              = Helpers.SearchEngine
@@ -101,7 +97,6 @@ public partial class WatchLaterPage : ContentPage
              searchWord, SortOptionsPickerOnPage.SelectedItem.ToString(), changeMovieOrderBy);
 
         UpdateCollectionView();
-
     }
 
     private void ChangeOrderClicked(object sender, EventArgs e)

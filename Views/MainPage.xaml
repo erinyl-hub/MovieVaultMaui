@@ -69,7 +69,7 @@
                         FontAttributes="Bold"
                         HeightRequest="45"
                         HorizontalOptions="Center"
-                        Text="Safe"
+                        Text="The Safe"
                         WidthRequest="150" />
 
 

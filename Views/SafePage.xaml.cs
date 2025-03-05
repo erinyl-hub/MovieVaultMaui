@@ -28,10 +28,12 @@ public partial class SafePage : ContentPage
         await Navigation.PushAsync(new WatchLaterPage());
     }
 
-    //private async void InSafeClicked(object sender, EventArgs e)
-    //{
-    //    await Navigation.PushAsync(new SafePage());
-    //}
+    private async void InSeenMoviesClicked(object sender, EventArgs e)
+    {
+        //await Navigation.PushAsync(new SeenMoviesPage());
+    }
+
+
 
 
 }
