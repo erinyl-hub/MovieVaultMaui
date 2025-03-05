@@ -14,8 +14,9 @@ public partial class WatchLaterPage : ContentPage
     public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
     public bool changeMovieOrderBy = false;
 
+    private int lastPage = 0;
     private int currentPage = 1;
-    private int itemsPerPage = 28;
+    private int itemsPerPage = 14;
 
 
     public WatchLaterPage()
@@ -97,6 +98,7 @@ public partial class WatchLaterPage : ContentPage
              searchWord, SortOptionsPickerOnPage.SelectedItem.ToString(), changeMovieOrderBy);
 
         UpdateCollectionView();
+        ResetPageCount();
     }
 
     private void ChangeOrderClicked(object sender, EventArgs e)
