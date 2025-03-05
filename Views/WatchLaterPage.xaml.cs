@@ -118,16 +118,28 @@ public partial class WatchLaterPage : ContentPage
     public void NextPage(object sender, EventArgs e)
     {
         currentPage++;
-        UpdateCollectionView();
-        GoBackwards.IsVisible = true;
+        if (currentPage == (lastPage)) { GoForward.IsVisible = false; }
 
+        GoBackwards.IsVisible = true;
+        UpdateCollectionView();
     }
 
     public void PreviousPage(object sender, EventArgs e)
     {
-        if (currentPage == 1) { GoBackwards.IsVisible = false; }
         currentPage--;
+        if (currentPage == 1) { GoBackwards.IsVisible = false; }
+
+        GoForward.IsVisible = true;
         UpdateCollectionView();
+    }
+
+    public void ResetPageCount()
+    {
+        lastPage = (int)Math.Ceiling((moviesToSeeList.Count() / (double)itemsPerPage));
+        currentPage = 1;
+        GoBackwards.IsVisible = false;
+        if (lastPage == 1) { GoForward.IsVisible = false; }
+        else { GoForward.IsVisible = true; }
     }
 
 
