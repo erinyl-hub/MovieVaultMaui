@@ -27,25 +27,190 @@
             x:Name="PopupFrame"
             AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.4, 0.8"
             AbsoluteLayout.LayoutFlags="All"
-            BackgroundColor="White">
-            
+            Background="Black"
+            BorderColor="LightGrey"
+            CornerRadius="5">
+
+
 
 
 
             <ScrollView>
 
-                <VerticalStackLayout>
 
-                    <Image Source="bakrund2266.png" />
-                    <Image Source="{Binding Poster}" />
+
+
+
+                <Grid Background="Transparent" RowDefinitions="Auto,Auto,Auto,Auto, Auto, 50">
+
+                    <!--<Image
+                        Aspect="Fill"
+                        Grid.RowSpan="10"
+                        Source="bakrund2266.png" />-->
+
+                    <BoxView Grid.Row="0" BackgroundColor="DarkGray" />
                     
+                    <BoxView Grid.Row="0" BackgroundColor="DarkGray"
+                             Grid.RowSpan ="10"/>
 
 
-                </VerticalStackLayout>
-                    
+
+                    <Label
+                        Grid.Row="0"
+                        Padding="20"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Text="{Binding Title}"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <Label
+                        Grid.Row="0"
+                        Padding="20"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="End"
+                        Text="{Binding Year}"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <Label
+                        x:Name="MovieLength"
+                        Grid.Row="0"
+                        Padding="20"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Start"
+                        Text=""
+                        TextColor="White">
+
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <Label
+                        Grid.Row="1"
+                        Padding="20"
+                        Background="Transparent"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Text="{Binding imdbRating, StringFormat='Rating: {0}'}"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
 
 
-                
+                    <Image
+                        Grid.Row="2"
+                        BackgroundColor="Transparent"
+                        HeightRequest="350"
+                        HorizontalOptions="Center"
+                        Source="{Binding Poster}"
+                        WidthRequest="400">
+                        <Image.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Opacity="3"
+                                Radius="20"
+                                Offset="9,5" />
+                        </Image.Shadow>
+                    </Image>
+
+                    <CollectionView
+                        x:Name="GenresCollectionView"
+                        Grid.Row="3"
+                        HorizontalOptions="Center"
+                        SelectionMode="Single"
+                        Margin="30">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="1" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame  
+                                    Margin="0"  
+                                    Padding="10"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="White"
+                                    CornerRadius="10"
+                                    WidthRequest="120"
+>
+                                    <Label
+
+                                        HorizontalOptions="Center"
+                                        Text="{Binding .}"
+                                        VerticalOptions="Center"
+                                        FontAttributes="Bold"
+                                        TextColor="White">
+                                        <Label.Shadow>
+                                            <Shadow
+                                                Brush="Black"
+                                                Radius="3"
+                                                Offset="3,1" />
+                                        </Label.Shadow>
+                                    </Label>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Frame
+                        Grid.Row="4"
+                        BackgroundColor="Transparent"
+                        HasShadow="True"
+                        WidthRequest="300">
+
+                        <Label
+
+                            Text="{Binding Plot}"
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            LineBreakMode="WordWrap"
+                            TextColor="White">
+                            <Label.Shadow>
+                                <Shadow
+                                    Brush="Black"
+                                    Radius="6"
+                                    Offset="1,2" />
+                            </Label.Shadow>
+                        </Label>
+                    </Frame>
+
+
+
+
+
+
+                </Grid>
+
+
+
+
             </ScrollView>
 
 

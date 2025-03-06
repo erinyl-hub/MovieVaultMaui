@@ -48,7 +48,7 @@
                 <Grid
                     Padding="0"
                     ColumnSpacing="0"
-                    RowDefinitions="Auto,50,26,26,26,430,26,45,35 ,Auto, Auto, Auto ,50"
+                    RowDefinitions="Auto,50,26,26,26,430,26,45,Auto ,Auto, Auto, Auto ,50"
                     RowSpacing="0">
 
 
@@ -175,21 +175,46 @@
 
                     </Label>
 
-                    <Label
-                        Grid.Row="8"
-                        FontAttributes="Bold"
-                        FontSize="20"
-                        HorizontalOptions="Center"
-                        Text="Plot"
-                        TextColor="White">
-                        <Label.Shadow>
-                            <Shadow
-                                Brush="Black"
-                                Radius="3"
-                                Offset="3,1" />
-                        </Label.Shadow>
 
-                    </Label>
+
+                    <CollectionView
+                        x:Name="GenresCollectionView"
+                        Grid.Row="8"
+                        HorizontalOptions="Center"
+                        SelectionMode="Single"
+                        Margin="20">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="1" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Margin="0"
+                                    Padding="2"
+                                    BackgroundColor="LightGray"
+                                    CornerRadius="10"
+                                    WidthRequest="120"
+>
+                                    <Label
+
+                                        HorizontalOptions="Center"
+                                        Text="{Binding .}"
+                                        VerticalOptions="Center"
+                                        FontAttributes="Bold"
+                                        TextColor="White">
+                                        <Label.Shadow>
+                                            <Shadow
+                                                Brush="Black"
+                                                Radius="3"
+                                                Offset="3,1" />
+                                        </Label.Shadow>
+                                    </Label>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
 
                     <Frame

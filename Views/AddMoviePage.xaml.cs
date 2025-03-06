@@ -14,6 +14,8 @@ public partial class AddMoviePage : ContentPage
         LoadMovie(movie);
         MovieIsInSafe();
 
+        GenresCollectionView.ItemsSource = Helpers.SplitGenres(movie.Genre);
+
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
 
