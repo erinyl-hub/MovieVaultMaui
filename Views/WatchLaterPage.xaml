@@ -73,10 +73,7 @@
                         </Grid>
 
 
-                        <Grid
-                            HorizontalOptions="Center"
-                            WidthRequest="200"
-                            >
+                        <Grid HorizontalOptions="Center" WidthRequest="200">
 
                             <ImageButton
                                 x:Name="GoForward"
@@ -84,11 +81,10 @@
                                 Background="Transparent"
                                 Clicked="NextPage"
                                 HeightRequest="60"
-                                WidthRequest="60"
                                 HorizontalOptions="End"
-                                Source="goforwardarrow.png"
                                 IsVisible="True"
-                                 />
+                                Source="goforwardarrow.png"
+                                WidthRequest="60" />
 
                             <ImageButton
                                 x:Name="GoBackwards"
@@ -96,11 +92,10 @@
                                 Background="Transparent"
                                 Clicked="PreviousPage"
                                 HeightRequest="60"
-                                WidthRequest="60"
                                 HorizontalOptions="Start"
-                                Source="gobackwardsarrow.png"
                                 IsVisible="False"
-                                 />
+                                Source="gobackwardsarrow.png"
+                                WidthRequest="60" />
 
                         </Grid>
 
@@ -158,9 +153,6 @@
 
                         <DataTemplate>
 
-
-
-
                             <StackLayout Padding="15" Orientation="Vertical">
 
 
@@ -187,8 +179,6 @@
                                     </Image.Shadow>
                                 </Image>
 
-
-
                                 <Label
                                     Padding="15"
                                     FontAttributes="Bold"
@@ -197,28 +187,14 @@
                                     Text="{Binding Title}" />
 
 
-
-
-
                             </StackLayout>
 
-
-
-
-
                         </DataTemplate>
-
-
 
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-
-
-
             </VerticalStackLayout>
-
-
 
 
         </Grid>
