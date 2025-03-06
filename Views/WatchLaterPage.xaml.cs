@@ -1,4 +1,5 @@
 using MovieVaultMaui.Models;
+using MovieVaultMaui.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -38,11 +39,12 @@ public partial class WatchLaterPage : ContentPage
 
     }
 
-    private void OnItemSelected(object sender, SelectionChangedEventArgs e)  // ta bort
+    private async void OnItemSelected(object sender, SelectionChangedEventArgs e) 
     {
-        if (e.CurrentSelection.FirstOrDefault() is Movie selectedItem)
+        if (e.CurrentSelection.FirstOrDefault() is Movie selectedMovie)
         {
-            DisplayAlert("Valt objekt", $"Du tryckte på: {selectedItem.Title}  {selectedItem.Actors} {selectedItem.Runtime}", "OK");
+            await Navigation.PushModalAsync(new PopupViewPage(selectedMovie));
+            ((CollectionView)sender).SelectedItem = null;
         }
     }
 

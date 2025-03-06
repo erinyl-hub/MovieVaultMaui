@@ -225,8 +225,8 @@
                             x:Name="myCheckBox"
                             Grid.Row="9"
                             CheckedChanged="MovieHasBeenSeenBox"
-                            Color="Black"
-                            HorizontalOptions="Center" />
+                            HorizontalOptions="Center"
+                            Color="Black" />
 
                         <Label
                             FontAttributes="Bold"
@@ -256,23 +256,22 @@
 
                             <Label
                                 x:Name="sliderValueLabel"
-                                FontSize="20"
-                                Text="1.0"
-                                FontAttributes="Bold"
                                 Grid.Row="0"
-                                HorizontalOptions ="Center"/>
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Text="1.0" />
 
                             <Slider
                                 x:Name="valueSlider"
-                                Maximum="10"
-                                Minimum="1"
-                                ValueChanged="OnSliderValueChanged"
-                                WidthRequest="180"
-                                ThumbColor="Black"
-                                MinimumTrackColor="Black"
-                                MaximumTrackColor="DarkGrey"
                                 Grid.Row="1"
-                                />
+                                Maximum="10"
+                                MaximumTrackColor="DarkGrey"
+                                Minimum="1"
+                                MinimumTrackColor="Black"
+                                ThumbColor="Black"
+                                ValueChanged="OnSliderValueChanged"
+                                WidthRequest="180" />
 
 
                         </Grid>
@@ -293,10 +292,10 @@
                             HorizontalOptions="Center"
                             Orientation="Horizontal">
 
-                            <CheckBox 
-                                x:Name="SeeAgain" 
-                                HorizontalOptions="Center" 
-                                Color="Black"/>
+                            <CheckBox
+                                x:Name="SeeAgain"
+                                HorizontalOptions="Center"
+                                Color="Black" />
 
                             <Label
                                 FontAttributes="Bold"

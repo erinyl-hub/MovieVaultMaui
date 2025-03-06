@@ -79,6 +79,9 @@
 	  <MauiXaml Update="Views\ChooseMovieToAddPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\PopupViewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\SafePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

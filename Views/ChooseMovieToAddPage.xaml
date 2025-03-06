@@ -1,93 +1,85 @@
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MovieVaultMaui.ChooseMovieToAddPage"
-             Title="ChooseMovieToAddPage">
+<ContentPage
+    x:Class="MovieVaultMaui.ChooseMovieToAddPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="ChooseMovieToAddPage">
     <VerticalStackLayout>
         <ScrollView>
 
             <Grid>
-                <Image Source="bakrund2266.png"
-                 SemanticProperties.Description="Gray background with video camera logo"
-                 Aspect="AspectFill"
-                 />
+                <Image
+                    Aspect="AspectFill"
+                    SemanticProperties.Description="Gray background with video camera logo"
+                    Source="bakrund2266.png" />
 
                 <VerticalStackLayout>
 
 
 
-                    <Grid 
-                        RowDefinitions="*,200"
-                        Padding="20">
+                    <Grid Padding="20" RowDefinitions="*,200">
 
-                        <ImageButton 
-                            Source="backarrow.png"   
+                        <ImageButton
+                            Grid.Row="0"
                             BackgroundColor="Transparent"
                             Clicked="OnBackClicked"
-                            Grid.Row="0"
-                            WidthRequest="50" 
                             HeightRequest="50"
                             HorizontalOptions="Start"
-                            />
+                            Source="backarrow.png"
+                            WidthRequest="50" />
 
-                        <Image 
-                           x:Name="ConnectionImage" 
-                           Grid.Row="0"
-                           WidthRequest="50" 
-                           HeightRequest="50"
-                           HorizontalOptions="End"
-                           />
+                        <Image
+                            x:Name="ConnectionImage"
+                            Grid.Row="0"
+                            HeightRequest="50"
+                            HorizontalOptions="End"
+                            WidthRequest="50" />
 
-                        <Image 
-                           Source="logotyp.png"
-                           Grid.Row="1" 
-                           WidthRequest="500" 
-                           HeightRequest="600"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"/>
+                        <Image
+                            Grid.Row="1"
+                            HeightRequest="600"
+                            HorizontalOptions="Center"
+                            Source="logotyp.png"
+                            VerticalOptions="Center"
+                            WidthRequest="500" />
 
 
                     </Grid>
 
 
                     <Grid
-                        RowDefinitions="*,*,*"
                         Padding="50"
-                        RowSpacing="20"
                         ColumnSpacing="250"
-                    >
+                        RowDefinitions="*,*,*"
+                        RowSpacing="20">
 
 
                         <Entry
-                            x:Name="ImdbEntry" 
-                            Placeholder="Enter IMDB Url..."
+                            x:Name="ImdbEntry"
                             Grid.Row="0"
-                            FontAttributes="Bold"
-                            PlaceholderColor="Black"
                             BackgroundColor="DarkGray"
-                            WidthRequest="600"
-                            ></Entry>
+                            FontAttributes="Bold"
+                            Placeholder="Enter IMDB Url..."
+                            PlaceholderColor="Black"
+                            WidthRequest="600" />
 
                         <Button
-                             x:Name="ImdbEntryButton" 
-                             Grid.Row="1"
-                             WidthRequest="150" 
-                             HeightRequest="45"
-                             HorizontalOptions="Center"
-                             BackgroundColor="DimGrey"
-                             BorderColor="DarkGray"
-                            FontAttributes="Bold"
-                             BorderWidth="3"
-                             Text="Find movie"
+                            x:Name="ImdbEntryButton"
+                            Grid.Row="1"
+                            BackgroundColor="DimGrey"
+                            BorderColor="DarkGray"
+                            BorderWidth="3"
                             Clicked="ImdbEntryButtonClicked"
-                             ></Button>
+                            FontAttributes="Bold"
+                            HeightRequest="45"
+                            HorizontalOptions="Center"
+                            Text="Find movie"
+                            WidthRequest="150" />
                         <Label
                             x:Name="ErrorMsg"
-                            Text=""
                             Grid.Row="2"
-                            HorizontalOptions="Center"
                             FontAttributes="Bold"
-                            
-                            ></Label>
+                            HorizontalOptions="Center"
+                            Text="" />
 
 
                     </Grid>
