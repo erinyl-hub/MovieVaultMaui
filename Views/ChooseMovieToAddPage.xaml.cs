@@ -24,7 +24,7 @@ public partial class ChooseMovieToAddPage : ContentPage
         ConnectionImage.Source = isConnected ? "online.png" : "offline.png";
     }
 
-    private async void ImdbEntryButtonClicked(object sender, EventArgs e)
+    private async void ImdbEntryButtonClicked(object sender, EventArgs e) // skriv om 
     {
         string inputImdbUrl = ImdbEntry.Text;
         string ImdbId = RightFormatImdbUrl(inputImdbUrl);
