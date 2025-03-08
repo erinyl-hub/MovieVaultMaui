@@ -81,8 +81,8 @@ public partial class WatchLaterPage : ContentPage
 
     private void OnPickerChanged(object sender, EventArgs e)
     {
-        var picker = (Picker)sender;
-        string selectedOption = picker.SelectedItem.ToString();
+        //var picker = (Picker)sender;
+        //string selectedOption = picker.SelectedItem.ToString();
         UppdateMoviesViewed();
     }
 
