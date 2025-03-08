@@ -39,7 +39,7 @@ public partial class WatchLaterPage : ContentPage
 
     }
 
-    private async void OnItemSelected(object sender, SelectionChangedEventArgs e) 
+    private async void OnItemSelected(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.FirstOrDefault() is Movie selectedMovie)
         {
@@ -81,8 +81,6 @@ public partial class WatchLaterPage : ContentPage
 
     private void OnPickerChanged(object sender, EventArgs e)
     {
-        //var picker = (Picker)sender;
-        //string selectedOption = picker.SelectedItem.ToString();
         UppdateMoviesViewed();
     }
 
@@ -116,8 +114,8 @@ public partial class WatchLaterPage : ContentPage
     public void UpdatePageView()
     {
         var pagedMovies = moviesToSeeList
-            .Skip((currentPage - 1) * itemsPerPage)  
-            .Take(itemsPerPage);                    
+            .Skip((currentPage - 1) * itemsPerPage)
+            .Take(itemsPerPage);
 
         ObservableCollection<Movie> moviesToSeeObservableListView = new ObservableCollection<Movie>(pagedMovies);
         MoviesToSeeCollectionView.ItemsSource = moviesToSeeObservableListView;
