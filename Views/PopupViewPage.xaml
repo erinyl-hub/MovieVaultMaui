@@ -23,13 +23,20 @@
 
         </BoxView>
 
+        <Image
+            AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.5, 0.8"
+            AbsoluteLayout.LayoutFlags="All"
+            Aspect="AspectFill"
+            Source="bakrund2266.png" />
+
         <Frame
             x:Name="PopupFrame"
             AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.5, 0.8"
             AbsoluteLayout.LayoutFlags="All"
-            Background="Black"
-            BorderColor="LightGrey"
-            CornerRadius="5">
+            Background="Transparent"
+            BorderColor="White">
+
+
 
 
 
@@ -40,38 +47,16 @@
 
 
 
-
-                <Grid Background="Transparent" RowDefinitions="Auto,Auto,Auto,Auto, Auto, Auto, Auto, Auto,Auto,Auto, 50">
+                <Grid Background="Transparent" RowDefinitions="Auto,Auto,Auto,Auto, Auto, Auto, Auto, Auto,Auto,Auto,Auto,Auto,Auto ,100">
 
                     <!--<Image
                         Aspect="Fill"
                         Grid.RowSpan="10"
                         Source="bakrund2266.png" />-->
 
-                    <BoxView Grid.Row="0" BackgroundColor="DarkGray" />
-
-                    <BoxView
-                        Grid.Row="0"
-                        Grid.RowSpan="10"
-                        BackgroundColor="DarkGray" />
 
 
 
-                    <Label
-                        Grid.Row="0"
-                        Padding="20"
-                        FontAttributes="Bold"
-                        FontSize="20"
-                        HorizontalOptions="Center"
-                        Text="{Binding Title}"
-                        TextColor="White">
-                        <Label.Shadow>
-                            <Shadow
-                                Brush="Black"
-                                Radius="3"
-                                Offset="3,1" />
-                        </Label.Shadow>
-                    </Label>
 
                     <Label
                         Grid.Row="0"
@@ -107,8 +92,25 @@
                         </Label.Shadow>
                     </Label>
 
+
                     <Label
                         Grid.Row="1"
+                        Padding="20"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        HorizontalOptions="Center"
+                        Text="{Binding Title}"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <Label
+                        Grid.Row="2"
                         Padding="20"
                         Background="Transparent"
                         FontAttributes="Bold"
@@ -126,7 +128,7 @@
 
 
                     <Image
-                        Grid.Row="2"
+                        Grid.Row="3"
                         BackgroundColor="Transparent"
                         HeightRequest="350"
                         HorizontalOptions="Center"
@@ -142,64 +144,10 @@
                     </Image>
 
 
-
-
-
-                    <CollectionView
-                        x:Name="ActorsCollectionView"
-                        Grid.Row="9"
-                        SelectionMode="Single"
-                        HorizontalOptions="Start">
-
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout 
-                                ItemSpacing="1" 
-                                Orientation="Vertical"
-                                />
-                        </CollectionView.ItemsLayout>
-
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Frame
-                                    Margin="0"
-                                    Padding="10"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="White"
-                                    CornerRadius="10"
-                                    WidthRequest="150">
-                                    <Label
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="Center"
-                                        FontAttributes="Bold"
-                                        FontSize="12"
-                                        Text="{Binding .}"
-                                        TextColor="White">
-                                        <Label.Shadow>
-                                            <Shadow
-                                                Brush="Black"
-                                                Radius="3"
-                                                Offset="3,1" />
-                                        </Label.Shadow>
-                                    </Label>
-                                </Frame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-
-
-
-
-
-
-
-
-
-
-
                     <CollectionView
                         x:Name="GenresCollectionView"
-                        Grid.Row="3"
-                        Margin="30"
+                        Grid.Row="4"
+                        Margin="25"
                         HorizontalOptions="Center"
                         SelectionMode="Single">
 
@@ -235,7 +183,7 @@
                     </CollectionView>
 
                     <Frame
-                        Grid.Row="4"
+                        Grid.Row="5"
                         BackgroundColor="Transparent"
                         HasShadow="True"
                         WidthRequest="300">
@@ -258,9 +206,11 @@
 
 
 
+
+
                     <Label
-                        Grid.Row="5"
-                        Padding="15"
+                        Grid.Row="6"
+                        Padding="10"
                         FontAttributes="Bold"
                         FontSize="14"
                         HorizontalOptions="Center"
@@ -275,20 +225,26 @@
                         </Label.Shadow>
                     </Label>
 
+
                     <Frame
-                        Grid.Row="6"
+                        Grid.Row="7"
+                        Margin="0"
+                        Padding="10"
                         BackgroundColor="Transparent"
-                        HasShadow="True"
-                        WidthRequest="160">
+                        BorderColor="White"
+                        CornerRadius="10"
+                        HeightRequest="40"
+                        WidthRequest="170">
+
 
                         <Label
-                            Grid.Row="6"
+                            Padding="0,0,0,20"
                             FontAttributes="Bold"
-                            FontSize="14"
+                            FontSize="13"
                             HorizontalOptions="Center"
-                            LineBreakMode="WordWrap"
                             Text="{Binding Director}"
-                            TextColor="White">
+                            TextColor="White"
+                            VerticalOptions="Center">
                             <Label.Shadow>
                                 <Shadow
                                     Brush="Black"
@@ -301,12 +257,193 @@
 
 
 
+                    <Label
+                        Grid.Row="8"
+                        Padding="10"
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        LineBreakMode="WordWrap"
+                        Text="Actors"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="6"
+                                Offset="1,2" />
+                        </Label.Shadow>
+                    </Label>
+
+
+
+
+
+                    <CollectionView
+                        x:Name="ActorsCollectionView"
+                        Grid.Row="9"
+                        HorizontalOptions="Start"
+                        SelectionMode="Single">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="1" Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Margin="0"
+                                    Padding="10"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="White"
+                                    CornerRadius="10"
+                                    WidthRequest="170">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="12"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding .}"
+                                        TextColor="White"
+                                        VerticalOptions="Center">
+                                        <Label.Shadow>
+                                            <Shadow
+                                                Brush="Black"
+                                                Radius="3"
+                                                Offset="3,1" />
+                                        </Label.Shadow>
+                                    </Label>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    
+                    
+                    
+                    
+
+                    <StackLayout
+                        x:Name="checkboxSeenMovie"
+                        Grid.Row="10"
+                        HorizontalOptions="Center"
+                        IsVisible="True"
+                        Orientation="Horizontal">
+
+                        <CheckBox
+                            x:Name="myCheckBox"
+                            Grid.Row="9"
+                            CheckedChanged="MovieHasBeenSeenBox"
+                            HorizontalOptions="Center"
+                            Color="Black" />
+
+                        <Label
+                            FontAttributes="Bold"
+                            Text="Movie seen"
+                            VerticalOptions="Center" />
+
+                    </StackLayout>
+
+
+                    <Grid
+                        x:Name="movieSeenGrid"
+                        Grid.Row="11"
+                        HorizontalOptions="Center"
+                        IsVisible="False"
+                        RowDefinitions="Auto,Auto,10,200,50">
+
+                        <Label
+                            Grid.Row="0"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            Text="User Rating" />
+
+                        <Grid
+                            Grid.Row="1"
+                            HorizontalOptions="Center"
+                            RowDefinitions="Auto, Auto">
+
+                            <Label
+                                x:Name="sliderValueLabel"
+                                Grid.Row="0"
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Text="1.0" />
+
+                            <Slider
+                                x:Name="valueSlider"
+                                Grid.Row="1"
+                                Maximum="10"
+                                MaximumTrackColor="DarkGrey"
+                                Minimum="1"
+                                MinimumTrackColor="Black"
+                                ThumbColor="Black"
+                                ValueChanged="OnSliderValueChanged"
+                                WidthRequest="180" />
+
+
+                        </Grid>
+
+
+                        <Editor
+                            x:Name="userReviewEditor"
+                            Grid.Row="3"
+                            AutoSize="TextChanges"
+                            Background="DarkGrey"
+                            FontAttributes="Bold"
+                            Placeholder="Enter Review..."
+                            WidthRequest="400" />
+
+
+                        <StackLayout
+                            Grid.Row="4"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal">
+
+                            <CheckBox
+                                x:Name="SeeAgain"
+                                HorizontalOptions="Center"
+                                Color="Black" />
+
+                            <Label
+                                FontAttributes="Bold"
+                                Text="See again"
+                                VerticalOptions="Center" />
+
+                        </StackLayout>
+
+                    </Grid>
+
+
+
+
+
+                    <Button
+                        x:Name="whatSafe"
+                        Grid.Row="12"
+                        BackgroundColor="Black"
+                        Clicked="AddMovieBox"
+                        FontAttributes="Bold"
+                        HeightRequest="26"
+                        HorizontalOptions="Center"
+                        IsVisible="False"
+                        Text="Watched movie"
+                        WidthRequest="200" />
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                 </Grid>
-
-
-
 
             </ScrollView>
 
