@@ -4,10 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="PopupViewPage"
-    BackgroundColor="#80000000">
-
-
-
+    BackgroundColor="Transparent">
 
     <AbsoluteLayout>
 
@@ -15,12 +12,9 @@
             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
             AbsoluteLayout.LayoutFlags="All"
             Color="Transparent">
-
             <BoxView.GestureRecognizers>
                 <TapGestureRecognizer Tapped="ClosePopupClicked" />
             </BoxView.GestureRecognizers>
-
-
         </BoxView>
 
         <Image
@@ -36,27 +30,9 @@
             Background="Transparent"
             BorderColor="White">
 
-
-
-
-
-
-
             <ScrollView>
 
-
-
-
-                <Grid Background="Transparent" RowDefinitions="Auto,Auto,Auto,Auto, Auto, Auto, Auto, Auto,Auto,Auto,Auto,Auto,Auto ,100">
-
-                    <!--<Image
-                        Aspect="Fill"
-                        Grid.RowSpan="10"
-                        Source="bakrund2266.png" />-->
-
-
-
-
+                <Grid Background="Transparent" RowDefinitions="Auto,Auto,Auto,Auto, Auto, Auto, Auto, Auto,Auto,Auto,30,Auto,Auto ,100">
 
                     <Label
                         Grid.Row="0"
@@ -92,7 +68,6 @@
                         </Label.Shadow>
                     </Label>
 
-
                     <Label
                         Grid.Row="1"
                         Padding="20"
@@ -126,7 +101,6 @@
                         </Label.Shadow>
                     </Label>
 
-
                     <Image
                         Grid.Row="3"
                         BackgroundColor="Transparent"
@@ -142,7 +116,6 @@
                                 Offset="9,5" />
                         </Image.Shadow>
                     </Image>
-
 
                     <CollectionView
                         x:Name="GenresCollectionView"
@@ -203,11 +176,6 @@
                         </Label>
                     </Frame>
 
-
-
-
-
-
                     <Label
                         Grid.Row="6"
                         Padding="10"
@@ -224,7 +192,6 @@
                                 Offset="1,2" />
                         </Label.Shadow>
                     </Label>
-
 
                     <Frame
                         Grid.Row="7"
@@ -274,10 +241,6 @@
                         </Label.Shadow>
                     </Label>
 
-
-
-
-
                     <CollectionView
                         x:Name="ActorsCollectionView"
                         Grid.Row="9"
@@ -316,38 +279,12 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-                    
-                    
-                    
-                    
-
-                    <StackLayout
-                        x:Name="checkboxSeenMovie"
-                        Grid.Row="10"
-                        HorizontalOptions="Center"
-                        IsVisible="True"
-                        Orientation="Horizontal">
-
-                        <CheckBox
-                            x:Name="myCheckBox"
-                            Grid.Row="9"
-                            CheckedChanged="MovieHasBeenSeenBox"
-                            HorizontalOptions="Center"
-                            Color="Black" />
-
-                        <Label
-                            FontAttributes="Bold"
-                            Text="Movie seen"
-                            VerticalOptions="Center" />
-
-                    </StackLayout>
 
 
                     <Grid
                         x:Name="movieSeenGrid"
                         Grid.Row="11"
                         HorizontalOptions="Center"
-                        IsVisible="False"
                         RowDefinitions="Auto,Auto,10,200,50">
 
                         <Label
@@ -371,6 +308,7 @@
 
                             <Slider
                                 x:Name="valueSlider"
+                                Value="{Binding UserData.UserRating}"
                                 Grid.Row="1"
                                 Maximum="10"
                                 MaximumTrackColor="DarkGrey"
@@ -379,13 +317,12 @@
                                 ThumbColor="Black"
                                 ValueChanged="OnSliderValueChanged"
                                 WidthRequest="180" />
-
-
                         </Grid>
 
 
                         <Editor
                             x:Name="userReviewEditor"
+                            Text="{Binding UserData.UserReview}"
                             Grid.Row="3"
                             AutoSize="TextChanges"
                             Background="DarkGrey"
@@ -400,6 +337,7 @@
                             Orientation="Horizontal">
 
                             <CheckBox
+                                IsChecked="{Binding UserData.SeeAgain}"
                                 x:Name="SeeAgain"
                                 HorizontalOptions="Center"
                                 Color="Black" />
@@ -410,12 +348,7 @@
                                 VerticalOptions="Center" />
 
                         </StackLayout>
-
                     </Grid>
-
-
-
-
 
                     <Button
                         x:Name="whatSafe"
@@ -425,42 +358,16 @@
                         FontAttributes="Bold"
                         HeightRequest="26"
                         HorizontalOptions="Center"
-                        IsVisible="False"
-                        Text="Watched movie"
+                        Text="Seen Movie"
                         WidthRequest="200" />
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                 </Grid>
 
             </ScrollView>
 
-
-
-
-
         </Frame>
 
-
-
-
-
-
     </AbsoluteLayout>
-
-
-
 
 </ContentPage>

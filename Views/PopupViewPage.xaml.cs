@@ -12,8 +12,6 @@ public partial class PopupViewPage : ContentPage
 
     }
 
-
-
     private async void ClosePopupClicked(object sender, TappedEventArgs e)
     {
         await Navigation.PopModalAsync();
@@ -29,12 +27,6 @@ public partial class PopupViewPage : ContentPage
         return convertedTime;
     }
 
-    private void MovieHasBeenSeenBox(object sender, CheckedChangedEventArgs e)
-    {
-        movieSeenGrid.IsVisible = e.Value;
-        whatSafe.IsVisible = e.Value;
-        //whatSafe.Text = e.Value ? "Watched movie" : "Watch later";
-    }
 
     private void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
     {
@@ -43,6 +35,7 @@ public partial class PopupViewPage : ContentPage
 
     private void AddMovieBox(object sender, EventArgs e)
     {
+
 
     }
 }
