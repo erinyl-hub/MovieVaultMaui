@@ -4,19 +4,28 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="WatchLaterPage">
-    <ScrollView>
 
-        <Grid>
+
+
+    <ScrollView Background="Transparent">
+
+
+        <Grid Background="Transparent">
+
             <Image
-                Aspect="AspectFill"
+                Aspect="Fill"
                 SemanticProperties.Description="Gray background with video camera logo"
                 Source="bakrund2266.png" />
 
-            <VerticalStackLayout>
+
+            <VerticalStackLayout Background="Transparent">
 
 
 
-                <Grid Padding="20" RowDefinitions="*,200, Auto, Auto">
+                <Grid
+                    Padding="20"
+                    Background="Transparent"
+                    RowDefinitions="*,200, Auto, Auto">
 
                     <ImageButton
                         Grid.Row="0"
@@ -45,9 +54,13 @@
                     <Grid
                         Grid.Row="2"
                         Padding="20"
+                        Background="Transparent"
                         WidthRequest="1400">
 
-                        <Grid HorizontalOptions="End" WidthRequest="720">
+                        <Grid
+                            Background="Transparent"
+                            HorizontalOptions="End"
+                            WidthRequest="720">
 
                             <Entry
                                 x:Name="SearchEntry"
@@ -73,7 +86,10 @@
                         </Grid>
 
 
-                        <Grid HorizontalOptions="Center" WidthRequest="200">
+                        <Grid
+                            Background="Transparent"
+                            HorizontalOptions="Center"
+                            WidthRequest="200">
 
                             <ImageButton
                                 x:Name="GoForward"
@@ -103,6 +119,7 @@
 
                         <Grid
                             Padding="20"
+                            Background="Transparent"
                             HorizontalOptions="Start"
                             RowDefinitions="Auto"
                             WidthRequest="300">
@@ -140,6 +157,7 @@
 
                 <CollectionView
                     x:Name="MoviesToSeeCollectionView"
+                    Background="Transparent"
                     SelectionChanged="OnItemSelected"
                     SelectionMode="Single">
 
@@ -153,7 +171,10 @@
 
                         <DataTemplate>
 
-                            <StackLayout Padding="15" Orientation="Vertical">
+                            <StackLayout
+                                Padding="15"
+                                Background="Transparent"
+                                Orientation="Vertical">
 
 
                                 <Label

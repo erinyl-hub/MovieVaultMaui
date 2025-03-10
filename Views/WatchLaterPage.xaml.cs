@@ -17,7 +17,7 @@ public partial class WatchLaterPage : ContentPage
 
     private int lastPage = 0;
     private int currentPage = 1;
-    private int itemsPerPage = 28;
+    private int itemsPerPage = 42;
 
 
     public WatchLaterPage()

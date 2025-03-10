@@ -5,7 +5,7 @@ namespace MovieVaultMaui.Models
 
     public class Movie
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+         public string Id { get; set; } = Guid.NewGuid().ToString();
         public string Title { get; set; }
         public string Year { get; set; }
         public string Rated { get; set; }
@@ -27,7 +27,7 @@ namespace MovieVaultMaui.Models
 
     public class UserInfoOnMovie
     {
-        public string? UserRating { get; set; }
+        public double? UserRating { get; set; }
         public bool SeeAgain { get; set; }
         public string? UserReview { get; set; }
         public int? AmountTimeSeen { get; set; }

@@ -64,7 +64,7 @@ public partial class AddMoviePage : ContentPage
 
         if (myCheckBox.IsChecked)
         {
-            _movie.UserData.UserRating = valueSlider.Value.ToString();
+            _movie.UserData.UserRating = valueSlider.Value;
             _movie.UserData.SeeAgain = SeeAgain.IsChecked;
             _movie.UserData.UserReview = userReviewEditor.Text;
             _movie.UserData.AmountTimeSeen = 1;

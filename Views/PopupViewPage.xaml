@@ -23,12 +23,16 @@
             Aspect="AspectFill"
             Source="bakrund2266.png" />
 
+
+
         <Frame
             x:Name="PopupFrame"
             AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.5, 0.8"
             AbsoluteLayout.LayoutFlags="All"
             Background="Transparent"
             BorderColor="White">
+
+
 
             <ScrollView>
 
@@ -308,7 +312,6 @@
 
                             <Slider
                                 x:Name="valueSlider"
-                                Value="{Binding UserData.UserRating}"
                                 Grid.Row="1"
                                 Maximum="10"
                                 MaximumTrackColor="DarkGrey"
@@ -316,18 +319,19 @@
                                 MinimumTrackColor="Black"
                                 ThumbColor="Black"
                                 ValueChanged="OnSliderValueChanged"
-                                WidthRequest="180" />
+                                WidthRequest="180"
+                                Value="{Binding UserData.UserRating}" />
                         </Grid>
 
 
                         <Editor
                             x:Name="userReviewEditor"
-                            Text="{Binding UserData.UserReview}"
                             Grid.Row="3"
                             AutoSize="TextChanges"
                             Background="DarkGrey"
                             FontAttributes="Bold"
                             Placeholder="Enter Review..."
+                            Text="{Binding UserData.UserReview}"
                             WidthRequest="400" />
 
 
@@ -337,9 +341,9 @@
                             Orientation="Horizontal">
 
                             <CheckBox
-                                IsChecked="{Binding UserData.SeeAgain}"
                                 x:Name="SeeAgain"
                                 HorizontalOptions="Center"
+                                IsChecked="{Binding UserData.SeeAgain}"
                                 Color="Black" />
 
                             <Label
@@ -354,7 +358,7 @@
                         x:Name="whatSafe"
                         Grid.Row="12"
                         BackgroundColor="Black"
-                        Clicked="AddMovieBox"
+                        Clicked="AddToSeenMovies"
                         FontAttributes="Bold"
                         HeightRequest="26"
                         HorizontalOptions="Center"
@@ -365,6 +369,47 @@
                 </Grid>
 
             </ScrollView>
+
+        </Frame>
+
+        <Frame
+            x:Name="PopupFrame2"
+            AbsoluteLayout.LayoutBounds="0.5, 0.0, 0.5, 0.6"
+            AbsoluteLayout.LayoutFlags="All"
+            Background="Transparent"
+            BorderColor="DarkGray">
+            
+                            <Image
+                    
+                    Aspect="AspectFill"
+                    Source="bakrund2266.png" 
+                    />
+
+
+
+
+            <Grid
+                Background="Transparent"
+                RowDefinitions="50,Auto"
+                InputTransparent="True">
+
+
+
+
+
+                <ImageButton
+                    Grid.Row="0"
+                    x:Name="UserInfoView"
+                    BackgroundColor="Transparent"
+                    Source="downarrow.png"
+                    VerticalOptions="Center" />
+
+
+
+
+
+
+            </Grid>
 
         </Frame>
 

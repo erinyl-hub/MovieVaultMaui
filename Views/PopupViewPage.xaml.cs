@@ -33,7 +33,7 @@ public partial class PopupViewPage : ContentPage
         sliderValueLabel.Text = e.NewValue.ToString("0.0");
     }
 
-    private void AddMovieBox(object sender, EventArgs e)
+    private void AddToSeenMovies(object sender, EventArgs e)
     {
 
 
