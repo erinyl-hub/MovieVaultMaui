@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 
 
-namespace MovieVaultMaui.DataManager
+namespace MovieVaultMaui.Managers
 {
 
     internal class MovieDataManager

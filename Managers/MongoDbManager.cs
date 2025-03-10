@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using MovieVaultMaui.Models;
 
-namespace MovieVaultMaui.DataManager
+namespace MovieVaultMaui.Managers
 {
     class MongoDbManager
     {

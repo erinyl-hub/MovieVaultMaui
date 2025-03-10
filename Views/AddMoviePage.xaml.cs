@@ -60,7 +60,7 @@ public partial class AddMoviePage : ContentPage
 
     private void AddMovieBox(object sender, EventArgs e)
     {
-        DataManager.MongoDbManager mongoDbManager = new DataManager.MongoDbManager();
+        Managers.MongoDbManager mongoDbManager = new Managers.MongoDbManager();
 
         if (myCheckBox.IsChecked)
         {

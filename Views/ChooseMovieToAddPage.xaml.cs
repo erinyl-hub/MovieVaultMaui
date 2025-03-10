@@ -35,7 +35,7 @@ public partial class ChooseMovieToAddPage : ContentPage
         }
         else
         {
-            DataManager.MovieDataManager movieDataManager = new DataManager.MovieDataManager();
+            Managers.MovieDataManager movieDataManager = new Managers.MovieDataManager();
             Models.Movie movie = await movieDataManager.ConnectToMovieApi(ImdbId);
             if(movie == null)
             {
