@@ -40,10 +40,12 @@
 
 
                 <Grid
+                    x:Name="MainPageOptions"
                     Padding="50"
                     ColumnSpacing="250"
-                    RowDefinitions="*,*"
-                    RowSpacing="20">
+                    RowDefinitions="*,*,*"
+                    RowSpacing="20"
+                    IsVisible="True">
 
 
 
@@ -61,16 +63,29 @@
 
 
                     <Button
-                        Grid.Row="1"
-                        BackgroundColor="DimGrey"
-                        BorderColor="DarkGray"
-                        BorderWidth="3"
-                        Clicked="InSafeClicked"
-                        FontAttributes="Bold"
-                        HeightRequest="45"
-                        HorizontalOptions="Center"
-                        Text="The Safe"
-                        WidthRequest="150" />
+                            Grid.Row="1"
+                            BackgroundColor="DimGrey"
+                            BorderColor="DarkGray"
+                            BorderWidth="3"
+                            HeightRequest="45"
+                            Text="Watch Later"
+                            HorizontalOptions="Center"
+                            FontAttributes="Bold"
+                            WidthRequest="150" 
+                            Pressed="InWatchLaterClicked"/>
+
+
+                    <Button
+                            Grid.Row="2"
+                            BackgroundColor="DimGrey"
+                            BorderColor="DarkGray"
+                            BorderWidth="3"
+                            HeightRequest="45"
+                            HorizontalOptions="Center"
+                            FontAttributes="Bold"
+                            Text="Seen Movies"
+                            WidthRequest="150"
+                            Pressed="InSeenMoviesClicked"/>
 
 
 

@@ -35,9 +35,4 @@ namespace MovieVaultMaui.Models
 
     }
 
-    public class aplicationData()
-    {
-        public static List<Models.Movie> MoviesToSee = new List<Models.Movie>();
-        public static List<Models.Movie> SeenMovies = new List<Models.Movie>();
-    }
 }

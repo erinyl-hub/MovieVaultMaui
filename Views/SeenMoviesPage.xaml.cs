@@ -50,7 +50,8 @@ public partial class SeenMoviesPage : ContentPage
 
     private async void CreateMovieSearchDictionary()
     {
-        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(aplicationData.SeenMovies.AsEnumerable().Reverse().ToList());
+        var seenMovies = Managers.DataManager.GetMovieList(Enums.MovieListType.SeenMovies);
+        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(seenMovies.AsEnumerable().Reverse().ToList());
     }
 
     private async void OnBackClicked(object sender, EventArgs e)

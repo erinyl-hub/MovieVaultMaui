@@ -50,7 +50,8 @@ public partial class WatchLaterPage : ContentPage
 
     private async void CreateMovieSearchDictionary()
     {
-        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(aplicationData.MoviesToSee.AsEnumerable().Reverse().ToList());
+        var moviesToSee = Managers.DataManager.GetMovieList(Enums.MovieListType.MoviesToSee);
+        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(moviesToSee.AsEnumerable().Reverse().ToList());
     }
 
     private async void OnBackClicked(object sender, EventArgs e)

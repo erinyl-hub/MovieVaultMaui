@@ -1,42 +1,31 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MovieVaultMaui.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MovieVaultMaui.Managers
 {
     internal class DataManager
     {
 
-        private static List<Models.Movie> MoviesToSee;
-        private static List<Models.Movie> SeenMovies;
+        private static List<Models.Movie> _moviesToSee = new List<Models.Movie>();
+        private static List<Models.Movie> _seenMovies = new List<Models.Movie>();
         public static bool DataLoaded { get; private set; } = false;
+
+        public DataManager() { }
 
 
         public static List<Models.Movie> GetMovieList(MovieListType listName)
         {
-            List<Models.Movie> movieData;
 
-            switch (listName)
+            return listName switch
             {
-                case MovieListType.MoviesToSee:
-                    movieData = MoviesToSee;
-                    return movieData;
+                MovieListType.MoviesToSee => _moviesToSee,
+                MovieListType.SeenMovies => _seenMovies,
+                _ => null
+            };
 
-                case MovieListType.SeenMovies:
-                    movieData = SeenMovies;
-                    return movieData;
-                default:
-                    return null;
-
-            }
         }
-
-
 
         private static MongoClient GetClient()
         {
@@ -49,16 +38,20 @@ namespace MovieVaultMaui.Managers
             return client;
         }
 
-        private static IMongoCollection<Models.Movie> ConnectToDb(string libraryName)
+        public static IMongoCollection<Models.Movie> ConnectToDb(MovieLibraryType libraryType)
         {
             var client = GetClient();
 
             var database = client.GetDatabase("MovieSafe");
 
-            var movieInfo = database.GetCollection<Models.Movie>($"{libraryName}");
+            string collectionName = libraryType switch
+            {
+                MovieLibraryType.MoviesToSee => "MoviesToSee",
+                MovieLibraryType.SeenMovies => "SeenMovies",
+                _ => throw new ArgumentException("Invalid library type")
+            };
 
-
-            return movieInfo;
+            return database.GetCollection<Models.Movie>(collectionName);
         }
 
         public async static Task LoadDataFromDbAsync()
@@ -68,25 +61,54 @@ namespace MovieVaultMaui.Managers
             {
                 try
                 {
-                    var moviesToSeeData = await ConnectToDb("WatchedMovies").AsQueryable().ToListAsync();
-                    var seenMoviesData = await ConnectToDb("WatchLaterMovies").AsQueryable().ToListAsync();
+                    var moviesToSeeData = await ConnectToDb(MovieLibraryType.MoviesToSee).AsQueryable().ToListAsync();
+                    var seenMoviesData = await ConnectToDb(MovieLibraryType.SeenMovies).AsQueryable().ToListAsync();
 
                     if (moviesToSeeData.Any() && seenMoviesData.Any())
                     {
-                        MoviesToSee = moviesToSeeData;
-                        SeenMovies = seenMoviesData;
+                        _moviesToSee = moviesToSeeData;
+                        _seenMovies = seenMoviesData;
                         DataLoaded = true;
-                        break; 
+                        break;
                     }
                 }
                 catch (Exception ex)
                 {
 
-                   
                     await Task.Delay(delay);
 
                 }
             }
+        }
+
+        public async static Task AddMovieToList(Models.Movie movie, MovieListType listName)
+        {
+            switch (listName)
+            {
+                case MovieListType.MoviesToSee:
+                    _moviesToSee.Add(movie);
+                    break;
+
+                case MovieListType.SeenMovies:
+                    _seenMovies.Add(movie);
+                    break;
+            }
+        }
+
+        public async static Task RemoveMovieFromList(Models.Movie movie, MovieListType listName)
+        {
+
+            switch (listName)
+            {
+                case MovieListType.MoviesToSee:
+                    _moviesToSee.Add(movie);
+                    break;
+
+                case MovieListType.SeenMovies:
+                    _seenMovies.Add(movie);
+                    break;
+            }
+
         }
 
 

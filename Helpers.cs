@@ -8,23 +8,25 @@ namespace MovieVaultMaui
     class Helpers
     {
 
-        public static async Task GetDataFromDbAsync()
-        {
-            Managers.MongoDbManager mongoDbManager = new Managers.MongoDbManager();
-            Models.aplicationData.SeenMovies = mongoDbManager.ConnectToDb("WatchedMovies").AsQueryable().ToList();
-            Models.aplicationData.MoviesToSee = mongoDbManager.ConnectToDb("WatchLaterMovies").AsQueryable().ToList();
-        }
-
 
         public static bool MovieAlreadyInSafeChecker(string imdbId)
         {
-            var combinedLibrary = aplicationData.MoviesToSee
-                .Concat(aplicationData.SeenMovies);
+            var moviesToSee = Managers.DataManager.GetMovieList(Enums.MovieListType.MoviesToSee);
+            var seenMovies = Managers.DataManager.GetMovieList(Enums.MovieListType.SeenMovies);
 
-            var result = combinedLibrary.Where(movie => movie.imdbID.Contains(imdbId));
+            if (moviesToSee != null || seenMovies != null)
+            {
+
+                var combinedLibrary = moviesToSee
+                    .Concat(seenMovies);
+
+                var result = combinedLibrary.Where(movie => movie.imdbID.Contains(imdbId));
 
 
-            return result.Any();
+                return result.Any();
+            }
+
+            return false;
         }
 
         public async static Task<Dictionary<string, Func<string, IEnumerable<Movie>>>> CreateSearchEngineDictionary(List<Movie> movies)

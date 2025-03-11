@@ -60,7 +60,8 @@ public partial class AddMoviePage : ContentPage
 
     private void AddMovieBox(object sender, EventArgs e)
     {
-        Managers.MongoDbManager mongoDbManager = new Managers.MongoDbManager();
+        
+        
 
         if (myCheckBox.IsChecked)
         {
@@ -70,18 +71,17 @@ public partial class AddMoviePage : ContentPage
             _movie.UserData.AmountTimeSeen = 1;
             _movie.UserData.LastTimeSeen = DateTime.Now;
             _movie.MovieRegisterdTime = DateTime.Now;
-            
-            mongoDbManager.ConnectToDb("WatchedMovies").InsertOne(_movie);
-            aplicationData.SeenMovies.Add(_movie);
-            Navigation.PopToRootAsync();
 
+            Managers.DataManager.ConnectToDb(Enums.MovieLibraryType.SeenMovies).InsertOne(_movie);
+            Managers.DataManager.AddMovieToList(_movie, Enums.MovieListType.SeenMovies);
+            Navigation.PopToRootAsync();
 
         }
         else
         {
             _movie.MovieRegisterdTime = DateTime.Now;
-            mongoDbManager.ConnectToDb("WatchLaterMovies").InsertOne(_movie);
-            aplicationData.MoviesToSee.Add(_movie);
+            Managers.DataManager.ConnectToDb(Enums.MovieLibraryType.MoviesToSee).InsertOne(_movie);
+            Managers.DataManager.AddMovieToList(_movie, Enums.MovieListType.MoviesToSee);
             Navigation.PopToRootAsync();
 
         }

@@ -1,17 +1,16 @@
-﻿namespace MovieVaultMaui
+﻿using MovieVaultMaui.Managers;
+
+namespace MovieVaultMaui
 {
     public partial class MainPage : ContentPage
     {
-
-
-
         public MainPage()
         {
             InitializeComponent();
 
             UpdateConnectionStatus();
 
-            Helpers.GetDataFromDbAsync();
+            Managers.DataManager.LoadDataFromDbAsync();
 
             Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
         }
@@ -28,10 +27,17 @@
             await Navigation.PushAsync(new ChooseMovieToAddPage());
         }
 
-        private async void InSafeClicked(object sender, EventArgs e)
+        private async void InWatchLaterClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SafePage());
+            await Navigation.PushAsync(new WatchLaterPage());
         }
+
+        private async void InSeenMoviesClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SeenMoviesPage());
+        }
+
+
 
     }
 
