@@ -32,6 +32,7 @@ namespace MovieVaultMaui.Managers
                     Console.WriteLine($"Error: {error.Message}");
                 }
             }
+
             return movie;
         }
     }

@@ -61,7 +61,7 @@
                         FontAttributes="Bold"
                         FontSize="20"
                         HorizontalOptions="Start"
-                        Text=""
+                        Text="{Binding Runtime}"
                         TextColor="White">
 
                         <Label.Shadow>
@@ -372,46 +372,6 @@
 
         </Frame>
 
-        <Frame
-            x:Name="PopupFrame2"
-            AbsoluteLayout.LayoutBounds="0.5, 0.0, 0.5, 0.6"
-            AbsoluteLayout.LayoutFlags="All"
-            Background="Transparent"
-            BorderColor="DarkGray">
-            
-                            <Image
-                    
-                    Aspect="AspectFill"
-                    Source="bakrund2266.png" 
-                    />
-
-
-
-
-            <Grid
-                Background="Transparent"
-                RowDefinitions="50,Auto"
-                InputTransparent="True">
-
-
-
-
-
-                <ImageButton
-                    Grid.Row="0"
-                    x:Name="UserInfoView"
-                    BackgroundColor="Transparent"
-                    Source="downarrow.png"
-                    VerticalOptions="Center" />
-
-
-
-
-
-
-            </Grid>
-
-        </Frame>
 
     </AbsoluteLayout>
 

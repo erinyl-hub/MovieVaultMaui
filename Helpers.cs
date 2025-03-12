@@ -74,11 +74,11 @@ namespace MovieVaultMaui
 
         }
 
-        public static List<string> SplitGenres(string allGenres)
+        public static List<string> Spliter(string toSplit)
         {
-            var genreList = allGenres.Split(new[] { ", " }, StringSplitOptions.None).ToList();
+            var splitList = toSplit.Split(new[] { ", " }, StringSplitOptions.None).ToList();
 
-            return genreList;
+            return splitList;
         }
 
 

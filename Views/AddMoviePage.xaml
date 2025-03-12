@@ -48,7 +48,7 @@
                 <Grid
                     Padding="0"
                     ColumnSpacing="0"
-                    RowDefinitions="Auto,50,26,26,26,430,26,45,Auto ,Auto, Auto, Auto ,50"
+                    RowDefinitions="Auto,50,26,26,26,430,Auto,Auto,Auto ,Auto, 150, Auto ,Auto,Auto,Auto,Auto"
                     RowSpacing="0">
 
 
@@ -70,6 +70,7 @@
                         FontAttributes="Bold"
                         FontSize="30"
                         HorizontalOptions="Center"
+                        Text="{Binding Title}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow
@@ -79,44 +80,56 @@
                         </Label.Shadow>
                     </Label>
 
-                    <Label
-                        x:Name="movieYear"
-                        Grid.Row="2"
-                        Margin="0,0,0,0"
-                        FontAttributes="Bold"
-                        FontSize="20"
-                        HorizontalOptions="Center"
-                        TextColor="White">
-                        <Label.Shadow>
-                            <Shadow
-                                Brush="Black"
-                                Radius="3"
-                                Offset="3,1" />
-                        </Label.Shadow>
-                    </Label>
+
+
+                    <Grid
+                        Grid.Row="3"
+                        VerticalOptions="Center"
+                        WidthRequest="420">
+
+                        <Label
+                            x:Name="movieYear"
+                            Grid.Row="2"
+                            Padding="0,0,30,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="End"
+                            Text="{Binding Year}"
+                            TextColor="White">
+                            <Label.Shadow>
+                                <Shadow
+                                    Brush="Black"
+                                    Radius="3"
+                                    Offset="3,1" />
+                            </Label.Shadow>
+                        </Label>
+
+
+                        <Label
+                            x:Name="movieRuntime"
+                            Grid.Row="4"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Start"
+                            TextColor="White">
+                            <Label.Shadow>
+                                <Shadow
+                                    Brush="Black"
+                                    Radius="3"
+                                    Offset="3,1" />
+                            </Label.Shadow>
+                        </Label>
+
+
+                    </Grid>
 
                     <Label
                         x:Name="imdbScore"
-                        Grid.Row="3"
-                        FontAttributes="Bold"
-                        FontSize="20"
-                        HorizontalOptions="Center"
-                        TextColor="White">
-                        <Label.Shadow>
-                            <Shadow
-                                Brush="Black"
-                                Radius="3"
-                                Offset="3,1" />
-                        </Label.Shadow>
-
-                    </Label>
-
-                    <Label
-                        x:Name="movieRuntime"
                         Grid.Row="4"
                         FontAttributes="Bold"
                         FontSize="20"
                         HorizontalOptions="Center"
+                        Text="{Binding imdbRating}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow
@@ -124,7 +137,9 @@
                                 Radius="3"
                                 Offset="3,1" />
                         </Label.Shadow>
+
                     </Label>
+
 
                     <Image
                         x:Name="movieImage"
@@ -132,6 +147,7 @@
                         BackgroundColor="Transparent"
                         HeightRequest="400"
                         HorizontalOptions="Center"
+                        Source="{Binding Poster}"
                         WidthRequest="400">
                         <Image.Shadow>
                             <Shadow
@@ -143,10 +159,48 @@
                     </Image>
 
 
-                    <Label
+                    <CollectionView
+                        x:Name="GenresCollectionView"
                         Grid.Row="6"
+                        Margin="20"
+                        HorizontalOptions="Center"
+                        SelectionMode="Single">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="1" Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Margin="0"
+                                    Padding="2"
+                                    BackgroundColor="Transparent"
+                                    CornerRadius="10"
+                                    WidthRequest="120">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding .}"
+                                        TextColor="White"
+                                        VerticalOptions="Center">
+                                        <Label.Shadow>
+                                            <Shadow
+                                                Brush="Black"
+                                                Radius="3"
+                                                Offset="3,1" />
+                                        </Label.Shadow>
+                                    </Label>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+
+                    <Label
+                        Grid.Row="7"
                         FontAttributes="Bold"
-                        FontSize="20"
+                        FontSize="15"
                         HorizontalOptions="Center"
                         Text="Director"
                         TextColor="White">
@@ -161,10 +215,11 @@
 
                     <Label
                         x:Name="movieDirector"
-                        Grid.Row="7"
+                        Grid.Row="8"
                         FontAttributes="Bold"
-                        FontSize="20"
+                        FontSize="15"
                         HorizontalOptions="Center"
+                        Text="{Binding Director}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow
@@ -177,33 +232,49 @@
 
 
 
-                    <CollectionView
-                        x:Name="GenresCollectionView"
-                        Grid.Row="8"
+
+                    <Label
+                        Grid.Row="9"
+                        Padding="0,20,0,5"
+                        FontAttributes="Bold"
+                        FontSize="14"
                         HorizontalOptions="Center"
-                        SelectionMode="Single"
-                        Margin="20">
+                        LineBreakMode="WordWrap"
+                        Text="Actors"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <CollectionView
+                        x:Name="ActorsCollectionView"
+                        Grid.Row="10"
+                        HorizontalOptions="Start">
 
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout ItemSpacing="1" Orientation="Horizontal" />
+                            <LinearItemsLayout ItemSpacing="1" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Frame
                                     Margin="0"
-                                    Padding="2"
-                                    BackgroundColor="LightGray"
+                                    Padding="10"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="White"
                                     CornerRadius="10"
-                                    WidthRequest="120"
->
+                                    WidthRequest="170">
                                     <Label
-
+                                        FontAttributes="Bold"
+                                        FontSize="12"
                                         HorizontalOptions="Center"
                                         Text="{Binding .}"
-                                        VerticalOptions="Center"
-                                        FontAttributes="Bold"
-                                        TextColor="White">
+                                        TextColor="White"
+                                        VerticalOptions="Center">
                                         <Label.Shadow>
                                             <Shadow
                                                 Brush="Black"
@@ -217,8 +288,10 @@
                     </CollectionView>
 
 
+
+
                     <Frame
-                        Grid.Row="9"
+                        Grid.Row="11"
                         BackgroundColor="Transparent"
                         HasShadow="True"
                         WidthRequest="300">
@@ -228,6 +301,7 @@
                             FontAttributes="Bold"
                             FontSize="16"
                             LineBreakMode="WordWrap"
+                            Text="{Binding Plot}"
                             TextColor="White">
                             <Label.Shadow>
                                 <Shadow
@@ -241,7 +315,7 @@
 
                     <StackLayout
                         x:Name="checkboxSeenMovie"
-                        Grid.Row="10"
+                        Grid.Row="12"
                         HorizontalOptions="Center"
                         IsVisible="True"
                         Orientation="Horizontal">
@@ -263,7 +337,7 @@
 
                     <Grid
                         x:Name="movieSeenGrid"
-                        Grid.Row="11"
+                        Grid.Row="13"
                         HorizontalOptions="Center"
                         IsVisible="False"
                         RowDefinitions="Auto,Auto,10,200,50">
@@ -296,7 +370,8 @@
                                 MinimumTrackColor="Black"
                                 ThumbColor="Black"
                                 ValueChanged="OnSliderValueChanged"
-                                WidthRequest="180" />
+                                WidthRequest="180"
+                                Value="{Binding Userdata.UserRating}" />
 
 
                         </Grid>
@@ -309,6 +384,7 @@
                             Background="DarkGrey"
                             FontAttributes="Bold"
                             Placeholder="Enter Review..."
+                            Text="{Binding Userdata.UserReview}"
                             WidthRequest="400" />
 
 
@@ -320,6 +396,7 @@
                             <CheckBox
                                 x:Name="SeeAgain"
                                 HorizontalOptions="Center"
+                                IsChecked="{Binding UserData.SeeAgain}"
                                 Color="Black" />
 
                             <Label
@@ -337,7 +414,7 @@
 
                     <Button
                         x:Name="whatSafe"
-                        Grid.Row="12"
+                        Grid.Row="14"
                         BackgroundColor="Black"
                         Clicked="AddMovieBox"
                         FontAttributes="Bold"

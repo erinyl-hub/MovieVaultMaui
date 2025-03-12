@@ -60,12 +60,12 @@
                             BackgroundColor="DimGrey"
                             BorderColor="DarkGray"
                             BorderWidth="3"
-                            HeightRequest="45"
-                            Text="Watch Later"
-                            HorizontalOptions="Center"
                             FontAttributes="Bold"
-                            WidthRequest="150" 
-                            Pressed="InWatchLaterClicked"/>
+                            HeightRequest="45"
+                            HorizontalOptions="Center"
+                            Pressed="InWatchLaterClicked"
+                            Text="Watch Later"
+                            WidthRequest="150" />
 
 
                         <Button
@@ -73,12 +73,12 @@
                             BackgroundColor="DimGrey"
                             BorderColor="DarkGray"
                             BorderWidth="3"
+                            FontAttributes="Bold"
                             HeightRequest="45"
                             HorizontalOptions="Center"
-                            FontAttributes="Bold"
+                            Pressed="InSeenMoviesClicked"
                             Text="Seen Movies"
-                            WidthRequest="150"
-                            Pressed="InSeenMoviesClicked"/>
+                            WidthRequest="150" />
 
 
 

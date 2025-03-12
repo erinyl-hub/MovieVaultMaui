@@ -11,10 +11,13 @@ public partial class AddMoviePage : ContentPage
 
         InitializeComponent();
         UpdateConnectionStatus();
-        LoadMovie(movie);
+        BindingContext = movie;
+        _movie = movie;
         MovieIsInSafe();
 
-        GenresCollectionView.ItemsSource = Helpers.SplitGenres(movie.Genre);
+        movieRuntime.Text = ConvertRuneTime(movie.Runtime);
+        ActorsCollectionView.ItemsSource = Helpers.Spliter(movie.Actors);
+        GenresCollectionView.ItemsSource = Helpers.Spliter(movie.Genre);
 
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
@@ -30,15 +33,7 @@ public partial class AddMoviePage : ContentPage
         ConnectionImage.Source = isConnected ? "online.png" : "offline.png";
     }
 
-    private string ConvertRuneTime(string time)
-    {
-        int allTime = int.Parse(time.Replace(" min", ""));
-        int houers = allTime / 60;
-        int minutes = allTime % 60;
-        string convertedTime = $"{houers}h {minutes}m";
 
-        return convertedTime;
-    }
 
     private void MovieHasBeenSeenBox(object sender, CheckedChangedEventArgs e)
     {
@@ -46,17 +41,6 @@ public partial class AddMoviePage : ContentPage
         whatSafe.Text = e.Value ? "Watched movie" : "Watch later";
     }
 
-    private void LoadMovie(Models.Movie movie)
-    {
-        _movie = movie;
-        movieImage.Source = _movie.Poster;
-        movieName.Text = _movie.Title;
-        imdbScore.Text = "Rating: " + _movie.imdbRating + "/10";
-        movieYear.Text = "Year: " + _movie.Year;
-        movieRuntime.Text = ConvertRuneTime(_movie.Runtime);
-        movieDirector.Text = _movie.Director;
-        moviePlot.Text = _movie.Plot;
-    }
 
     private void AddMovieBox(object sender, EventArgs e)
     {
@@ -102,5 +86,13 @@ public partial class AddMoviePage : ContentPage
         sliderValueLabel.Text = e.NewValue.ToString("0.0");
     }
 
+    public static string ConvertRuneTime(string time)
+    {
+        int allTime = int.Parse(time.Replace(" min", ""));
+        int houers = allTime / 60;
+        int minutes = allTime % 60;
+        string convertedTime = $"{houers}h {minutes}m";
 
+        return convertedTime;
+    }
 }

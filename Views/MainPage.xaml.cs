@@ -10,7 +10,7 @@ namespace MovieVaultMaui
 
             UpdateConnectionStatus();
 
-            Managers.DataManager.LoadDataFromDbAsync();
+            DataManager.LoadDataFromDbAsync();
 
             Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
         }

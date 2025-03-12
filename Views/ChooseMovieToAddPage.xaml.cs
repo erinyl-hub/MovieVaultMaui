@@ -43,6 +43,7 @@ public partial class ChooseMovieToAddPage : ContentPage
             }
             else
             {
+
                 await Navigation.PushAsync(new AddMoviePage(movie));
 
             }
@@ -64,4 +65,6 @@ public partial class ChooseMovieToAddPage : ContentPage
 
         else{ return null; }
     }
+
+
 }
