@@ -38,7 +38,7 @@ namespace MovieVaultMaui.Managers
             return client;
         }
 
-        public async static Task<IMongoCollection<Models.Movie>> ConnectToDb(MovieLibraryType libraryType)
+        public  static IMongoCollection<Models.Movie> ConnectToDb(MovieLibraryType libraryType)
         {
             var client = GetClient();
 
@@ -61,12 +61,12 @@ namespace MovieVaultMaui.Managers
             //{
               
                     //var moviesToSeeData = await ConnectToDb(MovieLibraryType.MoviesToSee).AsQueryable().ToListAsync();
-                    var seenMoviesData = await ConnectToDb(MovieLibraryType.SeenMovies).ToListAsync();
+                    var seenMoviesData = await ConnectToDb(MovieLibraryType.SeenMovies).AsQueryable().ToListAsync();
 
-                    
-                    
-                        //_moviesToSee = moviesToSeeData;
-                        _seenMovies = seenMoviesData;
+
+
+            //_moviesToSee = moviesToSeeData;
+            _seenMovies = seenMoviesData;
                         DataLoaded = true;
                         //break;
                     
