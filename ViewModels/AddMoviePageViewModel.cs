@@ -12,24 +12,24 @@ namespace MovieVaultMaui.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        private Models.UserInfoOnMovie _userInfo;
+        private Models.Movie _movie;
         
-        public Models.UserInfoOnMovie UserInfo
+        public Models.Movie Movie
         {
-            get => _userInfo;
+            get => _movie;
             set
             {
-                if (_userInfo != value)
+                if (_movie != value)
                 {
-                    _userInfo = value;
-                    OnPropertyChanged(nameof(UserInfo));
+                    _movie = value;
+                    OnPropertyChanged(nameof(Movie));
                 }
             }
         }
 
-        public AddMoviePageViewModel()
+        public AddMoviePageViewModel(Models.Movie movie)
         {
-            UserInfo = new Models.UserInfoOnMovie();
+            Movie = movie;
         }
 
 

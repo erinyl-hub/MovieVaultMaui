@@ -70,7 +70,7 @@
                         FontAttributes="Bold"
                         FontSize="30"
                         HorizontalOptions="Center"
-                        Text="{Binding Title}"
+                        Text="{Binding Movie.Title}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow
@@ -94,7 +94,7 @@
                             FontAttributes="Bold"
                             FontSize="20"
                             HorizontalOptions="End"
-                            Text="{Binding Year}"
+                            Text="{Binding Movie.Year}"
                             TextColor="White">
                             <Label.Shadow>
                                 <Shadow
@@ -129,7 +129,7 @@
                         FontAttributes="Bold"
                         FontSize="20"
                         HorizontalOptions="Center"
-                        Text="{Binding imdbRating}"
+                        Text="{Binding Movie.imdbRating}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow
@@ -147,7 +147,7 @@
                         BackgroundColor="Transparent"
                         HeightRequest="400"
                         HorizontalOptions="Center"
-                        Source="{Binding Poster}"
+                        Source="{Binding Movie.Poster}"
                         WidthRequest="400">
                         <Image.Shadow>
                             <Shadow
@@ -219,7 +219,7 @@
                         FontAttributes="Bold"
                         FontSize="15"
                         HorizontalOptions="Center"
-                        Text="{Binding Director}"
+                        Text="{Binding Movie.Director}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow
@@ -301,7 +301,7 @@
                             FontAttributes="Bold"
                             FontSize="16"
                             LineBreakMode="WordWrap"
-                            Text="{Binding Plot}"
+                            Text="{Binding Movie.Plot}"
                             TextColor="White">
                             <Label.Shadow>
                                 <Shadow
@@ -354,7 +354,7 @@
                             RowDefinitions="Auto, Auto">
 
                             <Label
-                                x:Name="sliderValueLabel"
+                                x:Name="ratingSliderLabel"
                                 Grid.Row="0"
                                 FontAttributes="Bold"
                                 FontSize="20"
@@ -362,7 +362,7 @@
                                 Text="1.0" />
 
                             <Slider
-                                x:Name="valueSlider"
+                                x:Name="ratingSlider"
                                 Grid.Row="1"
                                 Maximum="10"
                                 MaximumTrackColor="DarkGrey"
@@ -371,7 +371,7 @@
                                 ThumbColor="Black"
                                 ValueChanged="OnSliderValueChanged"
                                 WidthRequest="180"
-                                Value="{Binding Userdata.UserRating}" />
+                                Value="{Binding Movie.Userdata.UserRating}" />
 
 
                         </Grid>
@@ -384,7 +384,7 @@
                             Background="DarkGrey"
                             FontAttributes="Bold"
                             Placeholder="Enter Review..."
-                            Text="{Binding Userdata.UserReview}"
+                            Text="{Binding Movie.Userdata.UserReview}"
                             WidthRequest="400" />
 
 
@@ -396,7 +396,7 @@
                             <CheckBox
                                 x:Name="SeeAgain"
                                 HorizontalOptions="Center"
-                                IsChecked="{Binding UserData.SeeAgain}"
+                                IsChecked="{Binding Movie.UserData.SeeAgain}"
                                 Color="Black" />
 
                             <Label

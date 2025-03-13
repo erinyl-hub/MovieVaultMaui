@@ -36,7 +36,104 @@
 
             <ScrollView>
 
-                <Grid Background="Transparent" RowDefinitions="Auto,Auto,Auto,Auto, Auto, Auto, Auto, Auto,Auto,Auto,30,Auto,Auto ,100">
+                <Grid Background="Transparent" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto,Auto,Auto,Auto,Auto,Auto ,100">
+
+
+
+
+                    <Grid
+                        x:Name="JustSeenView"
+                        Grid.Row="0"
+                        VerticalOptions="Center"
+                        WidthRequest="300">
+
+                        <Grid
+                            HorizontalOptions="Start"
+                            RowDefinitions="Auto, Auto"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Grid.Row="0"
+                                Padding="0"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HorizontalOptions="Center"
+                                Text="Last Seen"
+                                TextColor="White">
+                                <Label.Shadow>
+                                    <Shadow
+                                        Brush="Black"
+                                        Radius="3"
+                                        Offset="3,1" />
+                                </Label.Shadow>
+                            </Label>
+
+
+                            <Label
+                                Grid.Row="1"
+                                Padding="0"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HorizontalOptions="Center"
+                                Text="{Binding UserData.LastTimeSeen, StringFormat='{0:yyyy-MM-dd}'}"
+                                TextColor="White">
+                                <Label.Shadow>
+                                    <Shadow
+                                        Brush="Black"
+                                        Radius="3"
+                                        Offset="3,1" />
+                                </Label.Shadow>
+                            </Label>
+                        </Grid>
+
+                        <ImageButton
+                            Background="Transparent"
+                            Clicked="movieJustSeen"
+                            HeightRequest="60"
+                            HorizontalOptions="Center"
+                            Source="movieticket.png"
+                            VerticalOptions="Center"
+                            WidthRequest="60" />
+
+                        <Grid
+                            HorizontalOptions="End"
+                            RowDefinitions="Auto, Auto"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Grid.Row="0"
+                                Padding="0"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                Text="Times Seen"
+                                TextColor="White">
+                                <Label.Shadow>
+                                    <Shadow
+                                        Brush="Black"
+                                        Radius="3"
+                                        Offset="3,1" />
+                                </Label.Shadow>
+                            </Label>
+
+
+                            <Label
+                                Grid.Row="1"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HorizontalOptions="Center"
+                                Text="{Binding UserData.AmountTimeSeen}"
+                                TextColor="White">
+                                <Label.Shadow>
+                                    <Shadow
+                                        Brush="Black"
+                                        Radius="3"
+                                        Offset="3,1" />
+                                </Label.Shadow>
+                            </Label>
+                        </Grid>
+
+
+                    </Grid>
 
                     <Label
                         Grid.Row="0"
@@ -89,7 +186,26 @@
                     </Label>
 
                     <Label
+                        x:Name="UserRatingView"
                         Grid.Row="2"
+                        Padding="10"
+                        Background="Transparent"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        IsVisible="True"
+                        Text="{Binding UserData.UserRating, StringFormat='Your Rating: {0}'}"
+                        TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <Label
+                        Grid.Row="3"
                         Padding="20"
                         Background="Transparent"
                         FontAttributes="Bold"
@@ -106,7 +222,7 @@
                     </Label>
 
                     <Image
-                        Grid.Row="3"
+                        Grid.Row="4"
                         BackgroundColor="Transparent"
                         HeightRequest="350"
                         HorizontalOptions="Center"
@@ -123,7 +239,7 @@
 
                     <CollectionView
                         x:Name="GenresCollectionView"
-                        Grid.Row="4"
+                        Grid.Row="5"
                         Margin="25"
                         HorizontalOptions="Center"
                         SelectionMode="Single">
@@ -160,7 +276,7 @@
                     </CollectionView>
 
                     <Frame
-                        Grid.Row="5"
+                        Grid.Row="6"
                         BackgroundColor="Transparent"
                         HasShadow="True"
                         WidthRequest="300">
@@ -181,7 +297,7 @@
                     </Frame>
 
                     <Label
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Padding="10"
                         FontAttributes="Bold"
                         FontSize="14"
@@ -198,7 +314,7 @@
                     </Label>
 
                     <Frame
-                        Grid.Row="7"
+                        Grid.Row="8"
                         Margin="0"
                         Padding="10"
                         BackgroundColor="Transparent"
@@ -229,7 +345,7 @@
 
 
                     <Label
-                        Grid.Row="8"
+                        Grid.Row="9"
                         Padding="10"
                         FontAttributes="Bold"
                         FontSize="14"
@@ -247,7 +363,7 @@
 
                     <CollectionView
                         x:Name="ActorsCollectionView"
-                        Grid.Row="9"
+                        Grid.Row="10"
                         HorizontalOptions="Start"
                         SelectionMode="Single">
 
@@ -285,10 +401,69 @@
 
 
 
+
                     <Grid
-                        x:Name="movieSeenGrid"
+                        x:Name="userInfoOnMovieView"
+                        Grid.Row="12"
+                        HorizontalOptions="Center"
+                        IsVisible="True"
+                        RowDefinitions="Auto,Auto,Auto,Auto">
+
+
+                        <Label
+                            Grid.Row="0"
+                            Padding="10"
+                            Background="Transparent"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalOptions="Center"
+                            Text="Your Review"
+                            TextColor="White">
+                            <Label.Shadow>
+                                <Shadow
+                                    Brush="Black"
+                                    Radius="3"
+                                    Offset="3,1" />
+                            </Label.Shadow>
+                        </Label>
+
+
+
+
+
+                        <Frame
+                            Grid.Row="2"
+                            BackgroundColor="Transparent"
+                            HasShadow="True"
+                            WidthRequest="300">
+
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                LineBreakMode="WordWrap"
+                                Text="{Binding UserData.UserReview}"
+                                TextColor="White">
+                                <Label.Shadow>
+                                    <Shadow
+                                        Brush="Black"
+                                        Radius="6"
+                                        Offset="1,2" />
+                                </Label.Shadow>
+                            </Label>
+                        </Frame>
+
+
+
+
+
+                    </Grid>
+
+
+                    <Grid
+                        x:Name="userInfoOnMovieEditor"
                         Grid.Row="11"
                         HorizontalOptions="Center"
+                        IsVisible="False"
                         RowDefinitions="Auto,Auto,10,200,50">
 
                         <Label
@@ -303,7 +478,7 @@
                             RowDefinitions="Auto, Auto">
 
                             <Label
-                                x:Name="sliderValueLabel"
+                                x:Name="ratingValueLabel"
                                 Grid.Row="0"
                                 FontAttributes="Bold"
                                 FontSize="20"
@@ -311,7 +486,7 @@
                                 Text="1.0" />
 
                             <Slider
-                                x:Name="valueSlider"
+                                x:Name="ratingValueSlider"
                                 Grid.Row="1"
                                 Maximum="10"
                                 MaximumTrackColor="DarkGrey"
@@ -356,7 +531,7 @@
 
                     <Button
                         x:Name="whatSafe"
-                        Grid.Row="12"
+                        Grid.Row="13"
                         BackgroundColor="Black"
                         Clicked="AddToSeenMovies"
                         FontAttributes="Bold"

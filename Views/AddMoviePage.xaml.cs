@@ -1,4 +1,6 @@
 using MovieVaultMaui.Models;
+using MovieVaultMaui.ViewModels;
+using System.Globalization;
 
 namespace MovieVaultMaui;
 
@@ -7,16 +9,14 @@ public partial class AddMoviePage : ContentPage
     private Models.Movie _movie;
     public AddMoviePage(Models.Movie movie)
     {
-
-
         InitializeComponent();
         UpdateConnectionStatus();
-        MovieIsInSafe();
+        
 
         _movie = movie;
-        BindingContext = _movie;
-        BindingContext = new ViewModels.AddMoviePageViewModel();
+        BindingContext = new ViewModels.AddMoviePageViewModel(movie);
 
+        MovieIsInSafe();
         movieRuntime.Text = ConvertRuneTime(movie.Runtime);
         ActorsCollectionView.ItemsSource = Helpers.Spliter(movie.Actors);
         GenresCollectionView.ItemsSource = Helpers.Spliter(movie.Genre);
@@ -49,11 +49,7 @@ public partial class AddMoviePage : ContentPage
         
         if (myCheckBox.IsChecked)
         {
-            //_movie.UserData.UserRating = valueSlider.Value;
-            //_movie.UserData.SeeAgain = SeeAgain.IsChecked;
-            //_movie.UserData.UserReview = userReviewEditor.Text;
-            _movie.UserData.AmountTimeSeen = 1;
-            _movie.UserData.LastTimeSeen = DateTime.Now;
+            _movie.UserData = CreateUserInfoOnMovie();
             _movie.MovieRegisterdTime = DateTime.Now;
 
             Managers.DataManager.ConnectToDb(Enums.MovieLibraryType.SeenMovies).InsertOne(_movie);
@@ -83,10 +79,10 @@ public partial class AddMoviePage : ContentPage
 
     private void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
     {
-        sliderValueLabel.Text = e.NewValue.ToString("0.0");
+        ratingSliderLabel.Text = e.NewValue.ToString("0.0");
     }
 
-    public static string ConvertRuneTime(string time)
+    private string ConvertRuneTime(string time)
     {
         int allTime = int.Parse(time.Replace(" min", ""));
         int houers = allTime / 60;
@@ -94,5 +90,18 @@ public partial class AddMoviePage : ContentPage
         string convertedTime = $"{houers}h {minutes}m";
 
         return convertedTime;
+    }
+
+    private Models.UserInfoOnMovie CreateUserInfoOnMovie()
+    {
+        Models.UserInfoOnMovie userInfoOnMovie = new Models.UserInfoOnMovie();
+
+        userInfoOnMovie.UserRating = double.Parse(ratingSliderLabel.Text, CultureInfo.InvariantCulture);
+        userInfoOnMovie.SeeAgain = SeeAgain.IsChecked;
+        userInfoOnMovie.UserReview = userReviewEditor.Text;
+        userInfoOnMovie.AmountTimeSeen = 1;
+        userInfoOnMovie.LastTimeSeen = DateTime.Now;
+
+        return userInfoOnMovie;
     }
 }

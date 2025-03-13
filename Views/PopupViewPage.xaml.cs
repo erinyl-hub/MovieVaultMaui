@@ -30,12 +30,17 @@ public partial class PopupViewPage : ContentPage
 
     private void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
     {
-        sliderValueLabel.Text = e.NewValue.ToString("0.0");
+        ratingValueLabel.Text = e.NewValue.ToString("0.0");
     }
 
     private void AddToSeenMovies(object sender, EventArgs e)
     {
 
+
+    }
+
+    private void movieJustSeen(object sender, EventArgs e)
+    {
 
     }
 }
