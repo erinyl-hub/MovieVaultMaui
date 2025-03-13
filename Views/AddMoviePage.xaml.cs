@@ -11,9 +11,11 @@ public partial class AddMoviePage : ContentPage
 
         InitializeComponent();
         UpdateConnectionStatus();
-        BindingContext = movie;
-        _movie = movie;
         MovieIsInSafe();
+
+        _movie = movie;
+        BindingContext = _movie;
+        BindingContext = new ViewModels.AddMoviePageViewModel();
 
         movieRuntime.Text = ConvertRuneTime(movie.Runtime);
         ActorsCollectionView.ItemsSource = Helpers.Spliter(movie.Actors);
@@ -45,13 +47,11 @@ public partial class AddMoviePage : ContentPage
     private void AddMovieBox(object sender, EventArgs e)
     {
         
-        
-
         if (myCheckBox.IsChecked)
         {
-            _movie.UserData.UserRating = valueSlider.Value;
-            _movie.UserData.SeeAgain = SeeAgain.IsChecked;
-            _movie.UserData.UserReview = userReviewEditor.Text;
+            //_movie.UserData.UserRating = valueSlider.Value;
+            //_movie.UserData.SeeAgain = SeeAgain.IsChecked;
+            //_movie.UserData.UserReview = userReviewEditor.Text;
             _movie.UserData.AmountTimeSeen = 1;
             _movie.UserData.LastTimeSeen = DateTime.Now;
             _movie.MovieRegisterdTime = DateTime.Now;

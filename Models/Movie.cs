@@ -1,13 +1,18 @@
 ﻿
 
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MovieVaultMaui.Models
 {
 
     public class Movie
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.String)]
+        [BsonGuidRepresentation(GuidRepresentation.Standard)]
+
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Title { get; set; }
         public string Year { get; set; }
         public string Rated { get; set; }
@@ -21,7 +26,7 @@ namespace MovieVaultMaui.Models
         public string imdbRating { get; set; }
         public string imdbID { get; set; }
 
-        public UserInfoOnMovie UserData { get; set; } = new UserInfoOnMovie();
+        public UserInfoOnMovie? UserData { get; set; }
         public DateTime MovieRegisterdTime { get; set; }
 
     }

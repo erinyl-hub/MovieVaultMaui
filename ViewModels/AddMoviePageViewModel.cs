@@ -1,38 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MovieVaultMaui.ViewModels
 {
-    class AddMoviePageViewModel
+    class AddMoviePageViewModel : INotifyPropertyChanged
     {
-        public Models.Movie Movie { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        //public AddMoviePageViewModel(Models.Movie movie)
-        //{
-        //    Movie = new Models.Movie();
 
-        //    Movie.Id = movie.Id;
-        //    Movie.Title = movie.Title;
-        //    Movie.Year = movie.Year;
-        //    Movie.Rated = movie.Rated;
-        //    Movie.Runtime = Helpers.ConvertRuneTime(movie.Runtime);
-        //    Movie.Genre = movie.Genre;
-        //    Movie.Director = movie.Director;
-        //    Movie.Writer = movie.Writer;
-        //    Movie.Actors = movie.Actors;
-        //    Movie.Plot = movie.Plot;
-        //    Movie.Poster = movie.Poster;
-        //    Movie.imdbRating = movie.imdbRating;
-        //    Movie.imdbID = movie.imdbID;
-        //    Movie.Response = movie.Response;
-        //    Movie.UserData = movie.UserData;
-        //    Movie.MovieRegisterdTime = movie.MovieRegisterdTime;
+        private Models.UserInfoOnMovie _userInfo;
+        
+        public Models.UserInfoOnMovie UserInfo
+        {
+            get => _userInfo;
+            set
+            {
+                if (_userInfo != value)
+                {
+                    _userInfo = value;
+                    OnPropertyChanged(nameof(UserInfo));
+                }
+            }
+        }
 
-        //}
-            
+        public AddMoviePageViewModel()
+        {
+            UserInfo = new Models.UserInfoOnMovie();
+        }
+
+
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
     }
 }
  

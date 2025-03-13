@@ -6,7 +6,7 @@ public partial class PopupViewPage : ContentPage
 	{
 		InitializeComponent();
         BindingContext = movie;
-        //MovieLength.Text = ConvertRuneTime(movie.Runtime);
+        MovieLength.Text = ConvertRuneTime(movie.Runtime);
         GenresCollectionView.ItemsSource = Helpers.Spliter(movie.Genre);
         ActorsCollectionView.ItemsSource = Helpers.Spliter(movie.Actors);
 
