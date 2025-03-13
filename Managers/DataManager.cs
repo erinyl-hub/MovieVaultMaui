@@ -54,24 +54,22 @@ namespace MovieVaultMaui.Managers
             return database.GetCollection<Models.Movie>(collectionName);
         }
 
-        public async static Task LoadDataFromDbAsync()
+        public static void LoadDataFromDbAsync()
         {
             int delay = 2000;
-            //while (true)
-            //{
+           
               
-                    //var moviesToSeeData = await ConnectToDb(MovieLibraryType.MoviesToSee).AsQueryable().ToListAsync();
-                    var seenMoviesData = await ConnectToDb(MovieLibraryType.SeenMovies).AsQueryable().ToListAsync();
+                    var moviesToSeeData = ConnectToDb(MovieLibraryType.MoviesToSee).AsQueryable().ToList();
+                    var seenMoviesData =  ConnectToDb(MovieLibraryType.SeenMovies).AsQueryable().ToList();
 
 
 
-            //_moviesToSee = moviesToSeeData;
+            _moviesToSee = moviesToSeeData;
             _seenMovies = seenMoviesData;
                         DataLoaded = true;
-                        //break;
+                        
                     
-              
-            //}
+           
         }
 
         public async static Task AddMovieToList(Models.Movie movie, MovieListType listName)

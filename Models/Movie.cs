@@ -1,10 +1,13 @@
 ﻿
 
+using MongoDB.Bson;
+
 namespace MovieVaultMaui.Models
 {
 
     public class Movie
     {
+        public ObjectId Id { get; set; }
         public string Title { get; set; }
         public string Year { get; set; }
         public string Rated { get; set; }
