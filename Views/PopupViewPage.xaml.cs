@@ -1,14 +1,19 @@
 namespace MovieVaultMaui.Views;
+using MovieVaultMaui.Enums;
+using System.Globalization;
 
 public partial class PopupViewPage : ContentPage
 {
-	public PopupViewPage(Models.Movie movie)
-	{
-		InitializeComponent();
-        BindingContext = movie;
-        MovieLength.Text = ConvertRuneTime(movie.Runtime);
-        GenresCollectionView.ItemsSource = Helpers.Spliter(movie.Genre);
-        ActorsCollectionView.ItemsSource = Helpers.Spliter(movie.Actors);
+    private Models.Movie _movie;
+    public PopupViewPage(Models.Movie movie, PopupViewPageSettingsType pageSettings)
+    {
+        InitializeComponent();
+        BindingContext = new ViewModels.AddMoviePageViewModel(movie);
+        _movie = movie;
+        MovieLength.Text = ConvertRuneTime(_movie.Runtime);
+        GenresCollectionView.ItemsSource = Helpers.Spliter(_movie.Genre);
+        ActorsCollectionView.ItemsSource = Helpers.Spliter(_movie.Actors);
+        AdjustPage(pageSettings);
 
     }
 
@@ -33,14 +38,49 @@ public partial class PopupViewPage : ContentPage
         ratingValueLabel.Text = e.NewValue.ToString("0.0");
     }
 
-    private void AddToSeenMovies(object sender, EventArgs e)
+    private async void AddToSeenMovies(object sender, EventArgs e)
     {
+        _movie.UserData = CreateUserInfoOnMovie();
+        Managers.DataManager.MoveMovieLibrary(_movie);
+        await Navigation.PopModalAsync();
+        MessagingCenter.Send(this, "UppdateView", _movie);
+    }
 
+    private void MovieJustSeen(object sender, EventArgs e)
+    {
 
     }
 
-    private void movieJustSeen(object sender, EventArgs e)
+    private void AdjustPage(PopupViewPageSettingsType settings)
     {
 
+        switch (settings)
+        {
+            case PopupViewPageSettingsType.SeenMoviePageSettings:
+                JustSeenView.IsVisible = true;
+                UserRatingView.IsVisible = true;
+                userInfoOnMovieView.IsVisible = true;
+                break;
+
+            case PopupViewPageSettingsType.WatchLaterPageSettings:
+
+                userInfoOnMovieEditor.IsVisible = true;
+               break;
+
+        }
+
+    }
+
+    private Models.UserInfoOnMovie CreateUserInfoOnMovie()
+    {
+        Models.UserInfoOnMovie userInfoOnMovie = new Models.UserInfoOnMovie();
+
+        userInfoOnMovie.UserRating = double.Parse(ratingValueLabel.Text, CultureInfo.InvariantCulture);
+        userInfoOnMovie.SeeAgain = SeeAgain.IsChecked;
+        userInfoOnMovie.UserReview = userReviewEditor.Text;
+        userInfoOnMovie.AmountTimeSeen = 1;
+        userInfoOnMovie.LastTimeSeen = DateTime.Now;
+
+        return userInfoOnMovie;
     }
 }

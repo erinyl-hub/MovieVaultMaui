@@ -7,11 +7,36 @@ using System.Threading.Tasks;
 
 namespace MovieVaultMaui.ViewModels
 {
-    class PopupViewPageModel 
+    class PopupViewPageModel : INotifyPropertyChanged
     {
-        
 
-        public Models.Movie _movie;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        private Models.Movie _movie;
+
+        public Models.Movie Movie
+        {
+            get => _movie;
+            set
+            {
+                if (_movie != value)
+                {
+                    _movie = value;
+                    OnPropertyChanged(nameof(Movie));
+                }
+            }
+        }
+
+        public PopupViewPageModel(Models.Movie movie)
+        {
+            Movie = movie;
+        }
+
+
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
 

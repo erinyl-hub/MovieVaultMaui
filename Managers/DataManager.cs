@@ -38,7 +38,7 @@ namespace MovieVaultMaui.Managers
             return client;
         }
 
-        public  static IMongoCollection<Models.Movie> ConnectToDb(MovieLibraryType libraryType)
+        public static IMongoCollection<Models.Movie> ConnectToDb(MovieLibraryType libraryType)
         {
             var client = GetClient();
 
@@ -93,6 +93,23 @@ namespace MovieVaultMaui.Managers
                     _seenMovies.Add(movie);
                     break;
             }
+
+        }
+
+        public static void MoveMovieLibrary(Models.Movie movie)
+        {
+            ConnectToDb(Enums.MovieLibraryType.SeenMovies).InsertOne(movie);
+            RemoveMovieDb(movie);
+
+            _seenMovies.Add(movie);
+            Models.Movie movieToRemove = _moviesToSee.FirstOrDefault(m => m.Id == movie.Id);
+            _moviesToSee.Remove(movieToRemove);
+        }
+
+        public static void RemoveMovieDb(Models.Movie movie)
+        {
+            var filter = Builders<Models.Movie>.Filter.Eq(m => m.Id, movie.Id);
+            ConnectToDb(Enums.MovieLibraryType.MoviesToSee).DeleteOne(filter);
 
         }
 

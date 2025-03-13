@@ -36,7 +36,8 @@
 
             <ScrollView>
 
-                <Grid Background="Transparent" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto,Auto,Auto,Auto,Auto,Auto ,100">
+                <Grid Background="Transparent" 
+                      RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto,Auto,Auto,Auto,Auto,Auto, Auto,Auto ,100">
 
 
 
@@ -45,7 +46,8 @@
                         x:Name="JustSeenView"
                         Grid.Row="0"
                         VerticalOptions="Center"
-                        WidthRequest="300">
+                        WidthRequest="300"
+                        IsVisible="false">
 
                         <Grid
                             HorizontalOptions="Start"
@@ -75,7 +77,7 @@
                                 FontAttributes="Bold"
                                 FontSize="15"
                                 HorizontalOptions="Center"
-                                Text="{Binding UserData.LastTimeSeen, StringFormat='{0:yyyy-MM-dd}'}"
+                                Text="{Binding Movie.UserData.LastTimeSeen, StringFormat='{0:yyyy-MM-dd}'}"
                                 TextColor="White">
                                 <Label.Shadow>
                                     <Shadow
@@ -88,7 +90,7 @@
 
                         <ImageButton
                             Background="Transparent"
-                            Clicked="movieJustSeen"
+                            Clicked="MovieJustSeen"
                             HeightRequest="60"
                             HorizontalOptions="Center"
                             Source="movieticket.png"
@@ -121,7 +123,7 @@
                                 FontAttributes="Bold"
                                 FontSize="15"
                                 HorizontalOptions="Center"
-                                Text="{Binding UserData.AmountTimeSeen}"
+                                Text="{Binding Movie.UserData.AmountTimeSeen}"
                                 TextColor="White">
                                 <Label.Shadow>
                                     <Shadow
@@ -141,7 +143,7 @@
                         FontAttributes="Bold"
                         FontSize="20"
                         HorizontalOptions="End"
-                        Text="{Binding Year}"
+                        Text="{Binding Movie.Year}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow
@@ -158,7 +160,7 @@
                         FontAttributes="Bold"
                         FontSize="20"
                         HorizontalOptions="Start"
-                        Text="{Binding Runtime}"
+                        Text="{Binding Movie.Runtime}"
                         TextColor="White">
 
                         <Label.Shadow>
@@ -175,7 +177,7 @@
                         FontAttributes="Bold"
                         FontSize="25"
                         HorizontalOptions="Center"
-                        Text="{Binding Title}"
+                        Text="{Binding Movie.Title}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow
@@ -193,8 +195,8 @@
                         FontAttributes="Bold"
                         FontSize="18"
                         HorizontalOptions="Center"
-                        IsVisible="True"
-                        Text="{Binding UserData.UserRating, StringFormat='Your Rating: {0}'}"
+                        IsVisible="False"
+                        Text="{Binding Movie.UserData.UserRating, StringFormat='Your Rating: {0}'}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow
@@ -211,7 +213,7 @@
                         FontAttributes="Bold"
                         FontSize="20"
                         HorizontalOptions="Center"
-                        Text="{Binding imdbRating, StringFormat='Rating: {0}'}"
+                        Text="{Binding Movie.imdbRating, StringFormat='Rating: {0}'}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow
@@ -226,7 +228,7 @@
                         BackgroundColor="Transparent"
                         HeightRequest="350"
                         HorizontalOptions="Center"
-                        Source="{Binding Poster}"
+                        Source="{Binding Movie.Poster}"
                         WidthRequest="400">
                         <Image.Shadow>
                             <Shadow
@@ -285,7 +287,7 @@
                             FontAttributes="Bold"
                             FontSize="16"
                             LineBreakMode="WordWrap"
-                            Text="{Binding Plot}"
+                            Text="{Binding Movie.Plot}"
                             TextColor="White">
                             <Label.Shadow>
                                 <Shadow
@@ -329,7 +331,7 @@
                             FontAttributes="Bold"
                             FontSize="13"
                             HorizontalOptions="Center"
-                            Text="{Binding Director}"
+                            Text="{Binding Movie.Director}"
                             TextColor="White"
                             VerticalOptions="Center">
                             <Label.Shadow>
@@ -406,7 +408,7 @@
                         x:Name="userInfoOnMovieView"
                         Grid.Row="12"
                         HorizontalOptions="Center"
-                        IsVisible="True"
+                        IsVisible="false"
                         RowDefinitions="Auto,Auto,Auto,Auto">
 
 
@@ -428,9 +430,6 @@
                         </Label>
 
 
-
-
-
                         <Frame
                             Grid.Row="2"
                             BackgroundColor="Transparent"
@@ -441,7 +440,7 @@
                                 FontAttributes="Bold"
                                 FontSize="16"
                                 LineBreakMode="WordWrap"
-                                Text="{Binding UserData.UserReview}"
+                                Text="{Binding Movie.UserData.UserReview}"
                                 TextColor="White">
                                 <Label.Shadow>
                                     <Shadow
@@ -495,7 +494,7 @@
                                 ThumbColor="Black"
                                 ValueChanged="OnSliderValueChanged"
                                 WidthRequest="180"
-                                Value="{Binding UserData.UserRating}" />
+                                Value="{Binding Movie.UserData.UserRating}" />
                         </Grid>
 
 
@@ -506,7 +505,7 @@
                             Background="DarkGrey"
                             FontAttributes="Bold"
                             Placeholder="Enter Review..."
-                            Text="{Binding UserData.UserReview}"
+                            Text="{Binding Movie.UserData.UserReview}"
                             WidthRequest="400" />
 
 
@@ -518,7 +517,7 @@
                             <CheckBox
                                 x:Name="SeeAgain"
                                 HorizontalOptions="Center"
-                                IsChecked="{Binding UserData.SeeAgain}"
+                                IsChecked="{Binding Movie.UserData.SeeAgain}"
                                 Color="Black" />
 
                             <Label
@@ -529,16 +528,43 @@
                         </StackLayout>
                     </Grid>
 
+                    <Grid
+                        x:Name="buttonView"
+                        RowDefinitions="Auto,Auto,Auto"
+                        HorizontalOptions="Center"
+                        Grid.Row="12">
+                        
+                    
                     <Button
-                        x:Name="whatSafe"
-                        Grid.Row="13"
+                        x:Name="addToSeenMoviesButton"
+                        Padding="10"
+                        Grid.Row="0"
                         BackgroundColor="Black"
                         Clicked="AddToSeenMovies"
                         FontAttributes="Bold"
                         HeightRequest="26"
                         HorizontalOptions="Center"
                         Text="Seen Movie"
-                        WidthRequest="200" />
+                        WidthRequest="200"
+                        IsVisible="True"/>
+
+                    </Grid>
+
+                    <Label
+                                Grid.Row="14"
+                                Padding="0"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HorizontalOptions="Center"
+                                Text="{Binding Movie.MovieRegisterdTime, StringFormat='Added to safe: {0:yyyy-MM-dd}'}"
+                                TextColor="White">
+                        <Label.Shadow>
+                            <Shadow
+                                        Brush="Black"
+                                        Radius="3"
+                                        Offset="3,1" />
+                        </Label.Shadow>
+                    </Label>
 
 
                 </Grid>

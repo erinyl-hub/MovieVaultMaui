@@ -1,8 +1,10 @@
 using MovieVaultMaui.Models;
 using MovieVaultMaui.Views;
+using MovieVaultMaui.Enums;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Collections;
 
 namespace MovieVaultMaui;
 
@@ -26,7 +28,11 @@ public partial class WatchLaterPage : ContentPage
         InitializeComponent();
         InitializePage();
 
-
+        MessagingCenter.Subscribe<PopupViewPage, Models.Movie>(this, "UppdateView", (sender, movie) =>
+        {
+            test(movie);
+            
+        });
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
 
@@ -43,7 +49,7 @@ public partial class WatchLaterPage : ContentPage
     {
         if (e.CurrentSelection.FirstOrDefault() is Movie selectedMovie)
         {
-            await Navigation.PushModalAsync(new PopupViewPage(selectedMovie));
+            await Navigation.PushModalAsync(new PopupViewPage(selectedMovie, PopupViewPageSettingsType.WatchLaterPageSettings));
             ((CollectionView)sender).SelectedItem = null;
         }
     }
@@ -147,6 +153,23 @@ public partial class WatchLaterPage : ContentPage
         GoBackwards.IsVisible = false;
         if (lastPage < 2) { GoForward.IsVisible = false; }
         else { GoForward.IsVisible = true; }
+    }
+
+    private void RemoveMovieDictionary(Models.Movie movie)
+    {
+        movieSearchDictionary.Remove(movie.Title);
+        movieSearchDictionary.Remove(movie.Director);
+        movieSearchDictionary.Remove(movie.Actors);
+        movieSearchDictionary.Remove(movie.Genre);
+        movieSearchDictionary.Remove(movie.imdbID);
+    }
+
+    private async Task test(Models.Movie movie)
+    {
+        RemoveMovieDictionary(movie);
+        await Task.Delay(5000);
+        UppdateMoviesViewed();
+
     }
 
 }

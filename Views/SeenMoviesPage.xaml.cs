@@ -3,6 +3,7 @@ using MovieVaultMaui.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using MovieVaultMaui.Enums;
 
 namespace MovieVaultMaui;
 
@@ -43,7 +44,7 @@ public partial class SeenMoviesPage : ContentPage
     {
         if (e.CurrentSelection.FirstOrDefault() is Movie selectedMovie)
         {
-            await Navigation.PushModalAsync(new PopupViewPage(selectedMovie));
+            await Navigation.PushModalAsync(new PopupViewPage(selectedMovie, PopupViewPageSettingsType.SeenMoviePageSettings));
             ((CollectionView)sender).SelectedItem = null;
         }
     }
@@ -148,4 +149,5 @@ public partial class SeenMoviesPage : ContentPage
         if (lastPage < 2) { GoForward.IsVisible = false; }
         else { GoForward.IsVisible = true; }
     }
+
 }
