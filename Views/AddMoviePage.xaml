@@ -129,7 +129,7 @@
                         FontAttributes="Bold"
                         FontSize="20"
                         HorizontalOptions="Center"
-                        Text="{Binding Movie.imdbRating}"
+                        Text="{Binding Movie.imdbRating, StringFormat='Rating: {0}'}"
                         TextColor="White">
                         <Label.Shadow>
                             <Shadow

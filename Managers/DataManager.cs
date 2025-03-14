@@ -82,15 +82,16 @@ namespace MovieVaultMaui.Managers
 
         public async static Task RemoveMovieFromList(Models.Movie movie, MovieListType listName)
         {
+            Models.Movie movieToRemove = _moviesToSee.FirstOrDefault(m => m.Id == movie.Id);
 
             switch (listName)
             {
                 case MovieListType.MoviesToSee:
-                    _moviesToSee.Add(movie);
+                    _moviesToSee.Remove(movieToRemove);
                     break;
 
                 case MovieListType.SeenMovies:
-                    _seenMovies.Add(movie);
+                    _seenMovies.Remove(movieToRemove);
                     break;
             }
 
@@ -101,16 +102,15 @@ namespace MovieVaultMaui.Managers
             ConnectToDb(Enums.MovieLibraryType.SeenMovies).InsertOne(movie);
             RemoveMovieDb(movie);
 
-            _seenMovies.Add(movie);
-            Models.Movie movieToRemove = _moviesToSee.FirstOrDefault(m => m.Id == movie.Id);
-            _moviesToSee.Remove(movieToRemove);
+            AddMovieToList(movie, MovieListType.SeenMovies);
+            RemoveMovieFromList(movie, MovieListType.MoviesToSee);
+
         }
 
         public static void RemoveMovieDb(Models.Movie movie)
         {
             var filter = Builders<Models.Movie>.Filter.Eq(m => m.Id, movie.Id);
             ConnectToDb(Enums.MovieLibraryType.MoviesToSee).DeleteOne(filter);
-
         }
 
 

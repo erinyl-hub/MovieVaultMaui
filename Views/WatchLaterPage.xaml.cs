@@ -54,10 +54,10 @@ public partial class WatchLaterPage : ContentPage
         }
     }
 
-    private async void CreateMovieSearchDictionary()
+    private async Task CreateMovieSearchDictionary()
     {
         var moviesToSee = Managers.DataManager.GetMovieList(Enums.MovieListType.MoviesToSee);
-        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(moviesToSee.AsEnumerable().Reverse().ToList());
+        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary( moviesToSee.AsEnumerable().Reverse().ToList());
     }
 
     private async void OnBackClicked(object sender, EventArgs e)
@@ -155,19 +155,11 @@ public partial class WatchLaterPage : ContentPage
         else { GoForward.IsVisible = true; }
     }
 
-    private void RemoveMovieDictionary(Models.Movie movie)
-    {
-        movieSearchDictionary.Remove(movie.Title);
-        movieSearchDictionary.Remove(movie.Director);
-        movieSearchDictionary.Remove(movie.Actors);
-        movieSearchDictionary.Remove(movie.Genre);
-        movieSearchDictionary.Remove(movie.imdbID);
-    }
 
     private async Task test(Models.Movie movie)
     {
-        RemoveMovieDictionary(movie);
-        await Task.Delay(5000);
+        CreateMovieSearchDictionary();
+   
         UppdateMoviesViewed();
 
     }

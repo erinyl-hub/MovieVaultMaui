@@ -21,11 +21,8 @@ namespace MovieVaultMaui.ViewModels
             get => _movie;
             set
             {
-                if (_movie != value)
-                {
                     _movie = value;
                     OnPropertyChanged(nameof(Movie));
-                }
             }
         }
 

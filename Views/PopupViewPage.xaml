@@ -532,7 +532,7 @@
                         x:Name="buttonView"
                         RowDefinitions="Auto,Auto,Auto"
                         HorizontalOptions="Center"
-                        Grid.Row="12">
+                        Grid.Row="13">
                         
                     
                     <Button

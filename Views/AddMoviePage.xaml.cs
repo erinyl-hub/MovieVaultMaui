@@ -96,7 +96,7 @@ public partial class AddMoviePage : ContentPage
     {
         Models.UserInfoOnMovie userInfoOnMovie = new Models.UserInfoOnMovie();
 
-        userInfoOnMovie.UserRating = double.Parse(ratingSliderLabel.Text, CultureInfo.InvariantCulture);
+        userInfoOnMovie.UserRating = ratingSliderLabel.Text.Replace(",", ".");
         userInfoOnMovie.SeeAgain = SeeAgain.IsChecked;
         userInfoOnMovie.UserReview = userReviewEditor.Text;
         userInfoOnMovie.AmountTimeSeen = 1;

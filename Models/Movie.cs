@@ -33,7 +33,7 @@ namespace MovieVaultMaui.Models
 
     public class UserInfoOnMovie
     {
-        public double? UserRating { get; set; } = 1;
+        public string? UserRating { get; set; }
         public bool SeeAgain { get; set; }
         public string? UserReview { get; set; }
         public int? AmountTimeSeen { get; set; }

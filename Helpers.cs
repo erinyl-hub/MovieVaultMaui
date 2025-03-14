@@ -1,7 +1,6 @@
 ﻿using MongoDB.Driver;
 using MovieVaultMaui.Models;
-using System.Collections.ObjectModel;
-using System.Globalization;
+
 
 namespace MovieVaultMaui
 {
@@ -39,6 +38,7 @@ namespace MovieVaultMaui
                 { "Genre", (word) => movies.Where(movie => movie.Genre != null && movie.Genre.Contains(word, StringComparison.OrdinalIgnoreCase)) },
                 { "ImdbID", (word) => movies.Where(movie => movie.imdbID != null && movie.imdbID.Contains(word, StringComparison.OrdinalIgnoreCase)) }
             };
+
 
             return searchDictionary;
         }

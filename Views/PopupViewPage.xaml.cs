@@ -4,15 +4,19 @@ using System.Globalization;
 
 public partial class PopupViewPage : ContentPage
 {
-    private Models.Movie _movie;
+    //private Models.Movie _movie;
+    private ViewModels.AddMoviePageViewModel _movie;
     public PopupViewPage(Models.Movie movie, PopupViewPageSettingsType pageSettings)
     {
         InitializeComponent();
-        BindingContext = new ViewModels.AddMoviePageViewModel(movie);
-        _movie = movie;
-        MovieLength.Text = ConvertRuneTime(_movie.Runtime);
-        GenresCollectionView.ItemsSource = Helpers.Spliter(_movie.Genre);
-        ActorsCollectionView.ItemsSource = Helpers.Spliter(_movie.Actors);
+
+
+        _movie = new ViewModels.AddMoviePageViewModel(movie);
+        BindingContext = _movie;
+        
+        MovieLength.Text = ConvertRuneTime(_movie.Movie.Runtime);
+        GenresCollectionView.ItemsSource = Helpers.Spliter(_movie.Movie.Genre);
+        ActorsCollectionView.ItemsSource = Helpers.Spliter(_movie.Movie.Actors);
         AdjustPage(pageSettings);
 
     }
@@ -36,18 +40,24 @@ public partial class PopupViewPage : ContentPage
     private void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
     {
         ratingValueLabel.Text = e.NewValue.ToString("0.0");
+
     }
 
     private async void AddToSeenMovies(object sender, EventArgs e)
     {
-        _movie.UserData = CreateUserInfoOnMovie();
-        Managers.DataManager.MoveMovieLibrary(_movie);
+        _movie.Movie.UserData = CreateUserInfoOnMovie();
+        Managers.DataManager.MoveMovieLibrary(_movie.Movie);
         await Navigation.PopModalAsync();
         MessagingCenter.Send(this, "UppdateView", _movie);
     }
 
     private void MovieJustSeen(object sender, EventArgs e)
     {
+        _movie.Movie.UserData.AmountTimeSeen++;
+        _movie.Movie.UserData.LastTimeSeen = DateTime.Now;
+        _movie.Movie.Director = "Funkar";
+
+        var test = _movie;
 
     }
 
@@ -75,7 +85,7 @@ public partial class PopupViewPage : ContentPage
     {
         Models.UserInfoOnMovie userInfoOnMovie = new Models.UserInfoOnMovie();
 
-        userInfoOnMovie.UserRating = double.Parse(ratingValueLabel.Text, CultureInfo.InvariantCulture);
+        userInfoOnMovie.UserRating = ratingValueLabel.Text.Replace(",", ".");
         userInfoOnMovie.SeeAgain = SeeAgain.IsChecked;
         userInfoOnMovie.UserReview = userReviewEditor.Text;
         userInfoOnMovie.AmountTimeSeen = 1;
