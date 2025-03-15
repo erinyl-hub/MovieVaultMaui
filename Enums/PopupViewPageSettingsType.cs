@@ -9,6 +9,8 @@ namespace MovieVaultMaui.Enums
     public enum PopupViewPageSettingsType
     {
         SeenMoviePageSettings,
-        WatchLaterPageSettings
+        WatchLaterPageSettings,
+        SeenMoviePageEditSettings,
+        ClearPageSettings
     }
 }

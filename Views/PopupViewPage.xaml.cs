@@ -13,11 +13,24 @@ public partial class PopupViewPage : ContentPage
 
         _movie = new ViewModels.AddMoviePageViewModel(movie);
         BindingContext = _movie;
-        
+
+        InitiatePageValues(pageSettings);
+        AdjustPage(pageSettings);
+
+    }
+
+    private async void InitiatePageValues(PopupViewPageSettingsType pageSettings)
+    {
         MovieLength.Text = ConvertRuneTime(_movie.Movie.Runtime);
         GenresCollectionView.ItemsSource = Helpers.Spliter(_movie.Movie.Genre);
         ActorsCollectionView.ItemsSource = Helpers.Spliter(_movie.Movie.Actors);
-        AdjustPage(pageSettings);
+
+        if (pageSettings == PopupViewPageSettingsType.SeenMoviePageSettings)
+        {
+            RatingValueSlider.Value = double.Parse((_movie.Movie.UserData.UserRating.Replace(".", ",")));
+        }
+        else { RatingValueLabel.Text = "0.0"; }
+
 
     }
 
@@ -39,11 +52,11 @@ public partial class PopupViewPage : ContentPage
 
     private void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
     {
-        ratingValueLabel.Text = e.NewValue.ToString("0.0");
+        RatingValueLabel.Text = e.NewValue.ToString("0.0");
 
     }
 
-    private async void AddToSeenMovies(object sender, EventArgs e)
+    private async void OnClickedAddToSeenMovies(object sender, EventArgs e)
     {
         _movie.Movie.UserData = CreateUserInfoOnMovie();
         Managers.DataManager.MoveMovieLibrary(_movie.Movie);
@@ -51,7 +64,7 @@ public partial class PopupViewPage : ContentPage
         MessagingCenter.Send(this, "UppdateView", _movie);
     }
 
-    private void MovieJustSeen(object sender, EventArgs e)
+    private void OnClickedMovieJustSeen(object sender, EventArgs e) // funkar ej
     {
         _movie.Movie.UserData.AmountTimeSeen++;
         _movie.Movie.UserData.LastTimeSeen = DateTime.Now;
@@ -70,27 +83,76 @@ public partial class PopupViewPage : ContentPage
                 JustSeenView.IsVisible = true;
                 UserRatingView.IsVisible = true;
                 userInfoOnMovieView.IsVisible = true;
+                EditMovieReviewButton.IsVisible = true;
+                RemoveMovieButton.IsVisible = true;
                 break;
 
             case PopupViewPageSettingsType.WatchLaterPageSettings:
 
                 userInfoOnMovieEditor.IsVisible = true;
-               break;
+                AddToSeenMoviesButton.IsVisible = true;
+                RemoveMovieButton.IsVisible = true;
+                break;
+
+            case PopupViewPageSettingsType.SeenMoviePageEditSettings:
+
+                userInfoOnMovieEditor.IsVisible = true;
+                SaveEditedMovieButton.IsVisible = true;
+                CancelEditOfMovie.IsVisible = true;
+
+                break;
+
+            case PopupViewPageSettingsType.ClearPageSettings:
+
+                JustSeenView.IsVisible = false;
+                UserRatingView.IsVisible = false;
+                userInfoOnMovieView.IsVisible = false;
+                EditMovieReviewButton.IsVisible = false;
+                AddToSeenMoviesButton.IsVisible = false;
+                SaveEditedMovieButton.IsVisible = false;
+                userInfoOnMovieEditor.IsVisible = false;
+                RemoveMovieButton.IsVisible = false;
+                CancelEditOfMovie.IsVisible = false;
+
+                break;
 
         }
-
     }
 
     private Models.UserInfoOnMovie CreateUserInfoOnMovie()
     {
         Models.UserInfoOnMovie userInfoOnMovie = new Models.UserInfoOnMovie();
 
-        userInfoOnMovie.UserRating = ratingValueLabel.Text.Replace(",", ".");
+        userInfoOnMovie.UserRating = RatingValueLabel.Text.Replace(",", ".");
         userInfoOnMovie.SeeAgain = SeeAgain.IsChecked;
         userInfoOnMovie.UserReview = userReviewEditor.Text;
         userInfoOnMovie.AmountTimeSeen = 1;
         userInfoOnMovie.LastTimeSeen = DateTime.Now;
 
         return userInfoOnMovie;
+    }
+
+    private void OnClickedEditMovieReview(object sender, EventArgs e)
+    {
+        AdjustPage(PopupViewPageSettingsType.ClearPageSettings);
+        AdjustPage(PopupViewPageSettingsType.SeenMoviePageEditSettings);
+
+
+    }
+
+    private void OnClickedRemoveMovie(object sender, EventArgs e)
+    {
+
+    }
+
+    private void OnClickedSaveEditedMovie(object sender, EventArgs e)
+    {
+
+    }
+
+    private void OnClickedCancelEditOfMovie(object sender, EventArgs e)
+    {
+        AdjustPage(PopupViewPageSettingsType.ClearPageSettings);
+        AdjustPage(PopupViewPageSettingsType.SeenMoviePageSettings);
     }
 }

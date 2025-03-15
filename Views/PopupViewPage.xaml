@@ -36,8 +36,7 @@
 
             <ScrollView>
 
-                <Grid Background="Transparent" 
-                      RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto,Auto,Auto,Auto,Auto,Auto, Auto,Auto ,100">
+                <Grid Background="Transparent" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto,Auto,Auto,Auto,Auto,Auto, Auto,Auto ,100">
 
 
 
@@ -45,9 +44,9 @@
                     <Grid
                         x:Name="JustSeenView"
                         Grid.Row="0"
+                        IsVisible="false"
                         VerticalOptions="Center"
-                        WidthRequest="300"
-                        IsVisible="false">
+                        WidthRequest="300">
 
                         <Grid
                             HorizontalOptions="Start"
@@ -90,7 +89,7 @@
 
                         <ImageButton
                             Background="Transparent"
-                            Clicked="MovieJustSeen"
+                            Clicked="OnClickedMovieJustSeen"
                             HeightRequest="60"
                             HorizontalOptions="Center"
                             Source="movieticket.png"
@@ -477,15 +476,16 @@
                             RowDefinitions="Auto, Auto">
 
                             <Label
-                                x:Name="ratingValueLabel"
+                                x:Name="RatingValueLabel"
                                 Grid.Row="0"
                                 FontAttributes="Bold"
                                 FontSize="20"
                                 HorizontalOptions="Center"
-                                Text="1.0" />
+                                Text ="{Binding Movie.UserData.UserRating}"
+                                 />
 
                             <Slider
-                                x:Name="ratingValueSlider"
+                                x:Name="RatingValueSlider"
                                 Grid.Row="1"
                                 Maximum="10"
                                 MaximumTrackColor="DarkGrey"
@@ -493,8 +493,7 @@
                                 MinimumTrackColor="Black"
                                 ThumbColor="Black"
                                 ValueChanged="OnSliderValueChanged"
-                                WidthRequest="180"
-                                Value="{Binding Movie.UserData.UserRating}" />
+                                WidthRequest="180" />
                         </Grid>
 
 
@@ -530,39 +529,91 @@
 
                     <Grid
                         x:Name="buttonView"
-                        RowDefinitions="Auto,Auto,Auto"
+                        Grid.Row="13"
                         HorizontalOptions="Center"
-                        Grid.Row="13">
-                        
-                    
-                    <Button
-                        x:Name="addToSeenMoviesButton"
-                        Padding="10"
-                        Grid.Row="0"
-                        BackgroundColor="Black"
-                        Clicked="AddToSeenMovies"
-                        FontAttributes="Bold"
-                        HeightRequest="26"
-                        HorizontalOptions="Center"
-                        Text="Seen Movie"
-                        WidthRequest="200"
-                        IsVisible="True"/>
+                        RowDefinitions="60,60,Auto">
+
+
+                        <Button
+                            x:Name="AddToSeenMoviesButton"
+                            Grid.Row="0"
+                            Padding="10"
+                            BackgroundColor="Black"
+                            Clicked="OnClickedAddToSeenMovies"
+                            FontAttributes="Bold"
+                            HeightRequest="26"
+                            HorizontalOptions="Center"
+                            IsVisible="False"
+                            Text="Seen Movie"
+                            WidthRequest="200" />
+
+                        <Button
+                            x:Name="EditMovieReviewButton"
+                            Grid.Row="0"
+                            Padding="10"
+                            BackgroundColor="Black"
+                            Clicked="OnClickedEditMovieReview"
+                            FontAttributes="Bold"
+                            HeightRequest="26"
+                            HorizontalOptions="Center"
+                            IsVisible="False"
+                            Text="Edit Review"
+                            WidthRequest="200" />
+
+                        <Button
+                            x:Name="SaveEditedMovieButton"
+                            Grid.Row="0"
+                            Padding="10"
+                            BackgroundColor="Black"
+                            Clicked="OnClickedEditMovieReview"
+                            FontAttributes="Bold"
+                            HeightRequest="26"
+                            HorizontalOptions="Center"
+                            IsVisible="False"
+                            Text="Uppdate Review"
+                            WidthRequest="200" />
+
+                        <Button
+                            x:Name="CancelEditOfMovie"
+                            Grid.Row="1"
+                            Padding="10"
+                            BackgroundColor="Black"
+                            Clicked="OnClickedCancelEditOfMovie"
+                            FontAttributes="Bold"
+                            HeightRequest="26"
+                            HorizontalOptions="Center"
+                            IsVisible="False"
+                            Text="Cancel"
+                            WidthRequest="200" />
+
+                        <Button
+                            x:Name="RemoveMovieButton"
+                            Grid.Row="1"
+                            Padding="10"
+                            BackgroundColor="Black"
+                            Clicked="OnClickedRemoveMovie"
+                            FontAttributes="Bold"
+                            HeightRequest="26"
+                            HorizontalOptions="Center"
+                            IsVisible="false"
+                            Text="Delete Movie"
+                            WidthRequest="200" />
 
                     </Grid>
 
                     <Label
-                                Grid.Row="14"
-                                Padding="0"
-                                FontAttributes="Bold"
-                                FontSize="15"
-                                HorizontalOptions="Center"
-                                Text="{Binding Movie.MovieRegisterdTime, StringFormat='Added to safe: {0:yyyy-MM-dd}'}"
-                                TextColor="White">
+                        Grid.Row="14"
+                        Padding="0"
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        HorizontalOptions="Center"
+                        Text="{Binding Movie.MovieRegisterdTime, StringFormat='Added to safe: {0:yyyy-MM-dd}'}"
+                        TextColor="White">
                         <Label.Shadow>
                             <Shadow
-                                        Brush="Black"
-                                        Radius="3"
-                                        Offset="3,1" />
+                                Brush="Black"
+                                Radius="3"
+                                Offset="3,1" />
                         </Label.Shadow>
                     </Label>
 

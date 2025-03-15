@@ -36,8 +36,5 @@ namespace MovieVaultMaui.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
-
-
-
     }
 }
