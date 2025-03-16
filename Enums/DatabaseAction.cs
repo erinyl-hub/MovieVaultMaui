@@ -11,7 +11,8 @@ namespace MovieVaultMaui.Enums
         Add,
         Remove,
         Update,
-        Move
+        Move,
+        LoadData
     }
 
 }

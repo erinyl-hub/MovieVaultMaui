@@ -436,6 +436,7 @@
                             WidthRequest="300">
 
                             <Label
+                                x:Name="UserReviewView"
                                 FontAttributes="Bold"
                                 FontSize="16"
                                 LineBreakMode="WordWrap"
@@ -564,7 +565,7 @@
                             Grid.Row="0"
                             Padding="10"
                             BackgroundColor="Black"
-                            Clicked="OnClickedEditMovieReview"
+                            Clicked="OnClickedSaveEditedMovie"
                             FontAttributes="Bold"
                             HeightRequest="26"
                             HorizontalOptions="Center"

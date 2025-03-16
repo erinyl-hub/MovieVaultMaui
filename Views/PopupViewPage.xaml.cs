@@ -1,37 +1,29 @@
 namespace MovieVaultMaui.Views;
 using MovieVaultMaui.Enums;
-using System.Globalization;
+using MovieVaultMaui.Managers;
+
 
 public partial class PopupViewPage : ContentPage
 {
-    //private Models.Movie _movie;
     private ViewModels.AddMoviePageViewModel _movie;
-    public PopupViewPage(Models.Movie movie, PopupViewPageSettingsType pageSettings)
+    private MovieLibraryType _movielibraryType;
+    public PopupViewPage(Models.Movie movie, PopupViewPageSettingsType pageSettings, MovieLibraryType movielibraryType)
     {
         InitializeComponent();
 
-
         _movie = new ViewModels.AddMoviePageViewModel(movie);
         BindingContext = _movie;
+        _movielibraryType = movielibraryType;
 
-        InitiatePageValues(pageSettings);
+        InitiatePageValues();
         AdjustPage(pageSettings);
-
     }
 
-    private async void InitiatePageValues(PopupViewPageSettingsType pageSettings)
+    private async void InitiatePageValues()
     {
         MovieLength.Text = ConvertRuneTime(_movie.Movie.Runtime);
         GenresCollectionView.ItemsSource = Helpers.Spliter(_movie.Movie.Genre);
         ActorsCollectionView.ItemsSource = Helpers.Spliter(_movie.Movie.Actors);
-
-        //if (pageSettings == PopupViewPageSettingsType.SeenMoviePageSettings)
-        //{
-        //    RatingValueSlider.Value = double.Parse((_movie.Movie.UserData.UserRating.Replace(".", ",")));
-        //}
-        //else { RatingValueLabel.Text = "0.0"; }
-
-
     }
 
     private async void ClosePopupClicked(object sender, TappedEventArgs e)
@@ -53,13 +45,15 @@ public partial class PopupViewPage : ContentPage
     private void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
     {
         RatingValueLabel.Text = e.NewValue.ToString("0.0");
-
     }
 
     private async void OnClickedAddToSeenMovies(object sender, EventArgs e)
     {
         _movie.Movie.UserData = CreateUserInfoOnMovie();
-        Managers.DataManager.MoveMovieLibrary(_movie.Movie);
+
+        var databaseFacade = new Managers.DatabaseFacade();
+        databaseFacade.Execute(_movie.Movie, DatabaseAction.Move,MovieLibraryType.SeenMovies);
+
         await Navigation.PopModalAsync();
         MessagingCenter.Send(this, "UppdateView", _movie);
     }
@@ -68,7 +62,7 @@ public partial class PopupViewPage : ContentPage
     {
         _movie.Movie.UserData.AmountTimeSeen++;
         _movie.Movie.UserData.LastTimeSeen = DateTime.Now;
-        _movie.Movie.Director = "Funkar";
+        _movie.Movie.Director = "Funkar ejjjjjj";
 
         var test = _movie;
 
@@ -143,14 +137,32 @@ public partial class PopupViewPage : ContentPage
         AdjustPage(PopupViewPageSettingsType.SeenMoviePageEditSettings);
     }
 
-    private void OnClickedRemoveMovie(object sender, EventArgs e)
+    private async void OnClickedRemoveMovie(object sender, EventArgs e)
     {
+        var databaseFacade = new DatabaseFacade();
+        databaseFacade.Execute(_movie.Movie, DatabaseAction.Remove, _movielibraryType);
+
+        await Navigation.PopModalAsync();
+        MessagingCenter.Send(this, "UppdateView", _movie);
 
     }
 
     private void OnClickedSaveEditedMovie(object sender, EventArgs e)
     {
-        
+        _movie.Movie.UserData.UserRating = RatingValueLabel.Text.Replace(",", ".");
+        _movie.Movie.UserData.SeeAgain = SeeAgainCheckBox.IsChecked;
+        _movie.Movie.UserData.UserReview = userReviewEditor.Text;
+
+
+        var databaseFacade = new DatabaseFacade();
+        databaseFacade.Execute(_movie.Movie, DatabaseAction.Update, _movielibraryType);
+
+        UserRatingView.Text = $"Your Rating: {RatingValueLabel.Text}";
+        UserReviewView.Text = userReviewEditor.Text;
+
+        AdjustPage(PopupViewPageSettingsType.ClearPageSettings);
+        AdjustPage(PopupViewPageSettingsType.SeenMoviePageSettings);
+
     }
 
     private void OnClickedCancelEditOfMovie(object sender, EventArgs e)

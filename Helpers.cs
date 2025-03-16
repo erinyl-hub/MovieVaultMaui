@@ -6,12 +6,10 @@ namespace MovieVaultMaui
 {
     class Helpers
     {
-
-
         public static bool MovieAlreadyInSafeChecker(string imdbId)
         {
-            var moviesToSee = Managers.DataManager.GetMovieList(Enums.MovieListType.MoviesToSee);
-            var seenMovies = Managers.DataManager.GetMovieList(Enums.MovieListType.SeenMovies);
+            var moviesToSee = Managers.DataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee);
+            var seenMovies = Managers.DataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies);
 
             if (moviesToSee != null || seenMovies != null)
             {
@@ -38,8 +36,6 @@ namespace MovieVaultMaui
                 { "Genre", (word) => movies.Where(movie => movie.Genre != null && movie.Genre.Contains(word, StringComparison.OrdinalIgnoreCase)) },
                 { "ImdbID", (word) => movies.Where(movie => movie.imdbID != null && movie.imdbID.Contains(word, StringComparison.OrdinalIgnoreCase)) }
             };
-
-
             return searchDictionary;
         }
 
@@ -47,7 +43,6 @@ namespace MovieVaultMaui
             (Dictionary<string, Func<string, IEnumerable<Movie>>> searchDictionary, string searchType, string searchWord, string sortBy, bool changeOrder)
         {
             var result = searchDictionary[searchType](searchWord);
-
 
             switch (sortBy)
             {
@@ -71,7 +66,6 @@ namespace MovieVaultMaui
             if (changeOrder) { result = result.Reverse(); }
 
             return result;
-
         }
 
         public static List<string> Spliter(string toSplit)

@@ -9,6 +9,7 @@ namespace MovieVaultMaui.Enums
     public enum MovieLibraryType
     {
         MoviesToSee,
-        SeenMovies
+        SeenMovies,
+        None
     }
 }

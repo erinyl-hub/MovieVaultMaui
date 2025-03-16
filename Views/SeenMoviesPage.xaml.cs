@@ -44,14 +44,15 @@ public partial class SeenMoviesPage : ContentPage
     {
         if (e.CurrentSelection.FirstOrDefault() is Movie selectedMovie)
         {
-            await Navigation.PushModalAsync(new PopupViewPage(selectedMovie, PopupViewPageSettingsType.SeenMoviePageSettings));
+            await Navigation.PushModalAsync
+                (new PopupViewPage(selectedMovie, PopupViewPageSettingsType.SeenMoviePageSettings, MovieLibraryType.SeenMovies));
             ((CollectionView)sender).SelectedItem = null;
         }
     }
 
     private async void CreateMovieSearchDictionary()
     {
-        var seenMovies = Managers.DataManager.GetMovieList(Enums.MovieListType.SeenMovies);
+        var seenMovies = Managers.DataManager.GetMovieList(MovieLibraryType.SeenMovies);
         movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(seenMovies.AsEnumerable().Reverse().ToList());
     }
 

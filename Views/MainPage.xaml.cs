@@ -1,4 +1,5 @@
 ﻿using MovieVaultMaui.Managers;
+using MovieVaultMaui.Enums;
 
 namespace MovieVaultMaui
 {
@@ -10,7 +11,8 @@ namespace MovieVaultMaui
 
             UpdateConnectionStatus();
 
-            DataManager.LoadDataFromDbAsync();
+            var databaseFacade = new DatabaseFacade();
+            databaseFacade.Execute(null, DatabaseAction.LoadData, MovieLibraryType.None);
 
             Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
         }

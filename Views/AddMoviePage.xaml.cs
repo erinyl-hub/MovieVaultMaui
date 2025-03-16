@@ -1,6 +1,8 @@
 using MovieVaultMaui.Models;
 using MovieVaultMaui.ViewModels;
 using System.Globalization;
+using MovieVaultMaui.Managers;
+using MovieVaultMaui.Enums;
 
 namespace MovieVaultMaui;
 
@@ -46,22 +48,21 @@ public partial class AddMoviePage : ContentPage
 
     private void AddMovieBox(object sender, EventArgs e)
     {
-        
+        var databaseFacade = new DatabaseFacade();
+
         if (myCheckBox.IsChecked)
         {
             _movie.UserData = CreateUserInfoOnMovie();
             _movie.MovieRegisterdTime = DateTime.Now;
 
-            Managers.DataManager.ConnectToDb(Enums.MovieLibraryType.SeenMovies).InsertOne(_movie);
-            Managers.DataManager.AddMovieToList(_movie, Enums.MovieListType.SeenMovies);
+            databaseFacade.Execute(_movie, DatabaseAction.Add, MovieLibraryType.SeenMovies);
             Navigation.PopToRootAsync();
 
         }
         else
         {
             _movie.MovieRegisterdTime = DateTime.Now;
-            Managers.DataManager.ConnectToDb(Enums.MovieLibraryType.MoviesToSee).InsertOne(_movie);
-            Managers.DataManager.AddMovieToList(_movie, Enums.MovieListType.MoviesToSee);
+            databaseFacade.Execute(_movie, DatabaseAction.Add, MovieLibraryType.MoviesToSee);
             Navigation.PopToRootAsync();
 
         }

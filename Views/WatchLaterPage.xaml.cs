@@ -49,14 +49,15 @@ public partial class WatchLaterPage : ContentPage
     {
         if (e.CurrentSelection.FirstOrDefault() is Movie selectedMovie)
         {
-            await Navigation.PushModalAsync(new PopupViewPage(selectedMovie, PopupViewPageSettingsType.WatchLaterPageSettings));
+            await Navigation.PushModalAsync
+                (new PopupViewPage(selectedMovie, PopupViewPageSettingsType.WatchLaterPageSettings, MovieLibraryType.MoviesToSee));
             ((CollectionView)sender).SelectedItem = null;
         }
     }
 
     private async Task CreateMovieSearchDictionary()
     {
-        var moviesToSee = Managers.DataManager.GetMovieList(Enums.MovieListType.MoviesToSee);
+        var moviesToSee = Managers.DataManager.GetMovieList(MovieLibraryType.MoviesToSee);
         movieSearchDictionary = await Helpers.CreateSearchEngineDictionary( moviesToSee.AsEnumerable().Reverse().ToList());
     }
 
