@@ -17,14 +17,12 @@ namespace MovieVaultMaui.Managers
 
         public static List<Models.Movie> GetMovieList(MovieListType listName)
         {
-
             return listName switch
             {
                 MovieListType.MoviesToSee => _moviesToSee,
                 MovieListType.SeenMovies => _seenMovies,
                 _ => null
             };
-
         }
 
         private static MongoClient GetClient()
@@ -54,7 +52,7 @@ namespace MovieVaultMaui.Managers
             return database.GetCollection<Models.Movie>(collectionName);
         }
 
-        public async static Task LoadDataFromDbAsync()
+        public async static Task LoadDataFromDbAsync() // lägg till try
         {
             int delay = 2000;
                         
@@ -115,4 +113,26 @@ namespace MovieVaultMaui.Managers
 
 
     }
+
+    public class DatabaseFacade
+    {
+        private readonly DataManager _dbService;
+
+        public DatabaseFacade()
+        {
+            _dbService = new DataManager();
+        }
+
+        public void Execute(Models.Movie movie, DatabaseAction action, MovieLibraryType libraryType)
+        {
+            
+
+
+        }
+
+
+
+
+    }
+
 }

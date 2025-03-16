@@ -481,7 +481,7 @@
                                 FontAttributes="Bold"
                                 FontSize="20"
                                 HorizontalOptions="Center"
-                                Text ="{Binding Movie.UserData.UserRating}"
+                                Text ="0.0"
                                  />
 
                             <Slider
@@ -504,7 +504,7 @@
                             Background="DarkGrey"
                             FontAttributes="Bold"
                             Placeholder="Enter Review..."
-                            Text="{Binding Movie.UserData.UserReview}"
+                            Text=""
                             WidthRequest="400" />
 
 
@@ -514,9 +514,8 @@
                             Orientation="Horizontal">
 
                             <CheckBox
-                                x:Name="SeeAgain"
+                                x:Name="SeeAgainCheckBox"
                                 HorizontalOptions="Center"
-                                IsChecked="{Binding Movie.UserData.SeeAgain}"
                                 Color="Black" />
 
                             <Label

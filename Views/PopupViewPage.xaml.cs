@@ -25,11 +25,11 @@ public partial class PopupViewPage : ContentPage
         GenresCollectionView.ItemsSource = Helpers.Spliter(_movie.Movie.Genre);
         ActorsCollectionView.ItemsSource = Helpers.Spliter(_movie.Movie.Actors);
 
-        if (pageSettings == PopupViewPageSettingsType.SeenMoviePageSettings)
-        {
-            RatingValueSlider.Value = double.Parse((_movie.Movie.UserData.UserRating.Replace(".", ",")));
-        }
-        else { RatingValueLabel.Text = "0.0"; }
+        //if (pageSettings == PopupViewPageSettingsType.SeenMoviePageSettings)
+        //{
+        //    RatingValueSlider.Value = double.Parse((_movie.Movie.UserData.UserRating.Replace(".", ",")));
+        //}
+        //else { RatingValueLabel.Text = "0.0"; }
 
 
     }
@@ -124,7 +124,7 @@ public partial class PopupViewPage : ContentPage
         Models.UserInfoOnMovie userInfoOnMovie = new Models.UserInfoOnMovie();
 
         userInfoOnMovie.UserRating = RatingValueLabel.Text.Replace(",", ".");
-        userInfoOnMovie.SeeAgain = SeeAgain.IsChecked;
+        userInfoOnMovie.SeeAgain = SeeAgainCheckBox.IsChecked;
         userInfoOnMovie.UserReview = userReviewEditor.Text;
         userInfoOnMovie.AmountTimeSeen = 1;
         userInfoOnMovie.LastTimeSeen = DateTime.Now;
@@ -134,10 +134,13 @@ public partial class PopupViewPage : ContentPage
 
     private void OnClickedEditMovieReview(object sender, EventArgs e)
     {
+        RatingValueLabel.Text = _movie.Movie.UserData.UserRating;
+        RatingValueSlider.Value = double.Parse((_movie.Movie.UserData.UserRating.Replace(".", ",")));
+        userReviewEditor.Text = _movie.Movie.UserData.UserReview;
+        SeeAgainCheckBox.IsChecked = _movie.Movie.UserData.SeeAgain;
+
         AdjustPage(PopupViewPageSettingsType.ClearPageSettings);
         AdjustPage(PopupViewPageSettingsType.SeenMoviePageEditSettings);
-
-
     }
 
     private void OnClickedRemoveMovie(object sender, EventArgs e)
@@ -147,12 +150,13 @@ public partial class PopupViewPage : ContentPage
 
     private void OnClickedSaveEditedMovie(object sender, EventArgs e)
     {
-
+        
     }
 
     private void OnClickedCancelEditOfMovie(object sender, EventArgs e)
     {
         AdjustPage(PopupViewPageSettingsType.ClearPageSettings);
         AdjustPage(PopupViewPageSettingsType.SeenMoviePageSettings);
+
     }
 }
