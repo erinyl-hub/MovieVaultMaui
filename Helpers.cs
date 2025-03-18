@@ -61,6 +61,15 @@ namespace MovieVaultMaui
                 case "Alphabetically":
                     result = result.OrderBy(m => m.Title); // siffror först sedan bokstäver
                     break;
+                case "Last Seen":
+                    result = result.OrderByDescending(m => m.UserData.LastTimeSeen);
+                    break;
+                case "See Again":
+                    result = result.OrderByDescending(m => m.UserData.SeeAgain);
+                    break;
+                case "Your Rating":
+                    result = result.OrderByDescending(m => m.UserData.UserRating); // fixa när är 10 kommer först
+                    break;
             }
 
             if (changeOrder) { result = result.Reverse(); }

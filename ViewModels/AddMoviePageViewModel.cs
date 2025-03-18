@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace MovieVaultMaui.ViewModels
 {
@@ -13,7 +8,7 @@ namespace MovieVaultMaui.ViewModels
 
 
         private Models.Movie _movie;
-        
+
         public Models.Movie Movie
         {
             get => _movie;
@@ -38,4 +33,3 @@ namespace MovieVaultMaui.ViewModels
 
     }
 }
- 

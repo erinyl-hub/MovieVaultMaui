@@ -4,9 +4,9 @@ namespace MovieVaultMaui;
 
 public partial class ChooseMovieToAddPage : ContentPage
 {
-	public ChooseMovieToAddPage()
-	{
-		InitializeComponent();
+    public ChooseMovieToAddPage()
+    {
+        InitializeComponent();
         UpdateConnectionStatus();
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
@@ -14,7 +14,7 @@ public partial class ChooseMovieToAddPage : ContentPage
     private async void OnBackClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
-       
+
     }
 
     private void UpdateConnectionStatus()
@@ -37,7 +37,7 @@ public partial class ChooseMovieToAddPage : ContentPage
         {
             Managers.MovieDataManager movieDataManager = new Managers.MovieDataManager();
             Models.Movie movie = await movieDataManager.ConnectToMovieApi(ImdbId);
-            if(movie == null)
+            if (movie == null)
             {
                 ErrorMsg.Text = "Invalid Imdb Url";
             }
@@ -52,18 +52,18 @@ public partial class ChooseMovieToAddPage : ContentPage
 
     private string RightFormatImdbUrl(string ImdbUrl)
     {
-        if(ImdbUrl == null) { return null; }
+        if (ImdbUrl == null) { return null; }
 
         string ImdbId = "(?<=title\\/)(tt\\d{7,8})(?=\\b)";
         Regex data = new Regex(ImdbId);
         MatchCollection matches = data.Matches(ImdbUrl);
 
-        if (matches.Count == 1) 
-        { 
-            return matches[0].Value; 
+        if (matches.Count == 1)
+        {
+            return matches[0].Value;
         }
 
-        else{ return null; }
+        else { return null; }
     }
 
 

@@ -36,10 +36,7 @@
 
             <ScrollView>
 
-                <Grid Background="Transparent" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto,Auto,Auto,Auto,Auto,Auto, Auto,Auto ,100">
-
-
-
+                <Grid Background="Transparent" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,100">
 
                     <Grid
                         x:Name="JustSeenView"
@@ -52,6 +49,8 @@
                             HorizontalOptions="Start"
                             RowDefinitions="Auto, Auto"
                             VerticalOptions="Center">
+
+
 
                             <Label
                                 Grid.Row="0"
@@ -71,6 +70,7 @@
 
 
                             <Label
+                                x:Name="LastTimeSeen"
                                 Grid.Row="1"
                                 Padding="0"
                                 FontAttributes="Bold"
@@ -116,8 +116,8 @@
                                 </Label.Shadow>
                             </Label>
 
-
                             <Label
+                                x:Name="AmountTimeSeen"
                                 Grid.Row="1"
                                 FontAttributes="Bold"
                                 FontSize="15"
@@ -132,9 +132,8 @@
                                 </Label.Shadow>
                             </Label>
                         </Grid>
-
-
                     </Grid>
+
 
                     <Label
                         Grid.Row="0"
@@ -343,8 +342,6 @@
 
                     </Frame>
 
-
-
                     <Label
                         Grid.Row="9"
                         Padding="10"
@@ -482,8 +479,7 @@
                                 FontAttributes="Bold"
                                 FontSize="20"
                                 HorizontalOptions="Center"
-                                Text ="0.0"
-                                 />
+                                Text="0.0" />
 
                             <Slider
                                 x:Name="RatingValueSlider"

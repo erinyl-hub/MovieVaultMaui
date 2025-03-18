@@ -1,5 +1,5 @@
-﻿using MovieVaultMaui.Managers;
-using MovieVaultMaui.Enums;
+﻿using MovieVaultMaui.Enums;
+using MovieVaultMaui.Managers;
 
 namespace MovieVaultMaui
 {

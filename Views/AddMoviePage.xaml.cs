@@ -1,8 +1,5 @@
-using MovieVaultMaui.Models;
-using MovieVaultMaui.ViewModels;
-using System.Globalization;
-using MovieVaultMaui.Managers;
 using MovieVaultMaui.Enums;
+using MovieVaultMaui.Managers;
 
 namespace MovieVaultMaui;
 
@@ -13,7 +10,7 @@ public partial class AddMoviePage : ContentPage
     {
         InitializeComponent();
         UpdateConnectionStatus();
-        
+
 
         _movie = movie;
         BindingContext = new ViewModels.AddMoviePageViewModel(movie);
@@ -70,7 +67,7 @@ public partial class AddMoviePage : ContentPage
 
     private void MovieIsInSafe()
     {
-        if(Helpers.MovieAlreadyInSafeChecker(_movie.imdbID))
+        if (Helpers.MovieAlreadyInSafeChecker(_movie.imdbID))
         {
             movieInSafeSign.IsVisible = true;
             checkboxSeenMovie.IsVisible = false;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace MovieVaultMaui.ViewModels
 {
@@ -21,8 +16,8 @@ namespace MovieVaultMaui.ViewModels
             get => _movie;
             set
             {
-                    _movie = value;
-                    OnPropertyChanged(nameof(Movie));
+                _movie = value;
+                OnPropertyChanged(nameof(Movie));
             }
         }
 

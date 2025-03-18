@@ -8,9 +8,9 @@
 
         <Grid>
             <Image
-            Aspect="Fill"
-            SemanticProperties.Description="Gray background with video camera logo"
-            Source="bakrund2266.png" />
+                Aspect="Fill"
+                SemanticProperties.Description="Gray background with video camera logo"
+                Source="bakrund2266.png" />
 
             <VerticalStackLayout>
 
@@ -19,56 +19,56 @@
                 <Grid Padding="20" RowDefinitions="*,200, Auto, Auto">
 
                     <ImageButton
-                    Grid.Row="0"                    
-                    BackgroundColor="Transparent"
-                    Clicked="OnBackClicked"
-                    HeightRequest="50"
-                    HorizontalOptions="Start"
-                    Source="backarrow.png"
-                    WidthRequest="50" />
+                        Grid.Row="0"
+                        BackgroundColor="Transparent"
+                        Clicked="OnBackClicked"
+                        HeightRequest="50"
+                        HorizontalOptions="Start"
+                        Source="backarrow.png"
+                        WidthRequest="50" />
 
                     <Image
-                    x:Name="ConnectionImage"
-                    Grid.Row="0"
-                    HeightRequest="50"
-                    HorizontalOptions="End"
-                    WidthRequest="50" />
+                        x:Name="ConnectionImage"
+                        Grid.Row="0"
+                        HeightRequest="50"
+                        HorizontalOptions="End"
+                        WidthRequest="50" />
 
                     <Image
-                    Grid.Row="1"
-                    HeightRequest="600"
-                    HorizontalOptions="Center"
-                    Source="logotyp.png"
-                    VerticalOptions="Center"
-                    WidthRequest="500" />
+                        Grid.Row="1"
+                        HeightRequest="600"
+                        HorizontalOptions="Center"
+                        Source="logotyp.png"
+                        VerticalOptions="Center"
+                        WidthRequest="500" />
 
                     <Grid
-                    Grid.Row="2"
-                    Padding="20"
-                    WidthRequest="1400">
+                        Grid.Row="2"
+                        Padding="20"
+                        WidthRequest="1400">
 
                         <Grid HorizontalOptions="End" WidthRequest="720">
 
                             <Entry
-                            x:Name="SearchEntry"
-                            BackgroundColor="Transparent"
-                            FontAttributes="Bold"
-                            HeightRequest="20"
-                            HorizontalOptions="End"
-                            Placeholder="Search..."
-                            PlaceholderColor="Black"
-                            TextChanged="SearchEntryChange"
-                            WidthRequest="300" />
+                                x:Name="SearchEntry"
+                                BackgroundColor="Transparent"
+                                FontAttributes="Bold"
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                Placeholder="Search..."
+                                PlaceholderColor="Black"
+                                TextChanged="SearchEntryChange"
+                                WidthRequest="300" />
 
                             <Picker
-                            x:Name="SearchOptionsPickerOnPage"
-                            FontAttributes="Bold"
-                            HeightRequest="30"
-                            HorizontalOptions="Center"
-                            ItemsSource="{Binding SearchOptionsPicker}"
-                            SelectedIndex="0"
-                            SelectedIndexChanged="OnPickerChanged"
-                            WidthRequest="120" />
+                                x:Name="SearchOptionsPickerOnPage"
+                                FontAttributes="Bold"
+                                HeightRequest="30"
+                                HorizontalOptions="Center"
+                                ItemsSource="{Binding SearchOptionsPicker}"
+                                SelectedIndex="0"
+                                SelectedIndexChanged="OnPickerChanged"
+                                WidthRequest="120" />
 
                         </Grid>
 
@@ -76,57 +76,57 @@
                         <Grid HorizontalOptions="Center" WidthRequest="200">
 
                             <ImageButton
-                            x:Name="GoForward"
-                            Padding="5"
-                            Background="Transparent"
-                            Clicked="NextPage"
-                            HeightRequest="60"
-                            HorizontalOptions="End"
-                            IsVisible="True"
-                            Source="goforwardarrow.png"
-                            WidthRequest="60" />
+                                x:Name="GoForward"
+                                Padding="5"
+                                Background="Transparent"
+                                Clicked="NextPage"
+                                HeightRequest="60"
+                                HorizontalOptions="End"
+                                IsVisible="True"
+                                Source="goforwardarrow.png"
+                                WidthRequest="60" />
 
                             <ImageButton
-                            x:Name="GoBackwards"
-                            Padding="5"
-                            Background="Transparent"
-                            Clicked="PreviousPage"
-                            HeightRequest="60"
-                            HorizontalOptions="Start"
-                            IsVisible="False"
-                            Source="gobackwardsarrow.png"
-                            WidthRequest="60" />
+                                x:Name="GoBackwards"
+                                Padding="5"
+                                Background="Transparent"
+                                Clicked="PreviousPage"
+                                HeightRequest="60"
+                                HorizontalOptions="Start"
+                                IsVisible="False"
+                                Source="gobackwardsarrow.png"
+                                WidthRequest="60" />
 
                         </Grid>
 
 
 
                         <Grid
-                        Padding="20"
-                        HorizontalOptions="Start"
-                        RowDefinitions="Auto"
-                        WidthRequest="300">
+                            Padding="20"
+                            HorizontalOptions="Start"
+                            RowDefinitions="Auto"
+                            WidthRequest="300">
 
                             <Picker
-                            x:Name="SortOptionsPickerOnPage"
-                            FontAttributes="Bold"
-                            HeightRequest="30"
-                            HorizontalOptions="Center"
-                            ItemsSource="{Binding SortOptionsPicker}"
-                            SelectedIndex="0"
-                            SelectedIndexChanged="OnPickerChanged"
-                            WidthRequest="150" />
+                                x:Name="SortOptionsPickerOnPage"
+                                FontAttributes="Bold"
+                                HeightRequest="30"
+                                HorizontalOptions="Center"
+                                ItemsSource="{Binding SortOptionsPicker}"
+                                SelectedIndex="0"
+                                SelectedIndexChanged="OnPickerChanged"
+                                WidthRequest="150" />
 
 
                             <ImageButton
-                            x:Name="ChangeOrder"
-                            Padding="5"
-                            Background="Transparent"
-                            Clicked="ChangeOrderClicked"
-                            HeightRequest="50"
-                            HorizontalOptions="End"
-                            Source="sortingarrows.png"
-                            WidthRequest="25" />
+                                x:Name="ChangeOrder"
+                                Padding="5"
+                                Background="Transparent"
+                                Clicked="ChangeOrderClicked"
+                                HeightRequest="50"
+                                HorizontalOptions="End"
+                                Source="sortingarrows.png"
+                                WidthRequest="25" />
 
 
                         </Grid>
@@ -139,9 +139,9 @@
 
 
                 <CollectionView
-                x:Name="MoviesToSeeCollectionView"
-                SelectionChanged="OnItemSelected"
-                SelectionMode="Single">
+                    x:Name="MoviesToSeeCollectionView"
+                    SelectionChanged="OnItemSelected"
+                    SelectionMode="Single">
 
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" Span="7" />
@@ -157,34 +157,36 @@
 
 
                                 <Label
-                                Padding="5"
-                                FontAttributes="Bold"
-                                FontSize="15"
-                                HorizontalOptions="Center"
-                                Text="{Binding imdbRating}" />
+                                    x:Name="InfoAboveMovie"
+                                    Padding="5"
+                                    FontAttributes="Bold"
+                                    FontSize="15"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding imdbRating}" />
 
 
                                 <Image
-                                BackgroundColor="Transparent"
-                                HeightRequest="150"
-                                HorizontalOptions="Center"
-                                Source="{Binding Poster}"
-                                WidthRequest="200">
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="150"
+                                    HorizontalOptions="Center"
+                                    Source="{Binding Poster}"
+                                    WidthRequest="200">
                                     <Image.Shadow>
                                         <Shadow
-                                        Brush="Black"
-                                        Opacity="3"
-                                        Radius="20"
-                                        Offset="9,5" />
+                                            Brush="Black"
+                                            Opacity="3"
+                                            Radius="20"
+                                            Offset="9,5" />
                                     </Image.Shadow>
                                 </Image>
 
                                 <Label
-                                Padding="15"
-                                FontAttributes="Bold"
-                                FontSize="15"
-                                HorizontalOptions="Center"
-                                Text="{Binding Title}" />
+                                    x:Name="Test"
+                                    Padding="15"
+                                    FontAttributes="Bold"
+                                    FontSize="15"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Title}" />
 
 
                             </StackLayout>

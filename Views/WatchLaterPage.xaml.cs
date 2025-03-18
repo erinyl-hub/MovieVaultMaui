@@ -1,10 +1,7 @@
+using MovieVaultMaui.Enums;
 using MovieVaultMaui.Models;
 using MovieVaultMaui.Views;
-using MovieVaultMaui.Enums;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Collections;
 
 namespace MovieVaultMaui;
 
@@ -31,7 +28,7 @@ public partial class WatchLaterPage : ContentPage
         MessagingCenter.Subscribe<PopupViewPage, Models.Movie>(this, "UppdateView", (sender, movie) =>
         {
             test(movie);
-            
+
         });
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
@@ -58,7 +55,7 @@ public partial class WatchLaterPage : ContentPage
     private async Task CreateMovieSearchDictionary()
     {
         var moviesToSee = Managers.DataManager.GetMovieList(MovieLibraryType.MoviesToSee);
-        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary( moviesToSee.AsEnumerable().Reverse().ToList());
+        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(moviesToSee.AsEnumerable().Reverse().ToList());
     }
 
     private async void OnBackClicked(object sender, EventArgs e)
@@ -160,7 +157,7 @@ public partial class WatchLaterPage : ContentPage
     private async Task test(Models.Movie movie)
     {
         CreateMovieSearchDictionary();
-   
+
         UppdateMoviesViewed();
 
     }

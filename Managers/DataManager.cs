@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MovieVaultMaui.Enums;
 
@@ -150,7 +149,7 @@ namespace MovieVaultMaui.Managers
 
                 case DatabaseAction.Update:
 
-                    _dbService.UpdateMovie(movie,libraryType);
+                    _dbService.UpdateMovie(movie, libraryType);
 
                     break;
 

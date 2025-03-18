@@ -1,16 +1,15 @@
+using MovieVaultMaui.Enums;
 using MovieVaultMaui.Models;
 using MovieVaultMaui.Views;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using MovieVaultMaui.Enums;
 
 namespace MovieVaultMaui;
 
 public partial class SeenMoviesPage : ContentPage
 {
 
-    public List<string> SortOptionsPicker { get; } = new List<string> { "Last added", "Rating", "Alphabetically", "Length", "Year" };
+    public List<string> SortOptionsPicker { get; } = new List<string>
+    { "Last added", "Last Seen", "See Again", "Rating", "Your Rating", "Alphabetically", "Length", "Year" };
     public List<string> SearchOptionsPicker { get; } = new List<string> { "Titel", "Director", "Actor", "Genre", "ImdbID" };
 
     public IEnumerable<Movie> SeenMoviesList;
@@ -22,7 +21,7 @@ public partial class SeenMoviesPage : ContentPage
     private int itemsPerPage = 28;
 
     public SeenMoviesPage()
-	{
+    {
         InitializeComponent();
         InitializePage();
 
@@ -116,6 +115,8 @@ public partial class SeenMoviesPage : ContentPage
 
     public void UpdatePageView()
     {
+        // InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
+
         var pagedMovies = SeenMoviesList
             .Skip((currentPage - 1) * itemsPerPage)
             .Take(itemsPerPage);
@@ -139,7 +140,6 @@ public partial class SeenMoviesPage : ContentPage
         if (currentPage == 1) { GoBackwards.IsVisible = false; }
 
         GoForward.IsVisible = true;
-        UpdatePageView();
     }
 
     public void ResetPageCount()
@@ -151,4 +151,61 @@ public partial class SeenMoviesPage : ContentPage
         else { GoForward.IsVisible = true; }
     }
 
+    public void SetInfoAboveMovie(string choise)
+    {
+        switch (choise)
+        {
+
+
+
+           // case ("Last added"):
+            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
+            //    break;
+
+            //case ("Last Seen"):
+            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
+            //    break;
+
+            //case ("See Again"):
+            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
+            //    break;
+
+            //case ("Rating"):
+            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
+            //    break;
+
+            //case ("Your Rating"):
+            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
+            //    break;
+
+            //case ("Alphabetically"):
+            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
+            //    break;
+
+            //case ("Length"):
+            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
+            //    break;
+
+            //case ("Year"):
+            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
+            //    break;
+
+
+
+        }
+
+
+
+
+    }
+
+    private void MoviesToSeeCollectionView_BindingContextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void MoviesToSeeCollectionView_BindingContextChanged_1(object sender, EventArgs e)
+    {
+
+    }
 }

@@ -52,7 +52,7 @@ public partial class PopupViewPage : ContentPage
         _movie.Movie.UserData = CreateUserInfoOnMovie();
 
         var databaseFacade = new Managers.DatabaseFacade();
-        databaseFacade.Execute(_movie.Movie, DatabaseAction.Move,MovieLibraryType.SeenMovies);
+        databaseFacade.Execute(_movie.Movie, DatabaseAction.Move, MovieLibraryType.SeenMovies);
 
         await Navigation.PopModalAsync();
         MessagingCenter.Send(this, "UppdateView", _movie);
@@ -60,12 +60,12 @@ public partial class PopupViewPage : ContentPage
 
     private void OnClickedMovieJustSeen(object sender, EventArgs e) // funkar ej
     {
+        LastTimeSeen.Text = (_movie.Movie.UserData.LastTimeSeen = DateTime.Now).ToString("yyyy-MM-dd");
         _movie.Movie.UserData.AmountTimeSeen++;
-        _movie.Movie.UserData.LastTimeSeen = DateTime.Now;
-        _movie.Movie.Director = "Funkar ejjjjjj";
+        AmountTimeSeen.Text = _movie.Movie.UserData.AmountTimeSeen.ToString();
 
-        var test = _movie;
-
+        var databaseFacade = new DatabaseFacade();
+        databaseFacade.Execute(_movie.Movie, DatabaseAction.Update, _movielibraryType);
     }
 
     private void AdjustPage(PopupViewPageSettingsType settings)
@@ -152,7 +152,6 @@ public partial class PopupViewPage : ContentPage
         _movie.Movie.UserData.UserRating = RatingValueLabel.Text.Replace(",", ".");
         _movie.Movie.UserData.SeeAgain = SeeAgainCheckBox.IsChecked;
         _movie.Movie.UserData.UserReview = userReviewEditor.Text;
-
 
         var databaseFacade = new DatabaseFacade();
         databaseFacade.Execute(_movie.Movie, DatabaseAction.Update, _movielibraryType);

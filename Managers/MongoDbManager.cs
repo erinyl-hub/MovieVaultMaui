@@ -26,7 +26,7 @@ namespace MovieVaultMaui.Managers
 
             return movieInfo;
         }
-        
+
 
     }
 }
