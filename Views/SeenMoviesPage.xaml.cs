@@ -151,61 +151,11 @@ public partial class SeenMoviesPage : ContentPage
         else { GoForward.IsVisible = true; }
     }
 
-    public void SetInfoAboveMovie(string choise)
-    {
-        switch (choise)
-        {
-
-
-
-           // case ("Last added"):
-            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
-            //    break;
-
-            //case ("Last Seen"):
-            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
-            //    break;
-
-            //case ("See Again"):
-            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
-            //    break;
-
-            //case ("Rating"):
-            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
-            //    break;
-
-            //case ("Your Rating"):
-            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
-            //    break;
-
-            //case ("Alphabetically"):
-            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
-            //    break;
-
-            //case ("Length"):
-            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
-            //    break;
-
-            //case ("Year"):
-            //    InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
-            //    break;
-
-
-
-        }
+    
 
 
 
 
-    }
+    
 
-    private void MoviesToSeeCollectionView_BindingContextChanged(object sender, EventArgs e)
-    {
-
-    }
-
-    private void MoviesToSeeCollectionView_BindingContextChanged_1(object sender, EventArgs e)
-    {
-
-    }
 }

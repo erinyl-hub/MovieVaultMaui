@@ -10,10 +10,12 @@ namespace MovieVaultMaui.Managers
 
         private static List<Models.Movie> _moviesToSee = new List<Models.Movie>();
         private static List<Models.Movie> _seenMovies = new List<Models.Movie>();
-        public static bool DataLoaded { get; private set; } = false;
+
+
+        public static bool DataLoaded { get; private set; } = false;      
+
 
         public DataManager() { }
-
 
         public static List<Models.Movie> GetMovieList(MovieLibraryType listName)
         {
@@ -62,6 +64,8 @@ namespace MovieVaultMaui.Managers
             _moviesToSee = moviesToSeeData;
             _seenMovies = seenMoviesData;
             DataLoaded = true;
+            
+
         }
 
         public async Task AddMovieToList(Models.Movie movie, MovieLibraryType listName)
@@ -90,6 +94,7 @@ namespace MovieVaultMaui.Managers
                     _seenMovies.Remove(movie);
                     break;
             }
+            SearchFilterManager.SetDataUpdatedSearchFilterManager();
         }
 
         public void MoveMovieLibrary(Models.Movie movie)

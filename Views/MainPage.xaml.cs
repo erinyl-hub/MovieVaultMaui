@@ -13,6 +13,7 @@ namespace MovieVaultMaui
 
             var databaseFacade = new DatabaseFacade();
             databaseFacade.Execute(null, DatabaseAction.LoadData, MovieLibraryType.None);
+            SearchFilterManager.FilSearchEngineDictionary(DataManager.DataLoaded);
 
             Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
         }

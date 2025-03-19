@@ -2,6 +2,8 @@ using MovieVaultMaui.Enums;
 using MovieVaultMaui.Models;
 using MovieVaultMaui.Views;
 using System.Collections.ObjectModel;
+using MovieVaultMaui.Managers;
+using Microsoft.Maui.Controls;
 
 namespace MovieVaultMaui;
 
@@ -11,12 +13,16 @@ public partial class WatchLaterPage : ContentPage
     public List<string> SearchOptionsPicker { get; } = new List<string> { "Titel", "Director", "Actor", "Genre", "ImdbID" };
 
     public IEnumerable<Movie> moviesToSeeList;
-    public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
+    public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary = 
+        SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.MoviesToSee);
+
     public bool changeMovieOrderBy = false;
 
     private int lastPage = 0;
     private int currentPage = 1;
     private int itemsPerPage = 42;
+
+    private static TaskCompletionSource<bool> _tcs = new();
 
 
     public WatchLaterPage()
@@ -25,21 +31,18 @@ public partial class WatchLaterPage : ContentPage
         InitializeComponent();
         InitializePage();
 
-        MessagingCenter.Subscribe<PopupViewPage, Models.Movie>(this, "UppdateView", (sender, movie) =>
+        MessagingCenter.Subscribe<PopupViewPage>(this, "UppdateView", (sender) =>
         {
-            test(movie);
-
+            UpdateViewOnChange();
         });
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
 
     public void InitializePage()
     {
-        CreateMovieSearchDictionary();
         PickerSeter();
         UppdateMoviesViewed();
         UpdateConnectionStatus();
-
     }
 
     private async void OnItemSelected(object sender, SelectionChangedEventArgs e)
@@ -154,12 +157,19 @@ public partial class WatchLaterPage : ContentPage
     }
 
 
-    private async Task test(Models.Movie movie)
+    private async Task UpdateViewOnChange()
     {
-        CreateMovieSearchDictionary();
-
+        await _tcs.Task;
+        movieSearchDictionary =
+        SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.MoviesToSee);
         UppdateMoviesViewed();
+        _tcs = new TaskCompletionSource<bool>();
 
+    }
+
+    public static void SetDataWatchLaterPage()
+    {
+        _tcs.TrySetResult(true);
     }
 
 }

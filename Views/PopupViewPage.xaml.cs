@@ -141,10 +141,11 @@ public partial class PopupViewPage : ContentPage
     {
         var databaseFacade = new DatabaseFacade();
         databaseFacade.Execute(_movie.Movie, DatabaseAction.Remove, _movielibraryType);
+        SearchFilterManager.updateDictionary(_movielibraryType);
 
         await Navigation.PopModalAsync();
-        MessagingCenter.Send(this, "UppdateView", _movie);
-
+        await Task.Delay(5000);
+        MessagingCenter.Send(this as PopupViewPage, "UppdateView");
     }
 
     private void OnClickedSaveEditedMovie(object sender, EventArgs e)
