@@ -18,6 +18,7 @@ public partial class SeenMoviesPage : ContentPage
     public bool changeMovieOrderBy = false;
 
     private static TaskCompletionSource<bool> _tcsa = new();
+    private static SeenMoviesPage _instanceSeenMoviesPage;
 
     private int lastPage = 0;
     private int currentPage = 1;
@@ -28,11 +29,6 @@ public partial class SeenMoviesPage : ContentPage
         InitializeComponent();
         InitializePage();
 
-        MessagingCenter.Subscribe<PopupViewPage>(this, "UppdateView.SeenMovies", (sender) =>
-        {
-            UpdateViewOnChange();
-        });
-
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
 
     }
@@ -41,6 +37,7 @@ public partial class SeenMoviesPage : ContentPage
     {
         movieSearchDictionary = await
         SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.SeenMovies);
+        _instanceSeenMoviesPage = this;
         PickerSeter();
         UppdateMoviesViewed();
         UpdateConnectionStatus();
@@ -56,7 +53,6 @@ public partial class SeenMoviesPage : ContentPage
             ((CollectionView)sender).SelectedItem = null;
         }
     }
-
 
 
     private async void OnBackClicked(object sender, EventArgs e)
@@ -143,6 +139,7 @@ public partial class SeenMoviesPage : ContentPage
         if (currentPage == 1) { GoBackwards.IsVisible = false; }
 
         GoForward.IsVisible = true;
+        UpdatePageView();
     }
 
     public void ResetPageCount()
@@ -170,7 +167,10 @@ public partial class SeenMoviesPage : ContentPage
     }
 
 
-
+    public async static Task RefreshSeenMoviesPage()
+    {
+        _instanceSeenMoviesPage?.UpdateViewOnChange();
+    }
 
 
 

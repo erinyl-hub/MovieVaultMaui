@@ -19,10 +19,10 @@ public partial class WatchLaterPage : ContentPage
 
     private int lastPage = 0;
     private int currentPage = 1;
-    private int itemsPerPage = 42;
+    private int itemsPerPage = 28;
 
     private static TaskCompletionSource<bool> _tcs = new();
-
+    private static WatchLaterPage _instanceWatchLaterPage;
 
     public WatchLaterPage()
     {
@@ -30,10 +30,6 @@ public partial class WatchLaterPage : ContentPage
         InitializeComponent();
         InitializePage();
 
-        MessagingCenter.Subscribe<PopupViewPage>(this, "UppdateView.WatchLater", (sender) =>
-        {
-            UpdateViewOnChange();
-        });
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
 
@@ -41,6 +37,7 @@ public partial class WatchLaterPage : ContentPage
     {
         movieSearchDictionary = await
         SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.MoviesToSee);
+        _instanceWatchLaterPage = this;
         PickerSeter();
         UppdateMoviesViewed();
         UpdateConnectionStatus();
@@ -166,6 +163,11 @@ public partial class WatchLaterPage : ContentPage
     public static void SetDataWatchLaterPage()
     {
         _tcs.TrySetResult(true);
+    }
+
+    public async static Task RefreshWatchLaterPage()
+    {
+        _instanceWatchLaterPage?.UpdateViewOnChange();
     }
 
 
