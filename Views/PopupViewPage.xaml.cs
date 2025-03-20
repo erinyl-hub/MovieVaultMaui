@@ -29,7 +29,6 @@ public partial class PopupViewPage : ContentPage
     private async void ClosePopupClicked(object sender, TappedEventArgs e)
     {
         await Navigation.PopModalAsync();
-
     }
 
     public static string ConvertRuneTime(string time)
@@ -57,7 +56,7 @@ public partial class PopupViewPage : ContentPage
         SearchFilterManager.updateDictionary(_movielibraryType);
 
         await Navigation.PopModalAsync();
-        WatchLaterPage.RefreshWatchLaterPage();
+        MessagingCenter.Send(this, "UppdateView");
     }
 
     private void OnClickedMovieJustSeen(object sender, EventArgs e) // funkar ej
@@ -149,11 +148,11 @@ public partial class PopupViewPage : ContentPage
 
         if (_movielibraryType == MovieLibraryType.SeenMovies)
         {
-            SeenMoviesPage.RefreshSeenMoviesPage();
+            MessagingCenter.Send(this, "UppdateView.SeenMovies");
         }
         else
         {
-            WatchLaterPage.RefreshWatchLaterPage();
+            MessagingCenter.Send(this, "UppdateView.WatchLater");
         }
     }
 

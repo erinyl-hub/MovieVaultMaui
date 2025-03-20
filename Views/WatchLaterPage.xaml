@@ -5,7 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="WatchLaterPage">
 
+
+
     <ScrollView Background="Transparent">
+
 
         <Grid Background="Transparent">
 
@@ -14,7 +17,10 @@
                 SemanticProperties.Description="Gray background with video camera logo"
                 Source="bakrund2266.png" />
 
+
             <VerticalStackLayout Background="Transparent">
+
+
 
                 <Grid
                     Padding="20"
@@ -79,6 +85,7 @@
 
                         </Grid>
 
+
                         <Grid
                             Background="Transparent"
                             HorizontalOptions="Center"
@@ -108,6 +115,8 @@
 
                         </Grid>
 
+
+
                         <Grid
                             Padding="20"
                             Background="Transparent"
@@ -125,6 +134,7 @@
                                 SelectedIndexChanged="OnPickerChanged"
                                 WidthRequest="150" />
 
+
                             <ImageButton
                                 x:Name="ChangeOrder"
                                 Padding="5"
@@ -135,11 +145,15 @@
                                 Source="sortingarrows.png"
                                 WidthRequest="25" />
 
+
                         </Grid>
 
                     </Grid>
 
+
                 </Grid>
+
+
 
                 <CollectionView
                     x:Name="MoviesToSeeCollectionView"
@@ -151,6 +165,8 @@
                         <GridItemsLayout Orientation="Vertical" Span="7" />
                     </CollectionView.ItemsLayout>
 
+
+
                     <CollectionView.ItemTemplate>
 
                         <DataTemplate>
@@ -160,12 +176,14 @@
                                 Background="Transparent"
                                 Orientation="Vertical">
 
+
                                 <Label
                                     Padding="5"
                                     FontAttributes="Bold"
                                     FontSize="15"
                                     HorizontalOptions="Center"
                                     Text="{Binding imdbRating}" />
+
 
                                 <Image
                                     BackgroundColor="Transparent"
@@ -189,6 +207,7 @@
                                     HorizontalOptions="Center"
                                     Text="{Binding Title}" />
 
+
                             </StackLayout>
 
                         </DataTemplate>
@@ -198,7 +217,9 @@
 
             </VerticalStackLayout>
 
+
         </Grid>
     </ScrollView>
+
 
 </ContentPage>

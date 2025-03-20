@@ -1,7 +1,9 @@
+using MovieVaultMaui.Enums;
 using MovieVaultMaui.Models;
-using System.Collections.Generic;
+using MovieVaultMaui.Views;
 using System.Collections.ObjectModel;
-using System.Linq;
+using MovieVaultMaui.Managers;
+using Microsoft.Maui.Controls;
 
 namespace MovieVaultMaui;
 
@@ -12,10 +14,14 @@ public partial class WatchLaterPage : ContentPage
 
     public IEnumerable<Movie> moviesToSeeList;
     public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
+
     public bool changeMovieOrderBy = false;
 
+    private int lastPage = 0;
     private int currentPage = 1;
-    private int itemsPerPage = 28;
+    private int itemsPerPage = 42;
+
+    private static TaskCompletionSource<bool> _tcs = new();
 
 
     public WatchLaterPage()
@@ -24,25 +30,32 @@ public partial class WatchLaterPage : ContentPage
         InitializeComponent();
         InitializePage();
 
-
+        MessagingCenter.Subscribe<PopupViewPage>(this, "UppdateView.WatchLater", (sender) =>
+        {
+            UpdateViewOnChange();
+        });
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
 
-    public void InitializePage()
+    public async void InitializePage()
     {
-        CreateMovieSearchDictionary();
+        movieSearchDictionary = await
+        SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.MoviesToSee);
         PickerSeter();
+        UppdateMoviesViewed();
         UpdateConnectionStatus();
-
     }
 
-    private void OnItemSelected(object sender, SelectionChangedEventArgs e)  // ta bort
+    private async void OnItemSelected(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection.FirstOrDefault() is Movie selectedItem)
+        if (e.CurrentSelection.FirstOrDefault() is Movie selectedMovie)
         {
-            DisplayAlert("Valt objekt", $"Du tryckte på: {selectedItem.Title}  {selectedItem.Actors} {selectedItem.Runtime}", "OK");
+            await Navigation.PushModalAsync
+                (new PopupViewPage(selectedMovie, PopupViewPageSettingsType.WatchLaterPageSettings, MovieLibraryType.MoviesToSee));
+            ((CollectionView)sender).SelectedItem = null;
         }
     }
+
 
     private async void OnBackClicked(object sender, EventArgs e)
     {
@@ -55,36 +68,32 @@ public partial class WatchLaterPage : ContentPage
         ConnectionImage.Source = isConnected ? "online.png" : "offline.png";
     }
 
-
     private void PickerSeter()
     {
+
         BindingContext = this;
+
+        SearchOptionsPickerOnPage.SelectedIndexChanged -= OnPickerChanged;
+        SortOptionsPickerOnPage.SelectedIndexChanged -= OnPickerChanged;
+
         SearchOptionsPickerOnPage.SelectedIndex = 0;
         SortOptionsPickerOnPage.SelectedIndex = 0;
+
+        SearchOptionsPickerOnPage.SelectedIndexChanged += OnPickerChanged;
+        SortOptionsPickerOnPage.SelectedIndexChanged += OnPickerChanged;
     }
 
     private void OnPickerChanged(object sender, EventArgs e)
     {
-        var picker = (Picker)sender;
-        string selectedOption = picker.SelectedItem.ToString();
-    }
-
-    private void OnSortChanged(object sender, EventArgs e)
-    {
-        OnPickerChanged(sender, e);
-        changeMovieOrderBy = false;
         UppdateMoviesViewed();
     }
+
 
     private void SearchEntryChange(object sender, TextChangedEventArgs e)
     {
         UppdateMoviesViewed();
     }
 
-    private async void CreateMovieSearchDictionary()
-    {
-        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(aplicationData.MoviesToSee.AsEnumerable().Reverse().ToList());
-    }
 
     private async void UppdateMoviesViewed()
     {
@@ -96,7 +105,8 @@ public partial class WatchLaterPage : ContentPage
              (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(),
              searchWord, SortOptionsPickerOnPage.SelectedItem.ToString(), changeMovieOrderBy);
 
-        UpdateCollectionView();
+        UpdatePageView();
+        ResetPageCount();
     }
 
     private void ChangeOrderClicked(object sender, EventArgs e)
@@ -105,11 +115,11 @@ public partial class WatchLaterPage : ContentPage
         UppdateMoviesViewed();
     }
 
-    public void UpdateCollectionView()
+    public void UpdatePageView()
     {
         var pagedMovies = moviesToSeeList
-            .Skip((currentPage - 1) * itemsPerPage)  
-            .Take(itemsPerPage);                    
+            .Skip((currentPage - 1) * itemsPerPage)
+            .Take(itemsPerPage);
 
         ObservableCollection<Movie> moviesToSeeObservableListView = new ObservableCollection<Movie>(pagedMovies);
         MoviesToSeeCollectionView.ItemsSource = moviesToSeeObservableListView;
@@ -118,16 +128,44 @@ public partial class WatchLaterPage : ContentPage
     public void NextPage(object sender, EventArgs e)
     {
         currentPage++;
-        UpdateCollectionView();
-        GoBackwards.IsVisible = true;
+        if (currentPage == (lastPage)) { GoForward.IsVisible = false; }
 
+        GoBackwards.IsVisible = true;
+        UpdatePageView();
     }
 
     public void PreviousPage(object sender, EventArgs e)
     {
-        if (currentPage == 1) { GoBackwards.IsVisible = false; }
         currentPage--;
-        UpdateCollectionView();
+        if (currentPage == 1) { GoBackwards.IsVisible = false; }
+
+        GoForward.IsVisible = true;
+        UpdatePageView();
+    }
+
+    public void ResetPageCount()
+    {
+        lastPage = (int)Math.Ceiling((moviesToSeeList.Count() / (double)itemsPerPage));
+        currentPage = 1;
+        GoBackwards.IsVisible = false;
+        if (lastPage < 2) { GoForward.IsVisible = false; }
+        else { GoForward.IsVisible = true; }
+    }
+
+
+    private async Task UpdateViewOnChange()
+    {
+        await _tcs.Task;
+        movieSearchDictionary =
+        await SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.MoviesToSee);
+        UppdateMoviesViewed();
+        _tcs = new TaskCompletionSource<bool>();
+
+    }
+
+    public static void SetDataWatchLaterPage()
+    {
+        _tcs.TrySetResult(true);
     }
 
 
