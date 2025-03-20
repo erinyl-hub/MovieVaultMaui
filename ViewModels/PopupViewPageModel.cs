@@ -2,8 +2,10 @@
 
 namespace MovieVaultMaui.ViewModels
 {
-    class AddMoviePageViewModel : INotifyPropertyChanged
+    class PopupViewPageModel : INotifyPropertyChanged
     {
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
 
@@ -14,15 +16,12 @@ namespace MovieVaultMaui.ViewModels
             get => _movie;
             set
             {
-                if (_movie != value)
-                {
-                    _movie = value;
-                    OnPropertyChanged(nameof(Movie));
-                }
+                _movie = value;
+                OnPropertyChanged(nameof(Movie));
             }
         }
 
-        public AddMoviePageViewModel(Models.Movie movie)
+        public PopupViewPageModel(Models.Movie movie)
         {
             Movie = movie;
         }
@@ -30,6 +29,7 @@ namespace MovieVaultMaui.ViewModels
 
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
 
     }
 }
