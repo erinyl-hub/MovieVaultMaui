@@ -38,7 +38,7 @@ namespace MovieVaultMaui.Managers
 
         }
 
-        public static Dictionary<string, Func<string, IEnumerable<Models.Movie>>> GetMovieSearchEngineDictionary(MovieLibraryType dictionaryTypeName)
+        public async static Task<Dictionary<string, Func<string, IEnumerable<Models.Movie>>>> GetMovieSearchEngineDictionary(MovieLibraryType dictionaryTypeName)
         {
             return dictionaryTypeName switch
             {
@@ -56,14 +56,15 @@ namespace MovieVaultMaui.Managers
             {
                 case MovieLibraryType.MoviesToSee:
                     _movieToSeeSearchDictionary = await CreateSearchEngineDictionary(
-                DataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee)).ConfigureAwait(false);                 
+                DataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee)).ConfigureAwait(false);
+                    WatchLaterPage.SetDataWatchLaterPage();
                     break;
 
 
                 case MovieLibraryType.SeenMovies:
                     _seenMovieSearchDictionary = await CreateSearchEngineDictionary(
                 DataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies)).ConfigureAwait(false);
-                    WatchLaterPage.SetDataWatchLaterPage();
+                    SeenMoviesPage.SetDataSeenMoviesPage();
                     break;
 
             }

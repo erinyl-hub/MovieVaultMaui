@@ -53,9 +53,10 @@ public partial class PopupViewPage : ContentPage
 
         var databaseFacade = new Managers.DatabaseFacade();
         databaseFacade.Execute(_movie.Movie, DatabaseAction.Move, MovieLibraryType.SeenMovies);
+        SearchFilterManager.updateDictionary(_movielibraryType);
 
         await Navigation.PopModalAsync();
-        MessagingCenter.Send(this, "UppdateView", _movie);
+        MessagingCenter.Send(this, "UppdateView");
     }
 
     private void OnClickedMovieJustSeen(object sender, EventArgs e) // funkar ej
@@ -144,8 +145,15 @@ public partial class PopupViewPage : ContentPage
         SearchFilterManager.updateDictionary(_movielibraryType);
 
         await Navigation.PopModalAsync();
-        await Task.Delay(5000);
-        MessagingCenter.Send(this as PopupViewPage, "UppdateView");
+
+        if (_movielibraryType == MovieLibraryType.SeenMovies)
+        {
+            MessagingCenter.Send(this, "UppdateView.SeenMovies");
+        }
+        else
+        {
+            MessagingCenter.Send(this, "UppdateView.WatchLater");
+        }
     }
 
     private void OnClickedSaveEditedMovie(object sender, EventArgs e)

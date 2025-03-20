@@ -1,4 +1,5 @@
 using MovieVaultMaui.Enums;
+using MovieVaultMaui.Managers;
 using MovieVaultMaui.Models;
 using MovieVaultMaui.Views;
 using System.Collections.ObjectModel;
@@ -16,6 +17,8 @@ public partial class SeenMoviesPage : ContentPage
     public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
     public bool changeMovieOrderBy = false;
 
+    private static TaskCompletionSource<bool> _tcsa = new();
+
     private int lastPage = 0;
     private int currentPage = 1;
     private int itemsPerPage = 28;
@@ -25,14 +28,19 @@ public partial class SeenMoviesPage : ContentPage
         InitializeComponent();
         InitializePage();
 
+        MessagingCenter.Subscribe<PopupViewPage>(this, "UppdateView.SeenMovies", (sender) =>
+        {
+            UpdateViewOnChange();
+        });
 
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
 
     }
 
-    public void InitializePage()
+    public async void InitializePage()
     {
-        CreateMovieSearchDictionary();
+        movieSearchDictionary = await
+        SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.SeenMovies);
         PickerSeter();
         UppdateMoviesViewed();
         UpdateConnectionStatus();
@@ -49,11 +57,7 @@ public partial class SeenMoviesPage : ContentPage
         }
     }
 
-    private async void CreateMovieSearchDictionary()
-    {
-        var seenMovies = Managers.DataManager.GetMovieList(MovieLibraryType.SeenMovies);
-        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(seenMovies.AsEnumerable().Reverse().ToList());
-    }
+
 
     private async void OnBackClicked(object sender, EventArgs e)
     {
@@ -115,7 +119,6 @@ public partial class SeenMoviesPage : ContentPage
 
     public void UpdatePageView()
     {
-        // InfoAboveMovie.SetBinding(Label.TextProperty, new Binding("newPropertyName"));
 
         var pagedMovies = SeenMoviesList
             .Skip((currentPage - 1) * itemsPerPage)
@@ -151,11 +154,24 @@ public partial class SeenMoviesPage : ContentPage
         else { GoForward.IsVisible = true; }
     }
 
-    
+    private async Task UpdateViewOnChange()
+    {
+        await _tcsa.Task;
+        movieSearchDictionary =
+        await SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.SeenMovies);
+        UppdateMoviesViewed();
+        _tcsa = new TaskCompletionSource<bool>();
+
+    }
+
+    public static void SetDataSeenMoviesPage()
+    {
+        _tcsa.TrySetResult(true);
+    }
 
 
 
 
-    
+
 
 }

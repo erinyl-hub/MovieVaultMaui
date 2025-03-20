@@ -13,8 +13,7 @@ public partial class WatchLaterPage : ContentPage
     public List<string> SearchOptionsPicker { get; } = new List<string> { "Titel", "Director", "Actor", "Genre", "ImdbID" };
 
     public IEnumerable<Movie> moviesToSeeList;
-    public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary = 
-        SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.MoviesToSee);
+    public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
 
     public bool changeMovieOrderBy = false;
 
@@ -31,15 +30,17 @@ public partial class WatchLaterPage : ContentPage
         InitializeComponent();
         InitializePage();
 
-        MessagingCenter.Subscribe<PopupViewPage>(this, "UppdateView", (sender) =>
+        MessagingCenter.Subscribe<PopupViewPage>(this, "UppdateView.WatchLater", (sender) =>
         {
             UpdateViewOnChange();
         });
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
 
-    public void InitializePage()
+    public async void InitializePage()
     {
+        movieSearchDictionary = await
+        SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.MoviesToSee);
         PickerSeter();
         UppdateMoviesViewed();
         UpdateConnectionStatus();
@@ -55,11 +56,6 @@ public partial class WatchLaterPage : ContentPage
         }
     }
 
-    private async Task CreateMovieSearchDictionary()
-    {
-        var moviesToSee = Managers.DataManager.GetMovieList(MovieLibraryType.MoviesToSee);
-        movieSearchDictionary = await Helpers.CreateSearchEngineDictionary(moviesToSee.AsEnumerable().Reverse().ToList());
-    }
 
     private async void OnBackClicked(object sender, EventArgs e)
     {
@@ -161,7 +157,7 @@ public partial class WatchLaterPage : ContentPage
     {
         await _tcs.Task;
         movieSearchDictionary =
-        SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.MoviesToSee);
+        await SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.MoviesToSee);
         UppdateMoviesViewed();
         _tcs = new TaskCompletionSource<bool>();
 
@@ -171,5 +167,6 @@ public partial class WatchLaterPage : ContentPage
     {
         _tcs.TrySetResult(true);
     }
+
 
 }

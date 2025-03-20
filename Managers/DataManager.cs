@@ -104,7 +104,7 @@ namespace MovieVaultMaui.Managers
 
             AddMovieToList(movie, MovieLibraryType.SeenMovies);
             RemoveMovieFromList(movie, MovieLibraryType.MoviesToSee);
-
+            SearchFilterManager.SetDataUpdatedSearchFilterManager();
         }
 
         public async Task RemoveMovieDb(Models.Movie movie, MovieLibraryType libraryType)
