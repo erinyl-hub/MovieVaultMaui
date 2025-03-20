@@ -1,29 +1,30 @@
 ﻿using MongoDB.Driver;
 using MovieVaultMaui.Models;
-
+using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace MovieVaultMaui
 {
     class Helpers
     {
+
+        public static async Task GetDataFromDbAsync()
+        {
+            DataManager.MongoDbManager mongoDbManager = new DataManager.MongoDbManager();
+            Models.aplicationData.SeenMovies = mongoDbManager.ConnectToDb("WatchedMovies").AsQueryable().ToList();
+            Models.aplicationData.MoviesToSee = mongoDbManager.ConnectToDb("WatchLaterMovies").AsQueryable().ToList();
+        }
+
+
         public static bool MovieAlreadyInSafeChecker(string imdbId)
         {
-            var moviesToSee = Managers.DataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee);
-            var seenMovies = Managers.DataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies);
+            var combinedLibrary = aplicationData.MoviesToSee
+                .Concat(aplicationData.SeenMovies);
 
-            if (moviesToSee != null || seenMovies != null)
-            {
-
-                var combinedLibrary = moviesToSee
-                    .Concat(seenMovies);
-
-                var result = combinedLibrary.Where(movie => movie.imdbID.Contains(imdbId));
+            var result = combinedLibrary.Where(movie => movie.imdbID.Contains(imdbId));
 
 
-                return result.Any();
-            }
-
-            return false;
+            return result.Any();
         }
 
         public async static Task<Dictionary<string, Func<string, IEnumerable<Movie>>>> CreateSearchEngineDictionary(List<Movie> movies)
@@ -36,13 +37,17 @@ namespace MovieVaultMaui
                 { "Genre", (word) => movies.Where(movie => movie.Genre != null && movie.Genre.Contains(word, StringComparison.OrdinalIgnoreCase)) },
                 { "ImdbID", (word) => movies.Where(movie => movie.imdbID != null && movie.imdbID.Contains(word, StringComparison.OrdinalIgnoreCase)) }
             };
+
             return searchDictionary;
         }
 
         public static IEnumerable<Movie> SearchEngine
             (Dictionary<string, Func<string, IEnumerable<Movie>>> searchDictionary, string searchType, string searchWord, string sortBy, bool changeOrder)
         {
-            var result = searchDictionary[searchType](searchWord);
+
+
+                var result = searchDictionary[searchType](searchWord);
+                
 
             switch (sortBy)
             {
@@ -53,7 +58,7 @@ namespace MovieVaultMaui
                     result = result.OrderByDescending(m => m.imdbRating); // lägst först
                     break;
                 case "Length":
-                    result = result.OrderBy(m => int.TryParse(m.Runtime.Split(' ')[0], out int runtime) ? runtime : 0); // Lägst först, 2 som inte stämde
+                    result = result.OrderBy(m => m.Runtime); // Lägst först, 2 som inte stämde
                     break;
                 case "Year":
                     result = result.OrderBy(m => m.Year); // äldst först
@@ -61,30 +66,13 @@ namespace MovieVaultMaui
                 case "Alphabetically":
                     result = result.OrderBy(m => m.Title); // siffror först sedan bokstäver
                     break;
-                case "Last Seen":
-                    result = result.OrderByDescending(m => m.UserData.LastTimeSeen);
-                    break;
-                case "See Again":
-                    result = result.OrderByDescending(m => m.UserData.SeeAgain);
-                    break;
-                case "Your Rating":
-                    result = result.OrderByDescending(m => m.UserData.UserRating); // fixa när är 10 kommer först
-                    break;
             }
 
             if (changeOrder) { result = result.Reverse(); }
 
             return result;
+
         }
-
-        public static List<string> Spliter(string toSplit)
-        {
-            var splitList = toSplit.Split(new[] { ", " }, StringSplitOptions.None).ToList();
-
-            return splitList;
-        }
-
-
 
 
 

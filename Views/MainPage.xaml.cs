@@ -1,19 +1,17 @@
-﻿using MovieVaultMaui.Enums;
-using MovieVaultMaui.Managers;
-
-namespace MovieVaultMaui
+﻿namespace MovieVaultMaui
 {
     public partial class MainPage : ContentPage
     {
+
+
+
         public MainPage()
         {
             InitializeComponent();
 
             UpdateConnectionStatus();
 
-            var databaseFacade = new DatabaseFacade();
-            databaseFacade.Execute(null, DatabaseAction.LoadData, MovieLibraryType.None);
-            SearchFilterManager.FilSearchEngineDictionary(DataManager.DataLoaded);
+            Helpers.GetDataFromDbAsync();
 
             Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
         }
@@ -30,17 +28,10 @@ namespace MovieVaultMaui
             await Navigation.PushAsync(new ChooseMovieToAddPage());
         }
 
-        private async void InWatchLaterClicked(object sender, EventArgs e)
+        private async void InSafeClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new WatchLaterPage());
+            await Navigation.PushAsync(new SafePage());
         }
-
-        private async void InSeenMoviesClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new SeenMoviesPage());
-        }
-
-
 
     }
 
