@@ -1,6 +1,4 @@
-﻿
-
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace MovieVaultMaui.Models
@@ -26,7 +24,7 @@ namespace MovieVaultMaui.Models
         public string imdbRating { get; set; }
         public string imdbID { get; set; }
 
-        public UserInfoOnMovie? UserData { get; set; }
+        public UserInfoOnMovie? UserData { get; set; } = new UserInfoOnMovie();
         public DateTime MovieRegisterdTime { get; set; }
 
     }

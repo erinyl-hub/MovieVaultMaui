@@ -60,7 +60,7 @@ public partial class PopupViewPage : ContentPage
         WatchLaterPage.RefreshWatchLaterPage();
     }
 
-    private void OnClickedMovieJustSeen(object sender, EventArgs e) // funkar ej
+    private void OnClickedMovieJustSeen(object sender, EventArgs e)
     {
         LastTimeSeen.Text = (_movie.Movie.UserData.LastTimeSeen = DateTime.Now).ToString("yyyy-MM-dd");
         _movie.Movie.UserData.AmountTimeSeen++;

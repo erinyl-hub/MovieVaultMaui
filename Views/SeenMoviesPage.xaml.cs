@@ -13,7 +13,7 @@ public partial class SeenMoviesPage : ContentPage
     { "Last added", "Last Seen", "See Again", "Rating", "Your Rating", "Alphabetically", "Length", "Year" };
     public List<string> SearchOptionsPicker { get; } = new List<string> { "Titel", "Director", "Actor", "Genre", "ImdbID" };
 
-    public IEnumerable<Movie> SeenMoviesList;
+    private IEnumerable<Movie> _seenMoviesList;
     public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
     public bool changeMovieOrderBy = false;
 
@@ -98,7 +98,7 @@ public partial class SeenMoviesPage : ContentPage
         string searchWord = SearchEntry.Text ?? "";
         currentPage = 1;
 
-        SeenMoviesList
+        _seenMoviesList
              = Helpers.SearchEngine
              (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(),
              searchWord, SortOptionsPickerOnPage.SelectedItem.ToString(), changeMovieOrderBy);
@@ -116,7 +116,7 @@ public partial class SeenMoviesPage : ContentPage
     public void UpdatePageView()
     {
 
-        var pagedMovies = SeenMoviesList
+        var pagedMovies = _seenMoviesList
             .Skip((currentPage - 1) * itemsPerPage)
             .Take(itemsPerPage);
 
@@ -144,7 +144,7 @@ public partial class SeenMoviesPage : ContentPage
 
     public void ResetPageCount()
     {
-        lastPage = (int)Math.Ceiling((SeenMoviesList.Count() / (double)itemsPerPage));
+        lastPage = (int)Math.Ceiling((_seenMoviesList.Count() / (double)itemsPerPage));
         currentPage = 1;
         GoBackwards.IsVisible = false;
         if (lastPage < 2) { GoForward.IsVisible = false; }

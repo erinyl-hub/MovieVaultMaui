@@ -3,7 +3,6 @@ using MovieVaultMaui.Models;
 using MovieVaultMaui.Views;
 using System.Collections.ObjectModel;
 using MovieVaultMaui.Managers;
-using Microsoft.Maui.Controls;
 
 namespace MovieVaultMaui;
 
@@ -12,7 +11,7 @@ public partial class WatchLaterPage : ContentPage
     public List<string> SortOptionsPicker { get; } = new List<string> { "Last added", "Rating", "Alphabetically", "Length", "Year" };
     public List<string> SearchOptionsPicker { get; } = new List<string> { "Titel", "Director", "Actor", "Genre", "ImdbID" };
 
-    public IEnumerable<Movie> moviesToSeeList;
+    private IEnumerable<Movie> _moviesToSeeList;
     public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
 
     public bool changeMovieOrderBy = false;
@@ -97,7 +96,7 @@ public partial class WatchLaterPage : ContentPage
         string searchWord = SearchEntry.Text ?? "";
         currentPage = 1;
 
-        moviesToSeeList
+        _moviesToSeeList
              = Helpers.SearchEngine
              (movieSearchDictionary, SearchOptionsPickerOnPage.SelectedItem.ToString(),
              searchWord, SortOptionsPickerOnPage.SelectedItem.ToString(), changeMovieOrderBy);
@@ -114,7 +113,7 @@ public partial class WatchLaterPage : ContentPage
 
     public void UpdatePageView()
     {
-        var pagedMovies = moviesToSeeList
+        var pagedMovies = _moviesToSeeList
             .Skip((currentPage - 1) * itemsPerPage)
             .Take(itemsPerPage);
 
@@ -142,7 +141,7 @@ public partial class WatchLaterPage : ContentPage
 
     public void ResetPageCount()
     {
-        lastPage = (int)Math.Ceiling((moviesToSeeList.Count() / (double)itemsPerPage));
+        lastPage = (int)Math.Ceiling((_moviesToSeeList.Count() / (double)itemsPerPage));
         currentPage = 1;
         GoBackwards.IsVisible = false;
         if (lastPage < 2) { GoForward.IsVisible = false; }

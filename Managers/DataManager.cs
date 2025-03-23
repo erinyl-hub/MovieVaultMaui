@@ -7,15 +7,16 @@ namespace MovieVaultMaui.Managers
 {
     internal class DataManager
     {
+        private static readonly DataManager _instance = new DataManager();
 
         private static List<Models.Movie> _moviesToSee = new List<Models.Movie>();
         private static List<Models.Movie> _seenMovies = new List<Models.Movie>();
 
 
-        public static bool DataLoaded { get; private set; } = false;      
+        public static bool DataLoaded { get; private set; } = false;
 
 
-        public DataManager() { }
+        public static DataManager Instance => _instance;
 
         public static List<Models.Movie> GetMovieList(MovieLibraryType listName)
         {
@@ -54,7 +55,7 @@ namespace MovieVaultMaui.Managers
             return database.GetCollection<Models.Movie>(collectionName);
         }
 
-        public async Task LoadDataFromDbAsync() // lägg till try
+        public async Task LoadDataFromDbAsync() 
         {
             int delay = 2000;
 

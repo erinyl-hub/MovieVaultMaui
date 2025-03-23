@@ -28,7 +28,7 @@ namespace MovieVaultMaui.Managers
 
             while (!DataManager.DataLoaded)
             {
-                await Task.Delay(500); // Väntar innan den kollar igen
+                await Task.Delay(500); 
             }
 
             _movieToSeeSearchDictionary = await CreateSearchEngineDictionary(
