@@ -25,6 +25,7 @@ namespace MovieVaultMaui.Managers
 
         public async static Task FilSearchEngineDictionary(bool dataAvailable)
         {
+            DataManager dataManager = new DataManager();
 
             while (!DataManager.DataLoaded)
             {
@@ -32,9 +33,9 @@ namespace MovieVaultMaui.Managers
             }
 
             _movieToSeeSearchDictionary = await CreateSearchEngineDictionary(
-                DataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee)).ConfigureAwait(false);
+                dataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee)).ConfigureAwait(false);
             _seenMovieSearchDictionary = await CreateSearchEngineDictionary(
-                DataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies)).ConfigureAwait(false);
+                dataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies)).ConfigureAwait(false);
 
         }
 
@@ -51,19 +52,20 @@ namespace MovieVaultMaui.Managers
         public async static void updateDictionary(MovieLibraryType dictionaryTypeName)
         {
             await _tcs.Task;
+            DataManager dataManager = new DataManager();
 
             switch (dictionaryTypeName)
             {
                 case MovieLibraryType.MoviesToSee:
                     _movieToSeeSearchDictionary = await CreateSearchEngineDictionary(
-                DataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee)).ConfigureAwait(false);
+                dataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee)).ConfigureAwait(false);
                     WatchLaterPage.SetDataWatchLaterPage();
                     break;
 
 
                 case MovieLibraryType.SeenMovies:
                     _seenMovieSearchDictionary = await CreateSearchEngineDictionary(
-                DataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies)).ConfigureAwait(false);
+                dataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies)).ConfigureAwait(false);
                     SeenMoviesPage.SetDataSeenMoviesPage();
                     break;
 

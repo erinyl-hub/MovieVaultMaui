@@ -5,14 +5,17 @@ namespace MovieVaultMaui
 {
     public partial class MainPage : ContentPage
     {
+        private bool _dataLoaded;
+
         public MainPage()
         {
             InitializeComponent();
 
             UpdateConnectionStatus();
 
-            var databaseFacade = new DatabaseFacade();
-            databaseFacade.Execute(null, DatabaseAction.LoadData, MovieLibraryType.None);
+            var dataManager = new DataManager();
+            var libraryFacade = new MovieLibraryFacade(dataManager);
+            libraryFacade.LoadMoviesData();
             SearchFilterManager.FilSearchEngineDictionary(DataManager.DataLoaded);
 
             Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();

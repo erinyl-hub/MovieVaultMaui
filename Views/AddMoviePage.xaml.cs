@@ -45,23 +45,21 @@ public partial class AddMoviePage : ContentPage
 
     private void AddMovieBox(object sender, EventArgs e)
     {
-        var databaseFacade = new DatabaseFacade();
+        var dataManager = new DataManager();
+        var libraryFacade = new MovieLibraryFacade(dataManager);
 
         if (myCheckBox.IsChecked)
         {
             _movie.UserData = CreateUserInfoOnMovie();
             _movie.MovieRegisterdTime = DateTime.Now;
-
-            databaseFacade.Execute(_movie, DatabaseAction.Add, MovieLibraryType.SeenMovies);
+            libraryFacade.AddMovie(_movie, MovieLibraryType.SeenMovies);
             Navigation.PopToRootAsync();
-
         }
         else
         {
             _movie.MovieRegisterdTime = DateTime.Now;
-            databaseFacade.Execute(_movie, DatabaseAction.Add, MovieLibraryType.MoviesToSee);
+            libraryFacade.AddMovie(_movie, MovieLibraryType.MoviesToSee);
             Navigation.PopToRootAsync();
-
         }
     }
 

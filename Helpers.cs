@@ -8,8 +8,10 @@ namespace MovieVaultMaui
     {
         public static bool MovieAlreadyInSafeChecker(string imdbId)
         {
-            var moviesToSee = Managers.DataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee);
-            var seenMovies = Managers.DataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies);
+            Managers.DataManager dataManager = new Managers.DataManager();
+
+            var moviesToSee = dataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee);
+            var seenMovies = dataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies);
 
             if (moviesToSee != null || seenMovies != null)
             {

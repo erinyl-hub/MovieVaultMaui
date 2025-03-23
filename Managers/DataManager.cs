@@ -5,20 +5,18 @@ using MovieVaultMaui.Enums;
 
 namespace MovieVaultMaui.Managers
 {
-    internal class DataManager
+    public class DataManager
     {
         private static readonly DataManager _instance = new DataManager();
-
         private static List<Models.Movie> _moviesToSee = new List<Models.Movie>();
         private static List<Models.Movie> _seenMovies = new List<Models.Movie>();
-
 
         public static bool DataLoaded { get; private set; } = false;
 
 
         public static DataManager Instance => _instance;
 
-        public static List<Models.Movie> GetMovieList(MovieLibraryType listName)
+        public List<Models.Movie> GetMovieList(MovieLibraryType listName)
         {
             return listName switch
             {
@@ -28,7 +26,7 @@ namespace MovieVaultMaui.Managers
             };
         }
 
-        private static MongoClient GetClient()
+        private MongoClient GetClient()
         {
             const string connectionString = "mongodb+srv://eriknylund:SystemTILL2026!@ecluster.7zit7.mongodb.net/?retryWrites=true&w=majority&appName=ECluster";
 
@@ -55,66 +53,88 @@ namespace MovieVaultMaui.Managers
             return database.GetCollection<Models.Movie>(collectionName);
         }
 
-        public async Task LoadDataFromDbAsync() 
+        public async Task LoadDataFromDbAsync()
         {
-            int delay = 2000;
+            int delay = 500;
 
-            var moviesToSeeData = await ConnectToDb(MovieLibraryType.MoviesToSee).AsQueryable().ToListAsync();
-            var seenMoviesData = await ConnectToDb(MovieLibraryType.SeenMovies).AsQueryable().ToListAsync();
-
-            _moviesToSee = moviesToSeeData;
-            _seenMovies = seenMoviesData;
-            DataLoaded = true;
-            
-
-        }
-
-        public async Task AddMovieToList(Models.Movie movie, MovieLibraryType listName)
-        {
-            switch (listName)
+            while (!DataLoaded)
             {
-                case MovieLibraryType.MoviesToSee:
-                    _moviesToSee.Add(movie);
-                    break;
+                try
+                {
+                    var moviesToSeeData = await ConnectToDb(MovieLibraryType.MoviesToSee).AsQueryable().ToListAsync();
+                    var seenMoviesData = await ConnectToDb(MovieLibraryType.SeenMovies).AsQueryable().ToListAsync();
 
-                case MovieLibraryType.SeenMovies:
-                    _seenMovies.Add(movie);
-                    break;
+                    _moviesToSee = moviesToSeeData;
+                    _seenMovies = seenMoviesData;
+                    DataLoaded = true;
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Faild to load data from database");
+                }
+
+               await Task.Delay(delay);
             }
         }
 
-        public async Task RemoveMovieFromList(Models.Movie movie, MovieLibraryType listName)
+        public async Task AddMovieToLibrary(Models.Movie movie, MovieLibraryType libraryType)
         {
-            switch (listName)
+            try
             {
-                case MovieLibraryType.MoviesToSee:
-                    _moviesToSee.Remove(movie);
-                    break;
+                ConnectToDb(libraryType).InsertOne(movie);
 
-                case MovieLibraryType.SeenMovies:
-                    _seenMovies.Remove(movie);
-                    break;
+                switch (libraryType)
+                {
+                    case MovieLibraryType.MoviesToSee:
+                        _moviesToSee.Add(movie);
+                        break;
+
+                    case MovieLibraryType.SeenMovies:
+                        _seenMovies.Add(movie);
+                        break;
+                }
             }
-            SearchFilterManager.SetDataUpdatedSearchFilterManager();
+            catch (Exception ex)
+            {
+                Console.WriteLine("Fail to add movie");
+            }
+
+
         }
 
+        public async Task RemoveMovieFromLibrary(Models.Movie movie, MovieLibraryType libraryType)
+        {
+            try
+            {
+                var filter = Builders<Models.Movie>.Filter.Eq(m => m.Id, movie.Id);
+                ConnectToDb(libraryType).DeleteOne(filter);
+
+                switch (libraryType)
+                {
+                    case MovieLibraryType.MoviesToSee:
+                        _moviesToSee.Remove(movie);
+                        break;
+
+                    case MovieLibraryType.SeenMovies:
+                        _seenMovies.Remove(movie);
+                        break;
+                }
+                SearchFilterManager.SetDataUpdatedSearchFilterManager();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Faild to remove {movie}");
+            }
+        }
         public void MoveMovieLibrary(Models.Movie movie)
         {
-            ConnectToDb(Enums.MovieLibraryType.SeenMovies).InsertOne(movie);
-            RemoveMovieDb(movie, MovieLibraryType.MoviesToSee);
-
-            AddMovieToList(movie, MovieLibraryType.SeenMovies);
-            RemoveMovieFromList(movie, MovieLibraryType.MoviesToSee);
+            RemoveMovieFromLibrary(movie, MovieLibraryType.MoviesToSee);
+            AddMovieToLibrary(movie, MovieLibraryType.SeenMovies);
             SearchFilterManager.SetDataUpdatedSearchFilterManager();
         }
 
-        public async Task RemoveMovieDb(Models.Movie movie, MovieLibraryType libraryType)
-        {
-            var filter = Builders<Models.Movie>.Filter.Eq(m => m.Id, movie.Id);
-            ConnectToDb(libraryType).DeleteOne(filter);
-        }
-
-        public async Task UpdateMovie(Models.Movie movie, MovieLibraryType libraryType)
+        public async Task UpdateMovieInLibrary(Models.Movie movie, MovieLibraryType libraryType)
         {
             var movieToUpdate = _seenMovies.FirstOrDefault(m => m.Id == movie.Id);
             movieToUpdate.UserData = movie.UserData;
@@ -128,49 +148,38 @@ namespace MovieVaultMaui.Managers
         }
     }
 
-    public class DatabaseFacade
+    public class MovieLibraryFacade
     {
-        private readonly DataManager _dbService;
+        private readonly DataManager _dataManager;
 
-        public DatabaseFacade()
+        public MovieLibraryFacade(DataManager dataManager)
         {
-            _dbService = new DataManager();
+            _dataManager = dataManager;
         }
 
-        public void Execute(Models.Movie movie, DatabaseAction action, MovieLibraryType libraryType)
+        public void AddMovie(Models.Movie movie, MovieLibraryType libraryType)
         {
-            switch (action)
-            {
-                case DatabaseAction.Add:
-                    _dbService.ConnectToDb(libraryType).InsertOne(movie);
-                    _dbService.AddMovieToList(movie, libraryType);
+            _dataManager.AddMovieToLibrary(movie, libraryType);
+        }
 
-                    break;
+        public void RemoveMovie(Models.Movie movie, MovieLibraryType libraryType)
+        {
+            _dataManager.RemoveMovieFromLibrary(movie, libraryType);
+        }
 
-                case DatabaseAction.Remove:
+        public void UpdateMovie(Models.Movie movie, MovieLibraryType libraryType)
+        {
+            _dataManager.UpdateMovieInLibrary(movie, libraryType);
+        }
 
-                    _dbService.RemoveMovieDb(movie, libraryType);
-                    _dbService.RemoveMovieFromList(movie, libraryType);
-                    break;
+        public void MoveMovie(Models.Movie movie)
+        {
+            _dataManager.MoveMovieLibrary(movie);
+        }
 
-                case DatabaseAction.Update:
-
-                    _dbService.UpdateMovie(movie, libraryType);
-
-                    break;
-
-                case DatabaseAction.Move:
-
-                    _dbService.MoveMovieLibrary(movie);
-
-                    break;
-
-                case DatabaseAction.LoadData:
-
-                    _dbService.LoadDataFromDbAsync();
-
-                    break;
-            }
+        public void LoadMoviesData()
+        {
+            _dataManager.LoadDataFromDbAsync();
         }
     }
 }

@@ -29,7 +29,6 @@ public partial class PopupViewPage : ContentPage
     private async void ClosePopupClicked(object sender, TappedEventArgs e)
     {
         await Navigation.PopModalAsync();
-
     }
 
     public static string ConvertRuneTime(string time)
@@ -42,7 +41,6 @@ public partial class PopupViewPage : ContentPage
         return convertedTime;
     }
 
-
     private void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
     {
         RatingValueLabel.Text = e.NewValue.ToString("0.0");
@@ -52,8 +50,9 @@ public partial class PopupViewPage : ContentPage
     {
         _movie.Movie.UserData = CreateUserInfoOnMovie();
 
-        var databaseFacade = new Managers.DatabaseFacade();
-        databaseFacade.Execute(_movie.Movie, DatabaseAction.Move, MovieLibraryType.SeenMovies);
+        var dataManager = new DataManager();
+        var libraryFacade = new MovieLibraryFacade(dataManager);
+        libraryFacade.MoveMovie(_movie.Movie);
         SearchFilterManager.updateDictionary(_movielibraryType);
 
         await Navigation.PopModalAsync();
@@ -66,13 +65,13 @@ public partial class PopupViewPage : ContentPage
         _movie.Movie.UserData.AmountTimeSeen++;
         AmountTimeSeen.Text = _movie.Movie.UserData.AmountTimeSeen.ToString();
 
-        var databaseFacade = new DatabaseFacade();
-        databaseFacade.Execute(_movie.Movie, DatabaseAction.Update, _movielibraryType);
+        var dataManager = new DataManager();
+        var libraryFacade = new MovieLibraryFacade(dataManager);
+        libraryFacade.UpdateMovie(_movie.Movie, _movielibraryType);
     }
 
     private void AdjustPage(PopupViewPageSettingsType settings)
     {
-
         switch (settings)
         {
             case PopupViewPageSettingsType.SeenMoviePageSettings:
@@ -95,7 +94,6 @@ public partial class PopupViewPage : ContentPage
                 userInfoOnMovieEditor.IsVisible = true;
                 SaveEditedMovieButton.IsVisible = true;
                 CancelEditOfMovie.IsVisible = true;
-
                 break;
 
             case PopupViewPageSettingsType.ClearPageSettings:
@@ -109,9 +107,7 @@ public partial class PopupViewPage : ContentPage
                 userInfoOnMovieEditor.IsVisible = false;
                 RemoveMovieButton.IsVisible = false;
                 CancelEditOfMovie.IsVisible = false;
-
                 break;
-
         }
     }
 
@@ -141,8 +137,9 @@ public partial class PopupViewPage : ContentPage
 
     private async void OnClickedRemoveMovie(object sender, EventArgs e)
     {
-        var databaseFacade = new DatabaseFacade();
-        databaseFacade.Execute(_movie.Movie, DatabaseAction.Remove, _movielibraryType);
+        var dataManager = new DataManager();
+        var libraryFacade = new MovieLibraryFacade(dataManager);
+        libraryFacade.RemoveMovie(_movie.Movie, _movielibraryType);
         SearchFilterManager.updateDictionary(_movielibraryType);
 
         await Navigation.PopModalAsync();
@@ -163,21 +160,20 @@ public partial class PopupViewPage : ContentPage
         _movie.Movie.UserData.SeeAgain = SeeAgainCheckBox.IsChecked;
         _movie.Movie.UserData.UserReview = userReviewEditor.Text;
 
-        var databaseFacade = new DatabaseFacade();
-        databaseFacade.Execute(_movie.Movie, DatabaseAction.Update, _movielibraryType);
+        var dataManager = new DataManager();
+        var libraryFacade = new MovieLibraryFacade(dataManager);
+        libraryFacade.UpdateMovie(_movie.Movie,_movielibraryType);
 
         UserRatingView.Text = $"Your Rating: {RatingValueLabel.Text}";
         UserReviewView.Text = userReviewEditor.Text;
 
         AdjustPage(PopupViewPageSettingsType.ClearPageSettings);
         AdjustPage(PopupViewPageSettingsType.SeenMoviePageSettings);
-
     }
 
     private void OnClickedCancelEditOfMovie(object sender, EventArgs e)
     {
         AdjustPage(PopupViewPageSettingsType.ClearPageSettings);
         AdjustPage(PopupViewPageSettingsType.SeenMoviePageSettings);
-
     }
 }

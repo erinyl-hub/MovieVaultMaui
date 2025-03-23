@@ -43,7 +43,7 @@
                 x:Name="MainPageOptions"
                 Padding="50"
                 ColumnSpacing="250"
-                IsVisible="True"
+                IsVisible="{Binding _dataLoaded}"
                 RowDefinitions="*,*,*"
                 RowSpacing="20">
 
