@@ -8,7 +8,6 @@ public partial class SafePage : ContentPage
         InitializeComponent();
         UpdateConnectionStatus();
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
-
     }
 
     private async void OnBackClicked(object sender, EventArgs e)

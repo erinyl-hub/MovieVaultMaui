@@ -8,15 +8,13 @@ namespace MovieVaultMaui
 
         public MainPage()
         {
-
-
             InitializeComponent();
             UpdateConnectionStatus();
 
-            var dataManager = new DataManager();
+            var dataManager = Managers.DataManager.GetDataManagerInstance();
             var libraryFacade = new MovieLibraryFacade(dataManager);
             libraryFacade.LoadMoviesData();
-            SearchFilterManager.FilSearchEngineDictionary(DataManager.DataLoaded);
+            SearchFilterManager.FilSearchEngineDictionary();
 
             Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
         }

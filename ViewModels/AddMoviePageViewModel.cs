@@ -5,10 +5,7 @@ namespace MovieVaultMaui.ViewModels
     class AddMoviePageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-
         private Models.Movie _movie;
-
         public Models.Movie Movie
         {
             get => _movie;
@@ -27,9 +24,7 @@ namespace MovieVaultMaui.ViewModels
             Movie = movie;
         }
 
-
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
     }
 }

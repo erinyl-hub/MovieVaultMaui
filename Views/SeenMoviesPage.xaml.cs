@@ -60,7 +60,6 @@ public partial class SeenMoviesPage : ContentPage
     private void UpdateConnectionStatus()
     {
         bool isConnected = Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
-
         ConnectionImage.Source = isConnected ? "online.png" : "offline.png";
     }
 
@@ -108,7 +107,6 @@ public partial class SeenMoviesPage : ContentPage
 
     public void UpdatePageView()
     {
-
         var pagedMovies = _seenMoviesList
             .Skip((currentPage - 1) * itemsPerPage)
             .Take(itemsPerPage);

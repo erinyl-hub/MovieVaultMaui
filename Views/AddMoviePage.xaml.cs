@@ -11,7 +11,6 @@ public partial class AddMoviePage : ContentPage
         InitializeComponent();
         UpdateConnectionStatus();
 
-
         _movie = movie;
         BindingContext = new ViewModels.AddMoviePageViewModel(movie);
 
@@ -45,7 +44,7 @@ public partial class AddMoviePage : ContentPage
 
     private void AddMovieBox(object sender, EventArgs e)
     {
-        var dataManager = new DataManager();
+        var dataManager = Managers.DataManager.GetDataManagerInstance();
         var libraryFacade = new MovieLibraryFacade(dataManager);
 
         if (myCheckBox.IsChecked)

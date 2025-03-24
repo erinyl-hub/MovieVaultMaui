@@ -23,20 +23,18 @@ namespace MovieVaultMaui.Managers
             return searchDictionary;
         }
 
-        public async static Task FilSearchEngineDictionary(bool dataAvailable)
+        public async static Task FilSearchEngineDictionary()
         {
-            DataManager dataManager = new DataManager();
+            DataManager dataManager = Managers.DataManager.GetDataManagerInstance();
 
-            while (!DataManager.DataLoaded)
+            while (!dataManager.DataLoaded)
             {
                 await Task.Delay(500); 
             }
-
             _movieToSeeSearchDictionary = await CreateSearchEngineDictionary(
                 dataManager.GetMovieList(Enums.MovieLibraryType.MoviesToSee)).ConfigureAwait(false);
             _seenMovieSearchDictionary = await CreateSearchEngineDictionary(
                 dataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies)).ConfigureAwait(false);
-
         }
 
         public async static Task<Dictionary<string, Func<string, IEnumerable<Models.Movie>>>> GetMovieSearchEngineDictionary(MovieLibraryType dictionaryTypeName)
@@ -52,7 +50,7 @@ namespace MovieVaultMaui.Managers
         public async static void UpdateDictionary(MovieLibraryType dictionaryTypeName)
         {
             await _tcs.Task;
-            DataManager dataManager = new DataManager();
+            DataManager dataManager = Managers.DataManager.GetDataManagerInstance();
 
             switch (dictionaryTypeName)
             {
@@ -62,13 +60,11 @@ namespace MovieVaultMaui.Managers
                     WatchLaterPage.SetDataWatchLaterPage();
                     break;
 
-
                 case MovieLibraryType.SeenMovies:
                     _seenMovieSearchDictionary = await CreateSearchEngineDictionary(
                 dataManager.GetMovieList(Enums.MovieLibraryType.SeenMovies)).ConfigureAwait(false);
                     SeenMoviesPage.SetDataSeenMoviesPage();
                     break;
-
             }
 
             _tcs = new TaskCompletionSource<bool>();

@@ -50,7 +50,7 @@ public partial class PopupViewPage : ContentPage
     {
         _movie.Movie.UserData = CreateUserInfoOnMovie();
 
-        var dataManager = new DataManager();
+        var dataManager = Managers.DataManager.GetDataManagerInstance();
         var libraryFacade = new MovieLibraryFacade(dataManager);
         libraryFacade.MoveMovie(_movie.Movie);
         SearchFilterManager.UpdateDictionary(_movielibraryType);
@@ -65,7 +65,7 @@ public partial class PopupViewPage : ContentPage
         _movie.Movie.UserData.AmountTimeSeen++;
         AmountTimeSeen.Text = _movie.Movie.UserData.AmountTimeSeen.ToString();
 
-        var dataManager = new DataManager();
+        var dataManager = Managers.DataManager.GetDataManagerInstance();
         var libraryFacade = new MovieLibraryFacade(dataManager);
         libraryFacade.UpdateMovie(_movie.Movie, _movielibraryType);
     }
@@ -137,7 +137,7 @@ public partial class PopupViewPage : ContentPage
 
     private async void OnClickedRemoveMovie(object sender, EventArgs e)
     {
-        var dataManager = new DataManager();
+        var dataManager = Managers.DataManager.GetDataManagerInstance();
         var libraryFacade = new MovieLibraryFacade(dataManager);
         libraryFacade.RemoveMovie(_movie.Movie, _movielibraryType);
         SearchFilterManager.UpdateDictionary(_movielibraryType);
@@ -160,7 +160,7 @@ public partial class PopupViewPage : ContentPage
         _movie.Movie.UserData.SeeAgain = SeeAgainCheckBox.IsChecked;
         _movie.Movie.UserData.UserReview = userReviewEditor.Text;
 
-        var dataManager = new DataManager();
+        var dataManager = Managers.DataManager.GetDataManagerInstance();
         var libraryFacade = new MovieLibraryFacade(dataManager);
         libraryFacade.UpdateMovie(_movie.Movie,_movielibraryType);
 

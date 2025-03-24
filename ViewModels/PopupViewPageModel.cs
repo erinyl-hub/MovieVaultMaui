@@ -4,13 +4,8 @@ namespace MovieVaultMaui.ViewModels
 {
     class PopupViewPageModel : INotifyPropertyChanged
     {
-
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-
         private Models.Movie _movie;
-
         public Models.Movie Movie
         {
             get => _movie;

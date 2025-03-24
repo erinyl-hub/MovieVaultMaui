@@ -80,12 +80,10 @@ public partial class WatchLaterPage : ContentPage
         UppdateMoviesViewed();
     }
 
-
     private void SearchEntryChange(object sender, TextChangedEventArgs e)
     {
         UppdateMoviesViewed();
     }
-
 
     private async void UppdateMoviesViewed()
     {
@@ -134,7 +132,6 @@ public partial class WatchLaterPage : ContentPage
         GoForward.IsVisible = true;
         UpdatePageView();
     }
-
     public void ResetPageCount()
     {
         lastPage = (int)Math.Ceiling((_moviesToSeeList.Count() / (double)itemsPerPage));
@@ -143,7 +140,6 @@ public partial class WatchLaterPage : ContentPage
         if (lastPage < 2) { GoForward.IsVisible = false; }
         else { GoForward.IsVisible = true; }
     }
-
 
     private async Task UpdateViewOnChange()
     {

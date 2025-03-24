@@ -10,13 +10,11 @@ namespace MovieVaultMaui.Managers
         private static readonly DataManager _instance = new DataManager();
         private static List<Models.Movie> _moviesToSee = new List<Models.Movie>();
         private static List<Models.Movie> _seenMovies = new List<Models.Movie>();
+        public bool DataLoaded { get; private set; } = false;
 
-        public static bool DataLoaded { get; private set; } = false;
+        private DataManager() { }
 
-
-        public static DataManager Instance => _instance;
-
-        public static DataManager GetDataManagerInstance => _instance;
+        public static DataManager GetDataManagerInstance() => _instance;
 
         public List<Models.Movie> GetMovieList(MovieLibraryType listName)
         {
@@ -66,14 +64,12 @@ namespace MovieVaultMaui.Managers
                     _moviesToSee = await ConnectToDb(MovieLibraryType.MoviesToSee).AsQueryable().ToListAsync();
                     _seenMovies = await ConnectToDb(MovieLibraryType.SeenMovies).AsQueryable().ToListAsync();
                     DataLoaded = true;
-
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Faild to load data from database");
                 }
-
-               await Task.Delay(delay);
+                await Task.Delay(delay);
             }
         }
 
@@ -97,7 +93,7 @@ namespace MovieVaultMaui.Managers
             catch (Exception ex)
             {
                 Console.WriteLine("Fail to add movie");
-            }   
+            }
         }
 
         public async Task RemoveMovieFromLibrary(Models.Movie movie, MovieLibraryType libraryType)
@@ -124,6 +120,7 @@ namespace MovieVaultMaui.Managers
                 Console.WriteLine($"Faild to remove {movie}");
             }
         }
+
         public void MoveMovieLibrary(Models.Movie movie)
         {
             RemoveMovieFromLibrary(movie, MovieLibraryType.MoviesToSee);
@@ -136,7 +133,6 @@ namespace MovieVaultMaui.Managers
             var movieToUpdate = _seenMovies.FirstOrDefault(m => m.Id == movie.Id);
             movieToUpdate.UserData = movie.UserData;
 
-
             var filter = Builders<Models.Movie>.Filter.Eq(m => m.Id, movie.Id);
             var update = Builders<Models.Movie>.Update
                 .Set(m => m.UserData, movie.UserData);
@@ -145,7 +141,7 @@ namespace MovieVaultMaui.Managers
         }
     }
 
-    public class MovieLibraryFacade
+    public class MovieLibraryFacade : IMovieLibraryFacade
     {
         private readonly DataManager _dataManager;
 
@@ -178,5 +174,14 @@ namespace MovieVaultMaui.Managers
         {
             _dataManager.LoadDataFromDbAsync();
         }
+    }
+
+    public interface IMovieLibraryFacade
+    {
+        void AddMovie(Models.Movie movie, MovieLibraryType libraryType);
+        public void RemoveMovie(Models.Movie movie, MovieLibraryType libraryType);
+        void UpdateMovie(Models.Movie movie, MovieLibraryType libraryType);
+        void MoveMovie(Models.Movie movie);
+        public void LoadMoviesData();
     }
 }
