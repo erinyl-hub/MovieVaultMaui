@@ -16,6 +16,8 @@ namespace MovieVaultMaui.Managers
 
         public static DataManager Instance => _instance;
 
+        public static DataManager GetDataManagerInstance => _instance;
+
         public List<Models.Movie> GetMovieList(MovieLibraryType listName)
         {
             return listName switch
@@ -61,11 +63,8 @@ namespace MovieVaultMaui.Managers
             {
                 try
                 {
-                    var moviesToSeeData = await ConnectToDb(MovieLibraryType.MoviesToSee).AsQueryable().ToListAsync();
-                    var seenMoviesData = await ConnectToDb(MovieLibraryType.SeenMovies).AsQueryable().ToListAsync();
-
-                    _moviesToSee = moviesToSeeData;
-                    _seenMovies = seenMoviesData;
+                    _moviesToSee = await ConnectToDb(MovieLibraryType.MoviesToSee).AsQueryable().ToListAsync();
+                    _seenMovies = await ConnectToDb(MovieLibraryType.SeenMovies).AsQueryable().ToListAsync();
                     DataLoaded = true;
 
                 }
@@ -98,9 +97,7 @@ namespace MovieVaultMaui.Managers
             catch (Exception ex)
             {
                 Console.WriteLine("Fail to add movie");
-            }
-
-
+            }   
         }
 
         public async Task RemoveMovieFromLibrary(Models.Movie movie, MovieLibraryType libraryType)

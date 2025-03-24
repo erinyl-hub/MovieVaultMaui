@@ -14,13 +14,11 @@ public partial class ChooseMovieToAddPage : ContentPage
     private async void OnBackClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
-
     }
 
     private void UpdateConnectionStatus()
     {
         bool isConnected = Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
-
         ConnectionImage.Source = isConnected ? "online.png" : "offline.png";
     }
 
@@ -43,9 +41,7 @@ public partial class ChooseMovieToAddPage : ContentPage
             }
             else
             {
-
                 await Navigation.PushAsync(new AddMoviePage(movie));
-
             }
         }
     }
@@ -65,6 +61,4 @@ public partial class ChooseMovieToAddPage : ContentPage
 
         else { return null; }
     }
-
-
 }

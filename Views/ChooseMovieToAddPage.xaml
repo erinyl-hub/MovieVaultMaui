@@ -14,8 +14,6 @@
 
                 <VerticalStackLayout>
 
-
-
                     <Grid Padding="20" RowDefinitions="*,200">
 
                         <ImageButton
@@ -41,17 +39,13 @@
                             Source="logotyp.png"
                             VerticalOptions="Center"
                             WidthRequest="500" />
-
-
                     </Grid>
-
 
                     <Grid
                         Padding="50"
                         ColumnSpacing="250"
                         RowDefinitions="*,*,*"
                         RowSpacing="20">
-
 
                         <Entry
                             x:Name="ImdbEntry"
@@ -80,18 +74,9 @@
                             FontAttributes="Bold"
                             HorizontalOptions="Center"
                             Text="" />
-
-
                     </Grid>
-
-
-
-
                 </VerticalStackLayout>
-
-
             </Grid>
         </ScrollView>
-
     </VerticalStackLayout>
 </ContentPage>

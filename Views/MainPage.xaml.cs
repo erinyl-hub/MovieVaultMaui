@@ -1,5 +1,4 @@
-﻿using MovieVaultMaui.Enums;
-using MovieVaultMaui.Managers;
+﻿using MovieVaultMaui.Managers;
 
 namespace MovieVaultMaui
 {
@@ -9,8 +8,9 @@ namespace MovieVaultMaui
 
         public MainPage()
         {
-            InitializeComponent();
 
+
+            InitializeComponent();
             UpdateConnectionStatus();
 
             var dataManager = new DataManager();
@@ -24,7 +24,6 @@ namespace MovieVaultMaui
         private void UpdateConnectionStatus()
         {
             bool isConnected = Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
-
             ConnectionImage.Source = isConnected ? "online.png" : "offline.png";
         }
 

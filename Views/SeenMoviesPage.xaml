@@ -13,9 +13,6 @@
                 Source="bakrund2266.png" />
 
             <VerticalStackLayout>
-
-
-
                 <Grid Padding="20" RowDefinitions="*,200, Auto, Auto">
 
                     <ImageButton
@@ -69,9 +66,7 @@
                                 SelectedIndex="0"
                                 SelectedIndexChanged="OnPickerChanged"
                                 WidthRequest="120" />
-
                         </Grid>
-
 
                         <Grid HorizontalOptions="Center" WidthRequest="200">
 
@@ -96,10 +91,7 @@
                                 IsVisible="False"
                                 Source="gobackwardsarrow.png"
                                 WidthRequest="60" />
-
                         </Grid>
-
-
 
                         <Grid
                             Padding="20"
@@ -117,7 +109,6 @@
                                 SelectedIndexChanged="OnPickerChanged"
                                 WidthRequest="150" />
 
-
                             <ImageButton
                                 x:Name="ChangeOrder"
                                 Padding="5"
@@ -127,34 +118,21 @@
                                 HorizontalOptions="End"
                                 Source="sortingarrows.png"
                                 WidthRequest="25" />
-
-
                         </Grid>
-
                     </Grid>
-
-
                 </Grid>
-
-
 
                 <CollectionView
                     x:Name="MoviesToSeeCollectionView"
                     SelectionChanged="OnItemSelected"
                     SelectionMode="Single">
-
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" Span="7" />
                     </CollectionView.ItemsLayout>
-
-
-
                     <CollectionView.ItemTemplate>
-
                         <DataTemplate>
 
                             <StackLayout Padding="15" Orientation="Vertical">
-
 
                                 <Label
                                     x:Name="InfoAboveMovie"
@@ -163,7 +141,6 @@
                                     FontSize="15"
                                     HorizontalOptions="Center"
                                     Text="{Binding imdbRating}" />
-
 
                                 <Image
                                     BackgroundColor="Transparent"
@@ -187,18 +164,11 @@
                                     FontSize="15"
                                     HorizontalOptions="Center"
                                     Text="{Binding Title}" />
-
-
                             </StackLayout>
-
                         </DataTemplate>
-
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-
             </VerticalStackLayout>
-
-
         </Grid>
     </ScrollView>
 </ContentPage>

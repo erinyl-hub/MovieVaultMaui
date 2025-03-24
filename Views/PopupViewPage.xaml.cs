@@ -53,7 +53,7 @@ public partial class PopupViewPage : ContentPage
         var dataManager = new DataManager();
         var libraryFacade = new MovieLibraryFacade(dataManager);
         libraryFacade.MoveMovie(_movie.Movie);
-        SearchFilterManager.updateDictionary(_movielibraryType);
+        SearchFilterManager.UpdateDictionary(_movielibraryType);
 
         await Navigation.PopModalAsync();
         WatchLaterPage.RefreshWatchLaterPage();
@@ -140,7 +140,7 @@ public partial class PopupViewPage : ContentPage
         var dataManager = new DataManager();
         var libraryFacade = new MovieLibraryFacade(dataManager);
         libraryFacade.RemoveMovie(_movie.Movie, _movielibraryType);
-        SearchFilterManager.updateDictionary(_movielibraryType);
+        SearchFilterManager.UpdateDictionary(_movielibraryType);
 
         await Navigation.PopModalAsync();
 

@@ -76,7 +76,6 @@
                                 SelectedIndex="0"
                                 SelectedIndexChanged="OnPickerChanged"
                                 WidthRequest="120" />
-
                         </Grid>
 
                         <Grid
@@ -105,7 +104,6 @@
                                 IsVisible="False"
                                 Source="gobackwardsarrow.png"
                                 WidthRequest="60" />
-
                         </Grid>
 
                         <Grid
@@ -134,11 +132,8 @@
                                 HorizontalOptions="End"
                                 Source="sortingarrows.png"
                                 WidthRequest="25" />
-
                         </Grid>
-
                     </Grid>
-
                 </Grid>
 
                 <CollectionView
@@ -188,17 +183,11 @@
                                     FontSize="15"
                                     HorizontalOptions="Center"
                                     Text="{Binding Title}" />
-
                             </StackLayout>
-
                         </DataTemplate>
-
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-
             </VerticalStackLayout>
-
         </Grid>
     </ScrollView>
-
 </ContentPage>

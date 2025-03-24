@@ -25,10 +25,8 @@ public partial class WatchLaterPage : ContentPage
 
     public WatchLaterPage()
     {
-
         InitializeComponent();
         InitializePage();
-
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
     }
 
@@ -51,8 +49,6 @@ public partial class WatchLaterPage : ContentPage
             ((CollectionView)sender).SelectedItem = null;
         }
     }
-
-
     private async void OnBackClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
@@ -156,7 +152,6 @@ public partial class WatchLaterPage : ContentPage
         await SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.MoviesToSee);
         UppdateMoviesViewed();
         _tcs = new TaskCompletionSource<bool>();
-
     }
 
     public static void SetDataWatchLaterPage()

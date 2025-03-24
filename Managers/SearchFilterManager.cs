@@ -49,7 +49,7 @@ namespace MovieVaultMaui.Managers
             };
         }
 
-        public async static void updateDictionary(MovieLibraryType dictionaryTypeName)
+        public async static void UpdateDictionary(MovieLibraryType dictionaryTypeName)
         {
             await _tcs.Task;
             DataManager dataManager = new DataManager();

@@ -23,16 +23,12 @@
             Aspect="AspectFill"
             Source="bakrund2266.png" />
 
-
-
         <Frame
             x:Name="PopupFrame"
             AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.5, 0.8"
             AbsoluteLayout.LayoutFlags="All"
             Background="Transparent"
             BorderColor="White">
-
-
 
             <ScrollView>
 
@@ -50,8 +46,6 @@
                             RowDefinitions="Auto, Auto"
                             VerticalOptions="Center">
 
-
-
                             <Label
                                 Grid.Row="0"
                                 Padding="0"
@@ -67,7 +61,6 @@
                                         Offset="3,1" />
                                 </Label.Shadow>
                             </Label>
-
 
                             <Label
                                 x:Name="LastTimeSeen"
@@ -133,7 +126,6 @@
                             </Label>
                         </Grid>
                     </Grid>
-
 
                     <Label
                         Grid.Row="0"
@@ -323,7 +315,6 @@
                         HeightRequest="40"
                         WidthRequest="170">
 
-
                         <Label
                             Padding="0,0,0,20"
                             FontAttributes="Bold"
@@ -339,7 +330,6 @@
                                     Offset="1,2" />
                             </Label.Shadow>
                         </Label>
-
                     </Frame>
 
                     <Label
@@ -364,11 +354,9 @@
                         Grid.Row="10"
                         HorizontalOptions="Start"
                         SelectionMode="Single">
-
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout ItemSpacing="1" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
-
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Frame
@@ -397,16 +385,12 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-
-
-
                     <Grid
                         x:Name="userInfoOnMovieView"
                         Grid.Row="12"
                         HorizontalOptions="Center"
                         IsVisible="false"
                         RowDefinitions="Auto,Auto,Auto,Auto">
-
 
                         <Label
                             Grid.Row="0"
@@ -424,7 +408,6 @@
                                     Offset="3,1" />
                             </Label.Shadow>
                         </Label>
-
 
                         <Frame
                             Grid.Row="2"
@@ -447,13 +430,7 @@
                                 </Label.Shadow>
                             </Label>
                         </Frame>
-
-
-
-
-
                     </Grid>
-
 
                     <Grid
                         x:Name="userInfoOnMovieEditor"
@@ -493,7 +470,6 @@
                                 WidthRequest="180" />
                         </Grid>
 
-
                         <Editor
                             x:Name="userReviewEditor"
                             Grid.Row="3"
@@ -504,22 +480,18 @@
                             Text=""
                             WidthRequest="400" />
 
-
                         <StackLayout
                             Grid.Row="4"
                             HorizontalOptions="Center"
                             Orientation="Horizontal">
-
                             <CheckBox
                                 x:Name="SeeAgainCheckBox"
                                 HorizontalOptions="Center"
                                 Color="Black" />
-
                             <Label
                                 FontAttributes="Bold"
                                 Text="See again"
                                 VerticalOptions="Center" />
-
                         </StackLayout>
                     </Grid>
 
@@ -528,7 +500,6 @@
                         Grid.Row="13"
                         HorizontalOptions="Center"
                         RowDefinitions="60,60,Auto">
-
 
                         <Button
                             x:Name="AddToSeenMoviesButton"
@@ -594,7 +565,6 @@
                             IsVisible="false"
                             Text="Delete Movie"
                             WidthRequest="200" />
-
                     </Grid>
 
                     <Label
@@ -612,15 +582,8 @@
                                 Offset="3,1" />
                         </Label.Shadow>
                     </Label>
-
-
                 </Grid>
-
             </ScrollView>
-
         </Frame>
-
-
     </AbsoluteLayout>
-
 </ContentPage>

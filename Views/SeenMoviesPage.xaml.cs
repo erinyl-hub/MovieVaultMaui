@@ -17,7 +17,7 @@ public partial class SeenMoviesPage : ContentPage
     public Dictionary<string, Func<string, IEnumerable<Movie>>> movieSearchDictionary;
     public bool changeMovieOrderBy = false;
 
-    private static TaskCompletionSource<bool> _tcsa = new();
+    private static TaskCompletionSource<bool> _tcs = new();
     private static SeenMoviesPage _instanceSeenMoviesPage;
 
     private int lastPage = 0;
@@ -30,7 +30,6 @@ public partial class SeenMoviesPage : ContentPage
         InitializePage();
 
         Connectivity.ConnectivityChanged += (s, e) => UpdateConnectionStatus();
-
     }
 
     public async void InitializePage()
@@ -41,7 +40,6 @@ public partial class SeenMoviesPage : ContentPage
         PickerSeter();
         UppdateMoviesViewed();
         UpdateConnectionStatus();
-
     }
 
     private async void OnItemSelected(object sender, SelectionChangedEventArgs e)
@@ -68,7 +66,6 @@ public partial class SeenMoviesPage : ContentPage
 
     private void PickerSeter()
     {
-
         BindingContext = this;
 
         SearchOptionsPickerOnPage.SelectedIndexChanged -= OnPickerChanged;
@@ -85,14 +82,10 @@ public partial class SeenMoviesPage : ContentPage
     {
         UppdateMoviesViewed();
     }
-
-
     private void SearchEntryChange(object sender, TextChangedEventArgs e)
     {
         UppdateMoviesViewed();
     }
-
-
     private async void UppdateMoviesViewed()
     {
         string searchWord = SearchEntry.Text ?? "";
@@ -153,19 +146,18 @@ public partial class SeenMoviesPage : ContentPage
 
     private async Task UpdateViewOnChange()
     {
-        await _tcsa.Task;
+        await _tcs.Task;
         movieSearchDictionary =
         await SearchFilterManager.GetMovieSearchEngineDictionary(MovieLibraryType.SeenMovies);
         UppdateMoviesViewed();
-        _tcsa = new TaskCompletionSource<bool>();
+        _tcs = new TaskCompletionSource<bool>();
 
     }
 
     public static void SetDataSeenMoviesPage()
     {
-        _tcsa.TrySetResult(true);
+        _tcs.TrySetResult(true);
     }
-
 
     public async static Task RefreshSeenMoviesPage()
     {

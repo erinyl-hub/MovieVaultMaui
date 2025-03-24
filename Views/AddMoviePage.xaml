@@ -41,16 +41,13 @@
                         Source="logotyp.png"
                         VerticalOptions="Center"
                         WidthRequest="500" />
-
                 </Grid>
-
 
                 <Grid
                     Padding="0"
                     ColumnSpacing="0"
                     RowDefinitions="Auto,50,26,26,26,430,Auto,Auto,Auto ,Auto, 150, Auto ,Auto,Auto,Auto,Auto"
                     RowSpacing="0">
-
 
                     <Button
                         x:Name="movieInSafeSign"
@@ -80,8 +77,6 @@
                         </Label.Shadow>
                     </Label>
 
-
-
                     <Grid
                         Grid.Row="3"
                         VerticalOptions="Center"
@@ -104,7 +99,6 @@
                             </Label.Shadow>
                         </Label>
 
-
                         <Label
                             x:Name="movieRuntime"
                             Grid.Row="4"
@@ -119,8 +113,6 @@
                                     Offset="3,1" />
                             </Label.Shadow>
                         </Label>
-
-
                     </Grid>
 
                     <Label
@@ -137,9 +129,7 @@
                                 Radius="3"
                                 Offset="3,1" />
                         </Label.Shadow>
-
                     </Label>
-
 
                     <Image
                         x:Name="movieImage"
@@ -157,7 +147,6 @@
                                 Offset="9,5" />
                         </Image.Shadow>
                     </Image>
-
 
                     <CollectionView
                         x:Name="GenresCollectionView"
@@ -196,7 +185,6 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-
                     <Label
                         Grid.Row="7"
                         FontAttributes="Bold"
@@ -210,7 +198,6 @@
                                 Radius="3"
                                 Offset="3,1" />
                         </Label.Shadow>
-
                     </Label>
 
                     <Label
@@ -227,11 +214,7 @@
                                 Radius="3"
                                 Offset="3,1" />
                         </Label.Shadow>
-
                     </Label>
-
-
-
 
                     <Label
                         Grid.Row="9"
@@ -287,9 +270,6 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-
-
-
                     <Frame
                         Grid.Row="11"
                         BackgroundColor="Transparent"
@@ -312,7 +292,6 @@
                         </Label>
                     </Frame>
 
-
                     <StackLayout
                         x:Name="checkboxSeenMovie"
                         Grid.Row="12"
@@ -331,9 +310,7 @@
                             FontAttributes="Bold"
                             Text="Movie seen"
                             VerticalOptions="Center" />
-
                     </StackLayout>
-
 
                     <Grid
                         x:Name="movieSeenGrid"
@@ -372,10 +349,7 @@
                                 ValueChanged="OnSliderValueChanged"
                                 WidthRequest="180"
                                 Value="{Binding Movie.Userdata.UserRating}" />
-
-
                         </Grid>
-
 
                         <Editor
                             x:Name="userReviewEditor"
@@ -386,7 +360,6 @@
                             Placeholder="Enter Review..."
                             Text="{Binding Movie.Userdata.UserReview}"
                             WidthRequest="400" />
-
 
                         <StackLayout
                             Grid.Row="4"
@@ -403,14 +376,8 @@
                                 FontAttributes="Bold"
                                 Text="See again"
                                 VerticalOptions="Center" />
-
                         </StackLayout>
-
                     </Grid>
-
-
-
-
 
                     <Button
                         x:Name="whatSafe"
@@ -423,14 +390,8 @@
                         IsVisible="True"
                         Text="Watch later"
                         WidthRequest="200" />
-
-
                 </Grid>
-
-
             </VerticalStackLayout>
-
-
         </Grid>
     </ScrollView>
 </ContentPage>

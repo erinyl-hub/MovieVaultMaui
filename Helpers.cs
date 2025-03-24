@@ -15,19 +15,14 @@ namespace MovieVaultMaui
 
             if (moviesToSee != null || seenMovies != null)
             {
-
                 var combinedLibrary = moviesToSee
                     .Concat(seenMovies);
-
                 var result = combinedLibrary.Where(movie => movie.imdbID.Contains(imdbId));
-
 
                 return result.Any();
             }
-
             return false;
         }
-
 
         public static IEnumerable<Movie> SearchEngine
             (Dictionary<string, Func<string, IEnumerable<Movie>>> searchDictionary, string searchType, string searchWord, string sortBy, bool changeOrder)
@@ -61,7 +56,6 @@ namespace MovieVaultMaui
                     result = result.OrderByDescending(m => m.UserData.UserRating); // fixa när är 10 kommer först
                     break;
             }
-
             if (changeOrder) { result = result.Reverse(); }
 
             return result;
@@ -70,24 +64,7 @@ namespace MovieVaultMaui
         public static List<string> Spliter(string toSplit)
         {
             var splitList = toSplit.Split(new[] { ", " }, StringSplitOptions.None).ToList();
-
             return splitList;
         }
-
-
-
-
-
-
-
-        //public static string ConvertRuneTime(string time)
-        //{
-        //    int allTime = int.Parse(time.Replace(" min", ""));
-        //    int houers = allTime / 60;
-        //    int minutes = allTime % 60;
-        //    string convertedTime = $"{houers}h {minutes}m";
-
-        //    return convertedTime;
-        //}
     }
 }
